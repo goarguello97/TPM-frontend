@@ -1,8 +1,15 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import OnBoarding from "./pages/OnBoarding";
+import Login from "./pages/Login"
 
 function App() {
   return (
-    <div className="bg-background w-100 min-h-100%">
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<OnBoarding />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
   );
 }
 
