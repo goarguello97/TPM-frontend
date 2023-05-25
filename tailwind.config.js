@@ -8,6 +8,7 @@ module.exports = {
       },
       colors: {
         background: "#BFD732",
+        navbar: "#444444",
         button: "#444444",
         title: "#444444",
         border: "#444444",
