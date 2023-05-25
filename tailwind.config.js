@@ -18,6 +18,8 @@ module.exports = {
         "sign-in": "calc(100vw - 60px)",
         line: "calc(100% - 30px)",
         input: "calc(100% - 50px)",
+        "input-search": "calc(100vw - 60px)",
+        shadow: "calc(100vw - 20px)",
       },
       minHeight: {
         "100%": "calc(100vh)",
