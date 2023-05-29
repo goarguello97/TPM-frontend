@@ -1,4 +1,6 @@
 import MagGlass from "../assets/img/MagGlass.svg";
+import X from "../assets/img/X.svg";
+
 const Users = () => {
   return (
     <div className="h-[100vh] bg-[#F5F6F7] relative">
@@ -10,6 +12,8 @@ const Users = () => {
           View all the users
         </p>
       </div>
+
+      {/* Input para buscar usuarios */}
       <form className="w-input-search h-[55px] absolute top-[107px] left-[50%] translate-x-[-50%] ">
         <img
           src={MagGlass}
@@ -24,11 +28,27 @@ const Users = () => {
         />
       </form>
 
-      <div></div>
+      {/* Contenedor Principal */}
+      <div className="w-container min-h-container h-auto absolute bg-[#FFFFFF] rounded-t-[40px] shadow-container left-[50%] bottom-[0px] translate-x-[-50%] flex flex-col justify-start items-center z-8">
+        {/* Filtro */}
+        <div className="flex w-filter items-center justify-between h-[50px] bg-[#F5F6F7] rounded-[40px] mt-[10px]">
+          <p className="text-[15px] font-bold ms-[20px]">Filters</p>
+          <div className="flex">
+            <button className="w-auto default:min-w-button-filter fold:w-[35px] h-[40px] border-[1px] rounded-[40px] text-filter font-bold">
+              Age
+            </button>
+            <button className="w-auto default:min-w-button-filter fold:w-[80px] h-[40px] rounded-[40px] bg-button text-[#DADADA] flex items-center justify-center ms-[10px] me-[5px]">
+              Status <img src={X} alt="x" className="ms-[7px]" />
+            </button>
+          </div>
+        </div>
 
-      <div className="w-shadow h-[196px] bg-gradient-to-t from-[#FFFFFF]  absolute bottom-[-30px] left-[50%] translate-x-[-50%] translate-y-[-50%] z-9">
-        {/* Esto es una sombra */}
+        {/* Tarjetas de personas */}
+      
       </div>
+
+      {/* Esto es una sombra */}
+      <div className="w-shadow h-[196px] bg-gradient-to-t from-[#FFFFFF] absolute bottom-[-30px] left-[50%] translate-x-[-50%] translate-y-[-50%] z-9"></div>
     </div>
   );
 };
