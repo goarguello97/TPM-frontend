@@ -13,6 +13,12 @@ module.exports = {
         title: "#444444",
         border: "#444444",
         filter: "rgba(68, 68, 68, 0.5)",
+        unverified: "rgba(230, 21, 135, 0.1)",
+        verfified: "rgba(57, 181, 74, 0.1)",
+        "bg-unverified": "rgba(230, 21, 135, 0.1)",
+        "bg-verified": "rgba(57, 181, 74, 0.1)",
+        "bar-unverified": "#E61587",
+        "bar-verified": "#39B54A",
       },
       width: {
         button: "calc(100vw - 60px)",
@@ -23,6 +29,7 @@ module.exports = {
         shadow: "calc(100vw - 20px)",
         container: "calc(100vw - 20px)",
         filter: "calc(100% - 40px)",
+        person: "calc(100% - 40px)",
       },
       minWidth: {
         "button-filter": "92px",
@@ -30,6 +37,11 @@ module.exports = {
       minHeight: {
         "100%": "calc(100vh)",
         container: "calc(100vh - 172px)",
+        fold:"calc(100vh - 120px)"
+      },
+      maxHeight: {
+        container: "calc(100vh - 172px)",
+        fold:"calc(100vh - 120px)"
       },
       boxShadow: {
         container: "0px 4px 4px rgba(68, 68, 68, 0.3)",
@@ -39,7 +51,11 @@ module.exports = {
       },
       screens: {
         fold: { raw: "(max-width: 280px)" },
+        "fold-horizontal": {
+          raw: "(max-width: 653px) and (max-height: 280px)",
+        },
         default: { raw: "(min-width: 281px)" },
+        shadow: { raw: "(max-height: 600px)" },
       },
     },
   },
