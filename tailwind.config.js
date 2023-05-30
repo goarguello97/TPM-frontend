@@ -28,6 +28,8 @@ module.exports = {
         "input-search": "calc(100vw - 60px)",
         shadow: "calc(100vw - 20px)",
         container: "calc(100vw - 20px)",
+        "container-2": "calc(100% - 40px)",
+        hr: "calc(100% - 30px)",
         filter: "calc(100% - 40px)",
         person: "calc(100% - 40px)",
       },
@@ -37,11 +39,15 @@ module.exports = {
       minHeight: {
         "100%": "calc(100vh)",
         container: "calc(100vh - 172px)",
-        fold:"calc(100vh - 120px)"
+        "container-2": "calc(100vh - 249px)",
+        fold: "calc(100vh - 120px)",
+        "fold-2": "calc(100vh - 197px)",
       },
       maxHeight: {
         container: "calc(100vh - 172px)",
-        fold:"calc(100vh - 120px)"
+        "container-2": "calc(100vh - 249px)",
+        fold: "calc(100vh - 120px)",
+        "fold-2": "calc(100vh - 197px)",
       },
       boxShadow: {
         container: "0px 4px 4px rgba(68, 68, 68, 0.3)",

@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Users from "./pages/Users";
 import Navbar from "./components/Navbar/Navbar";
+import Stadistics from "./pages/Stadistics";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/stadistics" element={<Stadistics />} />
       </Routes>
     </Router>
   );
