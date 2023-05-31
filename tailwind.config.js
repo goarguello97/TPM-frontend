@@ -17,7 +17,7 @@ module.exports = {
         border: "#444444",
         filter: "rgba(68, 68, 68, 0.5)",
         unverified: "rgba(230, 21, 135, 0.1)",
-        verfified: "rgba(57, 181, 74, 0.1)",
+        verified: "rgba(57, 181, 74, 0.1)",
         "bg-unverified": "rgba(230, 21, 135, 0.1)",
         "bg-verified": "rgba(57, 181, 74, 0.1)",
         "bar-unverified": "#E61587",
