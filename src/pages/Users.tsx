@@ -1,3 +1,5 @@
+import Doodle from "../assets/img/Doodle.svg";
+import Doodle3 from "../assets/img/Doodle3.svg";
 import MagGlass from "../assets/img/MagGlass.svg";
 import X from "../assets/img/X.svg";
 import Unverified from "../assets/img/Unverified.svg";
@@ -14,10 +16,12 @@ const Users = () => {
         <p className="text-title text-[14px] fold-horizontal:text-[10px] font-normal ms-[30px] mb-[35px] leading-[21px]">
           View all the users
         </p>
+        <img src={Doodle} alt="Doodle" className="w-[134.85px] absolute top-[-30px] right-[60px] z-9" />
+        <img src={Doodle3} alt="Doodle3" className="w-[225px] absolute top-[0px] right-[0px] z-9" />
       </div>
 
       {/* Input para buscar usuarios */}
-      <form className="w-input-search h-[55px] absolute top-[107px] fold-horizontal:top-[60px] left-[50%] translate-x-[-50%] ">
+      <form className="w-input-search h-[55px] absolute top-[107px] fold-horizontal:top-[60px] left-[50%] translate-x-[-50%] z-10">
         <img
           src={MagGlass}
           alt="MagGlass"
@@ -32,7 +36,7 @@ const Users = () => {
       </form>
 
       {/* Contenedor Principal */}
-      <div className="w-container min-h-container max-h-container fold-horizontal:min-h-fold fold-horizontal:max-h-fold absolute bg-[#FFFFFF] rounded-t-[40px] shadow-container left-[50%] bottom-[0px] translate-x-[-50%] flex flex-col justify-start items-center pb-[272px] shadow:pb-[82px] z-8 overflow-y-scroll">
+      <div className="w-container min-h-container max-h-container fold-horizontal:min-h-fold fold-horizontal:max-h-fold absolute bg-[#FFFFFF] rounded-t-[40px] shadow-container left-[50%] bottom-[0px] translate-x-[-50%] flex flex-col justify-start items-center pb-[272px] shadow:pb-[82px] z-9 overflow-y-scroll">
         {/* Filtro */}
         <div className="flex w-filter items-center justify-between h-[50px] bg-[#F5F6F7] rounded-[40px] mt-[10px] mb-[10px]">
           <p className="text-[15px] font-bold ms-[20px]">Filters</p>

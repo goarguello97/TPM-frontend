@@ -5,10 +5,10 @@ const Stadistics = () => {
   return (
     <div className="h-[100vh] bg-[#F5F6F7] relative">
       <div className="w-[100vw] h-[229px] fold-horizontal:h-[90px] bg-background top-0 rounded-br-[45px] absolute flex flex-col z-1">
-        <p className="text-title text-[30px] font-extrabold leading-[44px] h-[32px] mt-[44px] ms-[30px] mb-[5px] z-10">
+        <p className="text-title text-[30px] fold-horizontal:text-[20px] font-extrabold leading-[44px] h-[32px] mt-[44px] ms-[30px] mb-[5px] z-10 fold-horizontal:mt-[10px] fold-horizontal:leading-[25px]">
           Stadistics
         </p>
-        <p className="text-title text-[14px] font-normal leading-[15px] ms-[30px] z-10">
+        <p className="text-title text-[14px] fold-horizontal:text-[10px] font-normal leading-[15px] ms-[30px] z-10">
           Check all the activity <br /> of you page
         </p>
         <img
@@ -133,6 +133,20 @@ const Stadistics = () => {
               <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 dec
               </p>
+            </div>
+            <div className="w-[100%] h-auto flex ps-[26px] absolute justify-between items-end bottom-[0px]">
+              <div className="w-[16px] h-[19px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-[5px]"></div>
+              <div className="w-[16px] h-[46px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              <div className="w-[16px] h-[111px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              <div className="w-[16px] h-[94px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              <div className="w-[16px] h-[73px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              <div className="w-[16px] h-[46px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              <div className="w-[16px] h-[15px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              <div className="w-[16px] h-[106px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              <div className="w-[16px] h-[155px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              <div className="w-[16px] h-[135px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              <div className="w-[16px] h-[189px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              <div className="w-[16px] h-[168px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
             </div>
           </div>
         </div>

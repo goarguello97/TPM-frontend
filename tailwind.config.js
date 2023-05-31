@@ -3,6 +3,9 @@ module.exports = {
   content: ["./public/index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      background: {
+        bar: "linear-gradient(180deg, #BFD732 0%, #39B54A 100%)",
+      },
       backgroundImage: {
         saly: "url(/src/assets/img/Saly.svg)",
       },
@@ -41,7 +44,7 @@ module.exports = {
         container: "calc(100vh - 172px)",
         "container-2": "calc(100vh - 249px)",
         fold: "calc(100vh - 120px)",
-        "fold-2": "calc(100vh - 197px)",
+        "fold-2": "calc(100vh - 110px)",
       },
       maxHeight: {
         container: "calc(100vh - 172px)",
@@ -58,7 +61,7 @@ module.exports = {
       screens: {
         fold: { raw: "(max-width: 280px)" },
         "fold-horizontal": {
-          raw: "(max-width: 653px) and (max-height: 280px)",
+          raw: "(max-width: 1000px) and (max-height: 400px)",
         },
         default: { raw: "(min-width: 281px)" },
         shadow: { raw: "(max-height: 600px)" },
