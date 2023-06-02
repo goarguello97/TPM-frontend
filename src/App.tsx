@@ -6,6 +6,7 @@ import Users from "./pages/Users";
 import Navbar from "./components/Navbar/Navbar";
 import Stadistics from "./pages/Stadistics";
 import Reports from "./pages/Reports";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/stadistics" element={<Stadistics />} />
         <Route path="/reports" element={<Reports />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

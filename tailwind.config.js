@@ -43,6 +43,7 @@ module.exports = {
         "100%": "calc(100vh)",
         container: "calc(100vh - 172px)",
         "container-2": "calc(100vh - 249px)",
+        "container-profile": "calc(100vh - 107px)",
         fold: "calc(100vh - 120px)",
         "fold-2": "calc(100vh - 110px)",
       },
