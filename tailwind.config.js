@@ -53,6 +53,10 @@ module.exports = {
         fold: "calc(100vh - 120px)",
         "fold-2": "calc(100vh - 197px)",
       },
+      spacing:{
+        "img-spacing-left": "calc(50% - 138.5px/2 + 0px)",
+        "img-spacing-top": "calc(50% - 138.5px/2 + 0px)"
+      },
       boxShadow: {
         container: "0px 4px 4px rgba(68, 68, 68, 0.3)",
       },
