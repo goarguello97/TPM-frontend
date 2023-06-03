@@ -17,7 +17,7 @@ module.exports = {
         border: "#444444",
         filter: "rgba(68, 68, 68, 0.5)",
         unverified: "rgba(230, 21, 135, 0.1)",
-        verfified: "rgba(57, 181, 74, 0.1)",
+        verified: "rgba(57, 181, 74, 0.1)",
         "bg-unverified": "rgba(230, 21, 135, 0.1)",
         "bg-verified": "rgba(57, 181, 74, 0.1)",
         "bar-unverified": "#E61587",
@@ -43,6 +43,7 @@ module.exports = {
         "100%": "calc(100vh)",
         container: "calc(100vh - 172px)",
         "container-2": "calc(100vh - 249px)",
+        "container-profile": "calc(100vh - 107px)",
         fold: "calc(100vh - 120px)",
         "fold-2": "calc(100vh - 110px)",
       },
@@ -51,6 +52,10 @@ module.exports = {
         "container-2": "calc(100vh - 249px)",
         fold: "calc(100vh - 120px)",
         "fold-2": "calc(100vh - 197px)",
+      },
+      spacing:{
+        "img-spacing-left": "calc(50% - 138.5px/2 + 0px)",
+        "img-spacing-top": "calc(50% - 138.5px/2 + 0px)"
       },
       boxShadow: {
         container: "0px 4px 4px rgba(68, 68, 68, 0.3)",

@@ -75,7 +75,7 @@ const Users = () => {
           <div className="absolute w-[4px] h-[60px] bg-bar-unverified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
         </div>
         {/* Verificado */}
-        <div className="w-person h-[102px] min-h-[102px] bg-verfified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
+        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
           <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
             Verified
             <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
@@ -95,7 +95,7 @@ const Users = () => {
           <div className="absolute w-[4px] h-[60px] bg-bar-verified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
         </div>
         {/* Ejemplos */}
-        <div className="w-person h-[102px] min-h-[102px] bg-verfified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
+        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
           <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
             Verified
             <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
@@ -138,7 +138,7 @@ const Users = () => {
           </p>
           <div className="absolute w-[4px] h-[60px] bg-bar-unverified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
         </div>
-        <div className="w-person h-[102px] min-h-[102px] bg-verfified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
+        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
           <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
             Verified
             <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
@@ -159,7 +159,7 @@ const Users = () => {
           </p>
           <div className="absolute w-[4px] h-[60px] bg-bar-verified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
         </div>
-        <div className="w-person h-[102px] min-h-[102px] bg-verfified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
+        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
           <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
             Verified
             <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
@@ -180,7 +180,7 @@ const Users = () => {
           </p>
           <div className="absolute w-[4px] h-[60px] bg-bar-verified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
         </div>
-        <div className="w-person h-[102px] min-h-[102px] bg-verfified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
+        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
           <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
             Verified
             <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
@@ -201,7 +201,7 @@ const Users = () => {
           </p>
           <div className="absolute w-[4px] h-[60px] bg-bar-verified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
         </div>
-        <div className="w-person h-[102px] min-h-[102px] bg-verfified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
+        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
           <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
             Verified
             <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
