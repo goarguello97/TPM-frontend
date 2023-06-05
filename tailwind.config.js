@@ -8,6 +8,8 @@ module.exports = {
       },
       backgroundImage: {
         saly: "url(/src/assets/img/Saly.svg)",
+        saly3: "url(/src/assets/img/Saly3.svg)",
+        doodle3: "url(/src/assets/img/Doodle3.svg)"
       },
       colors: {
         background: "#BFD732",
@@ -28,12 +30,14 @@ module.exports = {
         "sign-in": "calc(100vw - 60px)",
         line: "calc(100% - 30px)",
         input: "calc(100% - 50px)",
+        input2: "calc(100% - 120px)",
         "input-search": "calc(100vw - 60px)",
         shadow: "calc(100vw - 20px)",
         container: "calc(100vw - 20px)",
         "container-2": "calc(100% - 40px)",
         "container-desktop": "calc(100vw - 554px)",
         hr: "calc(100% - 30px)",
+        hr2: "calc(100% - 120px)",
         filter: "calc(100% - 40px)",
         person: "calc(100% - 40px)",
       },
