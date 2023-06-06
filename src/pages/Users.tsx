@@ -5,9 +5,11 @@ import X from "../assets/img/X.svg";
 import Unverified from "../assets/img/Unverified.svg";
 import Verified from "../assets/img/Verified.svg";
 import Edit from "../assets/img/Edit.svg";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 const Users = () => {
-  return (
+  const { width } = useMediaQuery();
+  return width < 1024 ? (
     <div className="h-[100vh] bg-[#F5F6F7] relative">
       <div className="w-[100vw] h-[137px] fold-horizontal:h-[90px] bg-background top-0 rounded-br-[45px] absolute flex flex-col">
         <p className="text-title text-[30px] fold-horizontal:text-[20px] font-extrabold ms-[30px] mt-[37px] fold-horizontal:mt-[10px] mb-[0px] leading-[44px] fold-horizontal:leading-[25px]">
@@ -16,8 +18,16 @@ const Users = () => {
         <p className="text-title text-[14px] fold-horizontal:text-[10px] font-normal ms-[30px] mb-[35px] leading-[21px]">
           View all the users
         </p>
-        <img src={Doodle} alt="Doodle" className="w-[134.85px] absolute top-[-30px] right-[60px] z-9" />
-        <img src={Doodle3} alt="Doodle3" className="w-[225px] absolute top-[0px] right-[0px] z-9" />
+        <img
+          src={Doodle}
+          alt="Doodle"
+          className="w-[134.85px] absolute top-[-30px] right-[60px] z-9"
+        />
+        <img
+          src={Doodle3}
+          alt="Doodle3"
+          className="w-[225px] absolute top-[0px] right-[0px] z-9"
+        />
       </div>
 
       {/* Input para buscar usuarios */}
@@ -226,6 +236,10 @@ const Users = () => {
 
       {/* Esto es una sombra */}
       <div className="w-shadow h-[196px] bg-gradient-to-t from-[#FFFFFF] absolute bottom-[-30px] left-[50%] translate-x-[-50%] translate-y-[-50%] z-9 shadow:hidden "></div>
+    </div>
+  ) : (
+    <div className="w-[100vw] h-[100vh] bg-background ps-[272px] flex items-center">
+      <div className="w-container-desktop-2 h-container-desktop-2 bg-white rounded-[35px] shadow-container-desktop-2"></div>
     </div>
   );
 };
