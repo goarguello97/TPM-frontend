@@ -239,7 +239,148 @@ const Users = () => {
     </div>
   ) : (
     <div className="w-[100vw] h-[100vh] bg-background ps-[272px] flex items-center">
-      <div className="w-container-desktop-2 h-container-desktop-2 bg-white rounded-[35px] shadow-container-desktop-2"></div>
+      <div className="w-container-desktop-2 h-container-desktop-2 bg-white rounded-[35px] shadow-container-desktop-2 relative">
+        {/* Encabezado */}
+        <div className="w-[100%] h-[184px] bg-[#F5F6F7] rounded-t-[35px] absolute z-10">
+          <p className="w-[129px] h-[73px] text-title text-[50px] font-medium leading-[73.44px] absolute top-[40px] left-[65px]">
+            Users
+          </p>
+          <p className="w-[157px] h-[29px] text-title text-[20px] font-normal leading-[29.38px] absolute top-[100px] left-[65px]">
+            View all the users
+          </p>
+          <img
+            src={Doodle}
+            alt="Doodle"
+            className="w-[194.344px] h-[194.344px] absolute top-[-30px] right-[140px] z-10"
+          />
+        </div>
+        {/* Contenedor Principal */}
+        <div className="w-container-desktop-3 h-container-desktop-3 mt-[147px] mx-auto rounded-[40px] bg-[#FFF] shadow-container-desktop-3 absolute z-20 left-[50%] translate-x-[-50%]">
+          <img
+            src={Doodle3}
+            alt="Doodle3"
+            className="w-[225px] absolute top-[-108px] right-[0px] z-10"
+          />
+          {/* Input de busqueda */}
+          <form className="w-input-users-desktop h-[55px] ms-[20px] mt-[25px] relative flex">
+            <img
+              src={MagGlass}
+              alt="MagGlass"
+              className="w-[19.687px] h-[15px] absolute left-[14.39px] top-[50%] translate-y-[-50%] z-10"
+            />
+            <input
+              type="text"
+              placeholder="search for users"
+              className="max-w-[513px] min-w-[260px] w-[100%] h-[55px] rounded-[40px] ps-[49px] text-[14px] font-normal drop-shadow-input-users-desktop placeholder-title"
+            />
+            {/* Filtro */}
+            <div className="max-w-[319px] min-w-[319px] h-[55px] bg-white rounded-[40px] ms-[20px] shadow-filter-users-desktop flex items-center z-20">
+              <button className="w-[128px] h-[40px] ms-[7px] rounded-[40px] border-[1px] border-solid border-border-button text-filter text-[15px] font-bold leading-normal">
+                Clear filters
+              </button>
+              <button className="w-[75px] h-[40px] ms-[5px] rounded-[40px] border-[1px] border-solid border-border-button text-filter text-[15px] font-bold leading-normal">
+                Age
+              </button>
+              <button className="w-[92px] h-[40px] ms-[5px] rounded-[40px] bg-title text-white tet-[15px] font-bold leading-normal">
+                Status
+              </button>
+            </div>
+          </form>
+          {/* Contenedor de usuarios */}
+
+          <div className="w-container-2 h-container-desktop-4 relative rounded-[20px] bg-[#F5F6F7] overflow-auto mt-[20px] mx-auto">
+            <table className="w-full h-full border-collapse table-fixed  border-spacing-0 divide-y-[6px] divide-white">
+              <thead className="h-[40px]">
+                <tr>
+                  <th className="w-[38px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left ps-[34px] pe-[151px] ">
+                    Name
+                  </th>
+                  <th className="w-[26px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left pe-[50px]">
+                    Age
+                  </th>
+                  <th className="w-[36px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left pe-[173px]">
+                    Email
+                  </th>
+                  <th className="w-[29px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left pe-[56px]">
+                    Role
+                  </th>
+                  <th className="w-[91px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left pe-[55px]">
+                    Joined Date
+                  </th>
+                  <th className="w-[41px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left pe-[256px]">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y-[6px] divide-white">
+                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
+                  <td className="ps-[34px]">Michael David</td>
+                  <td className="">25</td>
+                  <td className="">ma.da@gmail.com</td>
+                  <td className="">Mentor</td>
+                  <td className="">Jan 13, 2022</td>
+                  <td className="">verified</td>
+                </tr>
+                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
+                  <td className="ps-[34px]">Michael David</td>
+                  <td className="">25</td>
+                  <td className="">ma.da@gmail.com</td>
+                  <td className="">Mentor</td>
+                  <td className="">Jan 13, 2022</td>
+                  <td className="">verified</td>
+                </tr>
+                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
+                  <td className="ps-[34px]">Michael David</td>
+                  <td className="">25</td>
+                  <td className="">ma.da@gmail.com</td>
+                  <td className="">Mentor</td>
+                  <td className="">Jan 13, 2022</td>
+                  <td className="">verified</td>
+                </tr>
+                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
+                  <td className="ps-[34px]">Michael David</td>
+                  <td className="">25</td>
+                  <td className="">ma.da@gmail.com</td>
+                  <td className="">Mentor</td>
+                  <td className="">Jan 13, 2022</td>
+                  <td className="">verified</td>
+                </tr>
+                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
+                  <td className="ps-[34px]">Michael David</td>
+                  <td className="">25</td>
+                  <td className="">ma.da@gmail.com</td>
+                  <td className="">Mentor</td>
+                  <td className="">Jan 13, 2022</td>
+                  <td className="">verified</td>
+                </tr>
+                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
+                  <td className="ps-[34px]">Michael David</td>
+                  <td className="">25</td>
+                  <td className="">ma.da@gmail.com</td>
+                  <td className="">Mentor</td>
+                  <td className="">Jan 13, 2022</td>
+                  <td className="">verified</td>
+                </tr>
+                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
+                  <td className="ps-[34px]">Michael David</td>
+                  <td className="">25</td>
+                  <td className="">ma.da@gmail.com</td>
+                  <td className="">Mentor</td>
+                  <td className="">Jan 13, 2022</td>
+                  <td className="">verified</td>
+                </tr>
+              </tbody>
+              <tfoot className="h-[40px]">
+                <tr>
+                  <td className="w-[72px] h-[16px] text-[14px] text-filter font-normal leading-normal ps-[34px]">
+                    Page 2 / 13
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
