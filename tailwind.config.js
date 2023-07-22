@@ -40,13 +40,16 @@ module.exports = {
         "container-desktop": "calc(100vw - 554px)",
         "container-desktop-2": "calc(100vw - 312px)",
         "container-desktop-3": "calc(100% - 70px)",
+        "container-card-stadistics": "calc(50% - 29px)",
         hr: "calc(100% - 30px)",
+        "hr-desktop": "calc(100% - 50px)",
         hr2: "calc(100% - 120px)",
         filter: "calc(100% - 40px)",
         person: "calc(100% - 40px)",
       },
       minWidth: {
         "button-filter": "92px",
+        "container-card-stadistics": "calc(50% - 29px)",
       },
       height: {
         "container-desktop-2": "calc(100vh - 80px)",
@@ -60,7 +63,7 @@ module.exports = {
         "container-profile": "calc(100vh - 107px)",
         fold: "calc(100vh - 120px)",
         "fold-2": "calc(100vh - 110px)",
-        "container-users-desktop": "calc(100% - 80px)"
+        "container-users-desktop": "calc(100% - 80px)",
       },
       maxHeight: {
         container: "calc(100vh - 172px)",

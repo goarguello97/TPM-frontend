@@ -1,8 +1,11 @@
 import HandPhone from "../assets/img/Hand&Phone.svg";
 import Doodle2 from "../assets/img/Doodle2.svg";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 const Stadistics = () => {
-  return (
+  const { width } = useMediaQuery();
+
+  return width < 1024 ? (
     <div className="h-[100vh] bg-[#F5F6F7] relative">
       <div className="w-[100vw] h-[229px] fold-horizontal:h-[90px] bg-background top-0 rounded-br-[45px] absolute flex flex-col z-1">
         <p className="text-title text-[30px] fold-horizontal:text-[20px] font-extrabold leading-[44px] h-[32px] mt-[44px] ms-[30px] mb-[5px] z-10 fold-horizontal:mt-[10px] fold-horizontal:leading-[25px]">
@@ -97,40 +100,40 @@ const Stadistics = () => {
           </p>
           <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto relative">
             <div className="w-[100%] h-[17px] flex justify-between absolute top-[6px]">
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px] ms-[26px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px] ms-[26px]">
                 jan
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 feb
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 mar
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 abr
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 may
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 jun
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 jul
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 aug
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 sep
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 oct
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 nov
               </p>
-              <p className="text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
+              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
                 dec
               </p>
             </div>
@@ -147,6 +150,171 @@ const Stadistics = () => {
               <div className="w-[16px] h-[135px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
               <div className="w-[16px] h-[189px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
               <div className="w-[16px] h-[168px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div className="w-[100vw] h-[100vh] bg-background ps-[272px] flex items-start">
+      <div className="w-container-desktop-2 h-container-desktop-2 max-h-[864px] bg-white rounded-[35px] shadow-container-desktop-2 relative mt-[40px]">
+        {/* Encabezado */}
+        <div className="w-[100%] h-[184px] bg-[#F5F6F7] rounded-t-[35px] absolute z-10">
+          <div className="w-[292px] h-[89px]">
+            <p className="w-[129px] h-[73px] text-title text-[50px] font-medium leading-[73.44px] absolute top-[40px] left-[65px]">
+              Stadistics
+            </p>
+            <p className="h-[29px] text-title text-[20px] font-normal leading-[29.38px] absolute top-[100px] left-[65px]">
+              Check all the activity of you page
+            </p>
+          </div>
+        </div>
+        {/* Contenedor Principal */}
+        <div className="w-container-desktop-3 h-container-desktop-3 mt-[138px] mx-auto pt-[109px] pb-[20px] rounded-[40px] bg-[#FFF] shadow-container-desktop-3 absolute z-20 left-[50%] translate-x-[-50%] flex justify-center flex-wrap">
+          {/* Imagenes */}
+          <img
+            src={HandPhone}
+            alt="HandPhone"
+            className="w-[308.981px] absolute right-[-35px] top-[-200px] z-10"
+          />
+          <img
+            src={Doodle2}
+            alt="Doodle2"
+            className="w-[197.984px] absolute right-[235px] top-[-105px]"
+          />
+          {/* Tarjetas */}
+          {/* TOTAL USERS */}
+          <div className="w-container-card-stadistics max-w-[500px] h-[197px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3 me-[18px]">
+            <p className="w-[159px] h-[22px] text-title font-black text-[20px] mt-[10px] ms-[35px] mb-[10px] leading-normal">
+              TOTAL OF USERS
+            </p>
+            {/* HR */}
+            <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
+            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
+              <p className="h-[26px] text-[18px] ms-[35px]">Mentees</p>
+              <p className="text-[14px] font-normal me-[35px]">750</p>
+            </div>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
+            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
+              <p className="h-[26px] text-[18px] ms-[35px]">Mentors</p>
+              <p className="text-[14px] font-normal me-[35px]">250</p>
+            </div>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
+            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
+              <p className="h-[26px] text-[18px] ms-[35px]">Total users</p>
+              <p className="text-[14px] font-normal me-[35px]">1000</p>
+            </div>
+          </div>
+          {/* NEW USERS */}
+          <div className="w-container-card-stadistics max-w-[500px] h-[197px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3 z-20">
+            <p className="w-[159px] h-[22px] text-title font-black text-[20px] mt-[10px] ms-[35px] mb-[10px] leading-normal">
+              NEW USERS
+            </p>
+            {/* HR */}
+            <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
+            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
+              <p className="h-[26px] text-[18px] ms-[35px]">New mentees</p>
+              <p className="text-[14px] font-normal me-[35px]">7</p>
+            </div>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
+            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
+              <p className="h-[26px] text-[18px] ms-[35px]">New mentors</p>
+              <p className="text-[14px] font-normal me-[35px]">10</p>
+            </div>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
+            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
+              <p className="h-[26px] text-[18px] ms-[35px]">Total users</p>
+              <p className="text-[14px] font-normal me-[35px]">17</p>
+            </div>
+          </div>
+
+          {/* SIGN UPS PER MONTH */}
+          <div className="w-container-2 max-w-[1018px] min-h-[300px] h-[auto] max-h-[423px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3">
+            <p className="text-title text-[20px] font-black h-[22px] ms-[35px] mt-[10px] mb-[10px]">
+              SIGN UPS PER MONTH
+            </p>
+            {/* HR */}
+            <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[35px]"></div>
+            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mb-[7px]">
+              1k
+            </p>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
+              500
+            </p>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
+              400
+            </p>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
+              300
+            </p>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
+              200
+            </p>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
+              100
+            </p>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
+              50
+            </p>
+            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto relative">
+              <div className="w-[100%] h-[17px] flex justify-between absolute top-[6px]">
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px] ms-[26px]">
+                  jan
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  feb
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  mar
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  abr
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  may
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  jun
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  jul
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  aug
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  sep
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  oct
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  nov
+                </p>
+                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
+                  dec
+                </p>
+              </div>
+              <div className="w-[100%] h-auto flex ps-[26px] absolute justify-between items-end bottom-[0px]">
+                <div className="w-[30px] h-[19px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-[5px]"></div>
+                <div className="w-[30px] h-[46px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+                <div className="w-[30px] h-[111px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+                <div className="w-[30px] h-[94px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+                <div className="w-[30px] h-[73px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+                <div className="w-[30px] h-[46px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+                <div className="w-[30px] h-[15px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+                <div className="w-[30px] h-[106px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+                <div className="w-[30px] h-[155px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+                <div className="w-[30px] h-[135px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+                <div className="w-[30px] h-[189px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+                <div className="w-[30px] h-[168px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+              </div>
             </div>
           </div>
         </div>
