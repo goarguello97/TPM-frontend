@@ -5,7 +5,9 @@ import X from "../assets/img/X.svg";
 import Unverified from "../assets/img/Unverified.svg";
 import Verified from "../assets/img/Verified.svg";
 import Edit from "../assets/img/Edit.svg";
+import Dots from "../assets/img/Dots.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
+import RowTable from "../commons/RowTable";
 
 const Users = () => {
   const { width } = useMediaQuery();
@@ -86,14 +88,14 @@ const Users = () => {
         </div>
         {/* Verificado */}
         <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
-          <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
+          <div className="flex bg-bg-verified max-h-[55.63px] default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
             Verified
             <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
           </div>
           <img
             src={Edit}
             alt="Edit"
-            className="absolute w-[32px] right-[15px] top-[65%] translate-y-[-50%]"
+            className="absolute opacity-25 fill-white w-[32px] right-[15px] top-[65%] translate-y-[-50%]"
           />
           <p className="font-bold default:text-[14px] fold:text-[11px]">
             Micaela Tamos | age 30 <br />
@@ -238,8 +240,8 @@ const Users = () => {
       <div className="w-shadow h-[196px] bg-gradient-to-t from-[#FFFFFF] absolute bottom-[-30px] left-[50%] translate-x-[-50%] translate-y-[-50%] z-9 shadow:hidden "></div>
     </div>
   ) : (
-    <div className="w-[100vw] h-[100vh] bg-background ps-[272px] flex items-center">
-      <div className="w-container-desktop-2 h-container-desktop-2 bg-white rounded-[35px] shadow-container-desktop-2 relative">
+    <div className="w-[100vw] h-[100vh] bg-background ps-[272px] flex items-start">
+      <div className="w-container-desktop-2 h-container-desktop-2 max-h-[864px] bg-white rounded-[35px] shadow-container-desktop-2 relative mt-[40px]">
         {/* Encabezado */}
         <div className="w-[100%] h-[184px] bg-[#F5F6F7] rounded-t-[35px] absolute z-10">
           <p className="w-[129px] h-[73px] text-title text-[50px] font-medium leading-[73.44px] absolute top-[40px] left-[65px]">
@@ -288,8 +290,8 @@ const Users = () => {
           </form>
           {/* Contenedor de usuarios */}
 
-          <div className="w-container-2 h-container-desktop-4 relative rounded-[20px] bg-[#F5F6F7] overflow-auto mt-[20px] mx-auto">
-            <table className="w-full h-full border-collapse table-fixed  border-spacing-0 divide-y-[6px] divide-white">
+          <div className="w-container-2 h-auto relative rounded-[20px] bg-[#F5F6F7] overflow-auto mt-[20px] mx-auto shadow-container-desktop-3">
+            <table className="w-full min-h-full h-full border-collapse table-fixed  border-spacing-0 divide-y-[6px] divide-white">
               <thead className="h-[40px]">
                 <tr>
                   <th className="w-[38px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left ps-[34px] pe-[151px] ">
@@ -313,62 +315,92 @@ const Users = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y-[6px] divide-white">
-                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
-                  <td className="ps-[34px]">Michael David</td>
-                  <td className="">25</td>
-                  <td className="">ma.da@gmail.com</td>
-                  <td className="">Mentor</td>
-                  <td className="">Jan 13, 2022</td>
-                  <td className="">verified</td>
+                <tr className="bg-bg-unverified h-[55.63px]">
+                  <td className="ps-[34px] relative text-[14px] font-normal text-title">
+                    <div className="absolute w-[4px] h-[40px] bg-bar-unverified rounded-r-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
+                    Michael David
+                  </td>
+                  <td className="text-[14px] font-bold text-title">25</td>
+                  <td className="text-[14px] font-bold text-title">
+                    ma.da@gmail.com
+                  </td>
+                  <td className="text-[14px] font-bold text-title">Mentor</td>
+                  <td className="text-[14px] font-bold text-title">
+                    Jan 13, 2022
+                  </td>
+                  <td className="relative">
+                    <div className="bg-unverified w-[82px] h-[20px] rounded-[40px] flex items-center justify-center">
+                      <p className="text-bar-unverified text-[12px] w-[54px] h-[18px] font-normal leading-normal ">
+                        Unverified{" "}
+                      </p>
+                      <img
+                        src={Unverified}
+                        alt="Unverified"
+                        className="w-[6px] ms-[5px]"
+                      />
+                    </div>
+                    <img
+                      src={Edit}
+                      alt="Edit"
+                      className="absolute right-[19px] top-[50%] translate-y-[-50%]"
+                    />
+                  </td>
                 </tr>
-                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
-                  <td className="ps-[34px]">Michael David</td>
-                  <td className="">25</td>
-                  <td className="">ma.da@gmail.com</td>
-                  <td className="">Mentor</td>
-                  <td className="">Jan 13, 2022</td>
-                  <td className="">verified</td>
+                <tr className="bg-bg-verified h-[55.63px]">
+                  <td className="ps-[34px] relative text-[14px] font-normal text-title">
+                    <div className="absolute w-[4px] h-[40px] bg-bar-verified rounded-r-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
+                    Micaela Tamos
+                  </td>
+                  <td className="text-[14px] font-bold text-title">25</td>
+                  <td className="text-[14px] font-bold text-title">
+                    micatamos@gmail.com
+                  </td>
+                  <td className="text-[14px] font-bold text-title">Mentor</td>
+                  <td className="text-[14px] font-bold text-title">
+                    Jan 13, 2022
+                  </td>
+                  <td className="relative">
+                    <div className="bg-verified w-[70px] h-[20px] rounded-[40px] flex items-center justify-center">
+                      <p className="text-bar-verified text-[12px] w-[42px] h-[18px] font-normal leading-normal ">
+                        Verified{" "}
+                      </p>
+                      <img
+                        src={Verified}
+                        alt="Verified"
+                        className="w-[6px] ms-[5px]"
+                      />
+                    </div>
+                    <img
+                      src={Edit}
+                      alt="Edit"
+                      className="absolute right-[19px] top-[50%] translate-y-[-50%]"
+                    />
+                  </td>
                 </tr>
-                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
-                  <td className="ps-[34px]">Michael David</td>
-                  <td className="">25</td>
-                  <td className="">ma.da@gmail.com</td>
-                  <td className="">Mentor</td>
-                  <td className="">Jan 13, 2022</td>
-                  <td className="">verified</td>
-                </tr>
-                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
-                  <td className="ps-[34px]">Michael David</td>
-                  <td className="">25</td>
-                  <td className="">ma.da@gmail.com</td>
-                  <td className="">Mentor</td>
-                  <td className="">Jan 13, 2022</td>
-                  <td className="">verified</td>
-                </tr>
-                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
-                  <td className="ps-[34px]">Michael David</td>
-                  <td className="">25</td>
-                  <td className="">ma.da@gmail.com</td>
-                  <td className="">Mentor</td>
-                  <td className="">Jan 13, 2022</td>
-                  <td className="">verified</td>
-                </tr>
-                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
-                  <td className="ps-[34px]">Michael David</td>
-                  <td className="">25</td>
-                  <td className="">ma.da@gmail.com</td>
-                  <td className="">Mentor</td>
-                  <td className="">Jan 13, 2022</td>
-                  <td className="">verified</td>
-                </tr>
-                <tr className="bg-bg-verified max-h-[60px] h-[60px]">
-                  <td className="ps-[34px]">Michael David</td>
-                  <td className="">25</td>
-                  <td className="">ma.da@gmail.com</td>
-                  <td className="">Mentor</td>
-                  <td className="">Jan 13, 2022</td>
-                  <td className="">verified</td>
-                </tr>
+                <RowTable
+                  name="Amanda Levete"
+                  age="22"
+                  email="ama_levete@gmail.com"
+                  role="Mentee"
+                  joinedDate="Jan 13, 2022"
+                  status={true}
+                />
+                <RowTable
+                  name="Franco González"
+                  age="23"
+                  email="frango@gmail.com"
+                  role="Mentee"
+                  joinedDate="Jan 13, 2022"
+                  status={false}
+                />
+                <RowTable
+                  name="Justín Cieber"
+                  age="19"
+                  email="cieber_justin@gmail.com"
+                  role="Mentee"
+                  joinedDate="Jan 13, 2022"
+                  status={true}
+                />
               </tbody>
               <tfoot className="h-[40px]">
                 <tr>
@@ -379,6 +411,11 @@ const Users = () => {
               </tfoot>
             </table>
           </div>
+          <img
+            src={Dots}
+            alt="Dots"
+            className="absolute bottom-[23px] right-[45px]"
+          />
         </div>
       </div>
     </div>
