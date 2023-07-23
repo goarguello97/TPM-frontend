@@ -1,9 +1,109 @@
 import HandPhone from "../assets/img/Hand&Phone.svg";
 import Doodle2 from "../assets/img/Doodle2.svg";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ScriptableContext,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+import { faker } from "@faker-js/faker";
 import useMediaQuery from "../hooks/useMediaQuery";
 
 const Stadistics = () => {
   const { width } = useMediaQuery();
+
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: "SIGN UPS PER MONTH",
+        font: { size: 20, weight: "900" },
+        color: "#444",
+        align: "start" as const,
+        padding: {
+          top: 10,
+          bottom: 10,
+        },
+      },
+    },
+    layout: {
+      padding: {
+        top: 10,
+        bottom: 10,
+        left: 25,
+        right: 25,
+      },
+    },
+    scales: {
+      x: { grid: { display: false, borderDash: 0 } },
+    },
+  };
+
+  const labels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "Augoust",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        borderWidth: 0,
+        borderRadius: 5,
+        backgroundColor: (context: any) => {
+          const chart = context.chart;
+          const { ctx, chartArea } = chart;
+          if (!chartArea) {
+            return null;
+          }
+          return getGradient(chart);
+        },
+        barThickness: 30,
+      },
+    ],
+  };
+
+  function getGradient(chart: any) {
+    const {
+      ctx,
+      chartArea: { top, bottom, left, right },
+    } = chart;
+    const gradientSegment = ctx.createLinearGradient(0, bottom, 0, top);
+    gradientSegment.addColorStop(0, "rgba(57,181,74,1)");
+    gradientSegment.addColorStop(1, "rgba(191,215,50,1)");
+    return gradientSegment;
+  }
+
+  ChartJS.defaults.font.family = "Heebo";
 
   return width < 1024 ? (
     <div className="h-[100vh] bg-[#F5F6F7] relative">
@@ -229,11 +329,10 @@ const Stadistics = () => {
           </div>
 
           {/* SIGN UPS PER MONTH */}
-          <div className="w-container-2 max-w-[1018px] min-h-[300px] h-[auto] max-h-[423px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3">
+          {/* <div className="w-container-2 max-w-[1018px] min-h-[300px] h-[auto] max-h-[423px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3">
             <p className="text-title text-[20px] font-black h-[22px] ms-[35px] mt-[10px] mb-[10px]">
               SIGN UPS PER MONTH
             </p>
-            {/* HR */}
             <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[35px]"></div>
             <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mb-[7px]">
               1k
@@ -261,8 +360,8 @@ const Stadistics = () => {
             <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
             <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
               50
-            </p>
-            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto relative">
+            </p> 
+           <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto relative">
               <div className="w-[100%] h-[17px] flex justify-between absolute top-[6px]">
                 <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px] ms-[26px]">
                   jan
@@ -315,8 +414,13 @@ const Stadistics = () => {
                 <div className="w-[30px] h-[189px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
                 <div className="w-[30px] h-[168px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
               </div>
-            </div>
-          </div>
+            </div> 
+          </div> */}
+          <Bar
+            options={options}
+            data={data}
+            className="w-container-2 max-w-[1018px] max-h-[330.5px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3"
+          />
         </div>
       </div>
     </div>

@@ -36,7 +36,7 @@ module.exports = {
         "input-users-desktop": "calc(100% - 206px)",
         shadow: "calc(100vw - 20px)",
         container: "calc(100vw - 20px)",
-        "container-2": "calc(100% - 40px)",
+        "container-2": "calc(100% - 40px) !important",
         "container-desktop": "calc(100vw - 554px)",
         "container-desktop-2": "calc(100vw - 312px)",
         "container-desktop-3": "calc(100% - 70px)",
