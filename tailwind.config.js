@@ -37,13 +37,17 @@ module.exports = {
         shadow: "calc(100vw - 20px)",
         container: "calc(100vw - 20px)",
         "container-2": "calc(100% - 40px) !important",
+        "container-3": "calc(100% - 13px) ",
         "container-desktop": "calc(100vw - 554px)",
         "container-desktop-2": "calc(100vw - 312px)",
         "container-desktop-3": "calc(100% - 70px)",
         "container-card-stadistics": "calc(50% - 29px)",
+        "container-card-stadistics-mobile": "calc(50% - 25.5px)",
+        "container-card-stadistics-mobile-fold": "calc(50% - 8px)",
         hr: "calc(100% - 30px)",
         "hr-desktop": "calc(100% - 50px)",
         hr2: "calc(100% - 120px)",
+        hr3: "calc(100% - 8px)",
         filter: "calc(100% - 40px)",
         person: "calc(100% - 40px)",
       },
@@ -52,9 +56,11 @@ module.exports = {
         "container-card-stadistics": "calc(50% - 29px)",
       },
       height: {
+        "container-2": "calc(100% - 249px)",
         "container-desktop-2": "calc(100vh - 80px)",
         "container-desktop-3": "calc(100% - 177px)",
         "container-desktop-4": "calc(100% - 162px)",
+        "container-card-stadistics-mobile": "calc(100% - 279px)",
       },
       minHeight: {
         "100%": "calc(100vh)",
@@ -67,9 +73,10 @@ module.exports = {
       },
       maxHeight: {
         container: "calc(100vh - 172px)",
-        "container-2": "calc(100vh - 249px)",
+        "container-2": "calc(100% - 249px)",
         fold: "calc(100vh - 120px)",
         "fold-2": "calc(100vh - 197px)",
+        "container-card-stadistics-mobile": "calc(100% - 279px)",
       },
       spacing: {
         "img-spacing-left": "calc(50% - 138.5px/2 + 0px)",
@@ -91,7 +98,7 @@ module.exports = {
       screens: {
         fold: { raw: "(max-width: 280px)" },
         "fold-horizontal": {
-          raw: "(max-width: 1000px) and (max-height: 400px)",
+          raw: "(max-width: 1000px) and (max-height: 512px)",
         },
         default: { raw: "(min-width: 281px)" },
         shadow: { raw: "(max-height: 600px)" },

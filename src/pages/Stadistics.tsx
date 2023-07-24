@@ -8,14 +8,20 @@ import {
   Title,
   Tooltip,
   Legend,
-  ScriptableContext,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { useEffect, useState } from "react";
 
 const Stadistics = () => {
   const { width } = useMediaQuery();
+  const [styles, setStyles] = useState({
+    layout: { padding: { top: 15, bottom: 9, left: 15, right: 15 } },
+    title: { size: 15, padding: { bottom: 15 } },
+    ticks: { y: { size: 12 }, x: { size: 11, minRotation: 90 } },
+    bar: { width: 16 },
+  });
 
   ChartJS.register(
     CategoryScale,
@@ -35,40 +41,70 @@ const Stadistics = () => {
       title: {
         display: true,
         text: "SIGN UPS PER MONTH",
-        font: { size: 20, weight: "900" },
-        color: "#444",
+        font: { size: styles.title.size, weight: "900" },
+        color: "#444444",
         align: "start" as const,
         padding: {
-          top: 10,
-          bottom: 10,
+          bottom: styles.title.padding.bottom,
         },
       },
     },
     layout: {
       padding: {
-        top: 10,
-        bottom: 10,
-        left: 25,
-        right: 25,
+        top: styles.layout.padding.top,
+        bottom: styles.layout.padding.bottom,
+        left: styles.layout.padding.left,
+        right: styles.layout.padding.right,
       },
     },
     scales: {
-      x: { grid: { display: false, borderDash: 0 } },
+      y: {
+        ticks: {
+          display: true,
+          color: "#444444",
+          font: { size: styles.ticks.y.size, weight: "400" },
+          // stepSize: 8,
+          maxTicksLimit: 11,
+          align: "end" as const,
+        },
+        grid: {
+          drawTicks: false,
+          drawBorder: false, // <-- this removes y-axis line
+          lineWidth: function (context: any) {
+            return context?.index === 0 ? 0 : 0.5; // <-- this removes the base line
+          },
+          color: "rgba(68, 68, 68, 0.30)",
+        },
+        border: { display: false },
+        beginAtZero: false,
+        min: 50,
+      },
+      x: {
+        ticks: {
+          color: "#444444",
+          font: { size: styles.ticks.x.size, weight: "400" },
+          minRotation: styles.ticks.x.minRotation,
+        },
+        grid: {
+          drawBorder: false,
+          lineWidth: 0, // <-- this removes vertical lines between bars
+        },
+      },
     },
   };
 
   const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "Augoust",
-    "October",
-    "November",
-    "December",
+    "ene",
+    "feb",
+    "mar",
+    "abr",
+    "may",
+    "jun",
+    "juli",
+    "ago",
+    "oct",
+    "nov",
+    "dec",
   ];
 
   const data = {
@@ -76,7 +112,7 @@ const Stadistics = () => {
     datasets: [
       {
         label: "Dataset 1",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
         borderWidth: 0,
         borderRadius: 5,
         backgroundColor: (context: any) => {
@@ -87,7 +123,7 @@ const Stadistics = () => {
           }
           return getGradient(chart);
         },
-        barThickness: 30,
+        barThickness: styles.bar.width,
       },
     ],
   };
@@ -105,9 +141,34 @@ const Stadistics = () => {
 
   ChartJS.defaults.font.family = "Heebo";
 
+  useEffect(() => {
+    if (width < 1024) {
+      setStyles({
+        layout: { padding: { top: 15, bottom: 9, left: 15, right: 15 } },
+        title: { size: 15, padding: { bottom: 15 } },
+        ticks: { y: { size: 12 }, x: { size: 11, minRotation: 90 } },
+        bar: { width: 16 },
+      });
+    } else {
+      setStyles({
+        layout: {
+          padding: {
+            top: 15,
+            bottom: 18,
+            left: 35,
+            right: 25,
+          },
+        },
+        title: { size: 20, padding: { bottom: 45 } },
+        ticks: { y: { size: 14 }, x: { size: 14, minRotation: 0 } },
+        bar: { width: 30 },
+      });
+    }
+  }, [width]);
+
   return width < 1024 ? (
-    <div className="h-[100vh] bg-[#F5F6F7] relative">
-      <div className="w-[100vw] h-[229px] fold-horizontal:h-[90px] bg-background top-0 rounded-br-[45px] absolute flex flex-col z-1">
+    <div className="h-[100vh] bg-[#F5F6F7] flex justify-center items-start">
+      <div className="w-[100vw] h-[229px] fold-horizontal:h-[90px] bg-background rounded-br-[45px] absolute flex flex-col z-1">
         <p className="text-title text-[30px] fold-horizontal:text-[20px] font-extrabold leading-[44px] h-[32px] mt-[44px] ms-[30px] mb-[5px] z-10 fold-horizontal:mt-[10px] fold-horizontal:leading-[25px]">
           Stadistics
         </p>
@@ -127,132 +188,106 @@ const Stadistics = () => {
       </div>
 
       {/* Contenedor principal */}
-      <div className="w-container min-h-container-2 max-h-container-2 fold-horizontal:min-h-fold-2 fold-horizontal:max-h-fold-2 absolute bg-[#FFFFFF] rounded-t-[40px] shadow-container left-[50%] bottom-[0px] translate-x-[-50%] flex flex-wrap justify-center items-start pb-[107px] shadow:pb-[82px] overflow-y-scroll">
-        {" "}
-        <div className="w-[152px] h-[141px] bg-[#F5F6F7] mt-[20px] me-[11px] rounded-[20px] fold:me-0">
-          <p className="text-title font-black h-[22px] text-[15px] mt-[15px] ms-[15px] mb-[5px]">
-            TOTAL OF USERS
-          </p>
-          {/* HR */}
-          <div className="w-[122px] h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[7px]"></div>
-          <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-            Mentees <span className="ms-[42px] font-normal">750</span>
-          </p>
-          <div className="w-[122px] h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-          <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-            Mentors <span className="ms-[44px] font-normal">250</span>
-          </p>
-          <div className="w-[122px] h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-          <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-            Total users <span className="ms-[17px] font-normal">1000</span>
-          </p>
-        </div>
-        <div className="w-[152px] h-[141px] bg-[#F5F6F7] mt-[20px] rounded-[20px]">
-          <p className="text-title font-black h-[22px] text-[15px] mt-[15px] ms-[15px] mb-[5px]">
-            NEW USERS
-          </p>
-          {/* HR */}
-          <div className="w-[122px] h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[7px]"></div>
-          <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-            New mentees <span className="ms-[28px] font-normal">7</span>
-          </p>
-          <div className="w-[122px] h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-          <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-            New mentors <span className="ms-[21px] font-normal">10</span>
-          </p>
-          <div className="w-[122px] h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-          <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-            Total users <span className="ms-[34px] font-normal">17</span>
-          </p>
-        </div>
-        <div className="w-container-2 h-[284px] bg-[#F5F6F7] mt-[11px] rounded-[20px]">
-          <p className="text-title text-[15px] font-black h-[22px] ms-[15px] mt-[15px] mb-[5px]">
-            SIGN UPS PER MONTH
-          </p>
-          {/* HR */}
-          <div className="w-hr h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[8px]"></div>
-          <p className="text-title text-[12px] h-[16.51px] font-normal ms-[15px] mb-[5.49px]">
-            1k
-          </p>
-          <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-          <p className="text-title text-[12px] h-[16.51px] font-normal ms-[15px] mt-[6.44px] mb-[8.05px]">
-            500
-          </p>
-          <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-          <p className="text-title text-[12px] h-[16.51px] font-normal ms-[15px] mt-[4.79px] mb-[5.7px]">
-            400
-          </p>
-          <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-          <p className="text-title text-[12px] h-[16.51px] font-normal ms-[15px] mt-[7.14px] mb-[7.35px]">
-            300
-          </p>
-          <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-          <p className="text-title text-[12px] h-[16.51px] font-normal ms-[15px] mt-[5.5px] mb-[4.99px]">
-            200
-          </p>
-          <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-          <p className="text-title text-[12px] h-[16.51px] font-normal ms-[15px] mt-[7.85px] mb-[6.64px]">
-            100
-          </p>
-          <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-          <p className="text-title text-[12px] h-[16.51px] font-normal ms-[15px] mt-[6.2px] mb-[4.29px]">
-            50
-          </p>
-          <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto relative">
-            <div className="w-[100%] h-[17px] flex justify-between absolute top-[6px]">
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px] ms-[26px]">
-                jan
+      <div className="w-container h-container-2 fold-horizontal:min-h-fold-2 fold-horizontal:max-h-fold-2 fold-horizontal:mt-[110px] bg-[#FFFFFF] rounded-t-[40px] shadow-container mt-[249px] absolute left-[50%] translate-x-[-50%] flex justify-center flex-wrap shadow:pb-[82px] overflow-y-scroll">
+        {width > 280 ? (
+          <>
+            {/* TOTAL OF USERS */}
+            <div className="w-container-card-stadistics-mobile h-[141px] bg-[#F5F6F7] mt-[20px] me-[5.5px] rounded-[20px] fold:me-0">
+              <p className="text-title font-black h-[22px] text-[15px] mt-[15px] ms-[15px] mb-[5px]">
+                TOTAL OF USERS
               </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                feb
+              {/* HR */}
+              <div className="w-hr h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[7px]"></div>
+              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+                Mentees <span className="ms-[42px] font-normal">750</span>
               </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                mar
+              <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+                Mentors <span className="ms-[44px] font-normal">250</span>
               </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                abr
-              </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                may
-              </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                jun
-              </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                jul
-              </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                aug
-              </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                sep
-              </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                oct
-              </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                nov
-              </p>
-              <p className="w-[19px] h-[16px] text-center text-title text-[11px] font-normal rotate-[-90deg] fold:text-[9px]">
-                dec
+              <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+                Total users <span className="ms-[17px] font-normal">1000</span>
               </p>
             </div>
-            <div className="w-[100%] h-auto flex ps-[26px] absolute justify-between items-end bottom-[0px]">
-              <div className="w-[16px] h-[19px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-[5px]"></div>
-              <div className="w-[16px] h-[46px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              <div className="w-[16px] h-[111px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              <div className="w-[16px] h-[94px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              <div className="w-[16px] h-[73px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              <div className="w-[16px] h-[46px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              <div className="w-[16px] h-[15px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              <div className="w-[16px] h-[106px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              <div className="w-[16px] h-[155px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              <div className="w-[16px] h-[135px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              <div className="w-[16px] h-[189px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              <div className="w-[16px] h-[168px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
+            {/* NEW USERS */}
+            <div className="w-container-card-stadistics-mobile h-[141px] bg-[#F5F6F7] mt-[20px] rounded-[20px]">
+              <p className="text-title font-black h-[22px] text-[15px] mt-[15px] ms-[15px] mb-[5px]">
+                NEW USERS
+              </p>
+              {/* HR */}
+              <div className="w-hr h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[7px]"></div>
+              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+                New mentees <span className="ms-[28px] font-normal">7</span>
+              </p>
+              <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+                New mentors <span className="ms-[21px] font-normal">10</span>
+              </p>
+              <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+                Total users <span className="ms-[34px] font-normal">17</span>
+              </p>
             </div>
-          </div>
-        </div>
+            {/* SIGN UPS PER MONTH */}
+            <div className="w-container-2 h-container-card-stadistics-mobile bg-[#F5F6F7] mb-[107px] fold-horizontal:mt-[5px] fold-horizontal:h-auto fold-horizontal:mb-[0px] rounded-[20px] ">
+              <Bar
+                options={options}
+                data={data}
+                className="min-w-full w-full min-h-full rounded-[20px] bg-[#F5F6F7] "
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            {/* TOTAL OF USERS */}
+            <div className="w-container-card-stadistics-mobile-fold h-[141px] bg-[#F5F6F7] mt-[20px] me-[5px] rounded-[20px]">
+              <p className="text-title font-black h-[22px] text-[14px] mt-[15px] ms-[5px] mb-[5px]">
+                TOTAL OF USERS
+              </p>
+              {/* HR */}
+              <div className="w-hr3 h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[7px]"></div>
+              <p className="w-full h-[21px] text-title text-[12px] font-bold ps-[5px] pe-[5px] mb-[2px] flex justify-between">
+                Mentees <span className="ms-[42px] font-normal">750</span>
+              </p>
+              <div className="w-hr3 h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+              <p className="w-full h-[21px] text-title text-[12px] font-bold ps-[5px] pe-[5px] mb-[2px] flex justify-between">
+                Mentors <span className="ms-[44px] font-normal">250</span>
+              </p>
+              <div className="w-hr3 h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+              <p className="w-full h-[21px] text-title text-[12px] font-bold ps-[5px] pe-[5px] mb-[2px] flex justify-between">
+                Total users <span className="ms-[17px] font-normal">1000</span>
+              </p>
+            </div>
+            {/* NEW USERS */}
+            <div className="w-container-card-stadistics-mobile-fold h-[141px] bg-[#F5F6F7] mt-[20px] rounded-[20px]">
+              <p className="text-title font-black h-[22px] text-[14px] mt-[15px] ms-[5px] mb-[5px]">
+                NEW USERS
+              </p>
+              {/* HR */}
+              <div className="w-hr3 h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[7px]"></div>
+              <p className="w-full h-[21px] text-title text-[12px] font-bold ps-[5px] pe-[5px] mb-[2px] flex justify-between">
+                New mentees <span className="ms-[28px] font-normal">7</span>
+              </p>
+              <div className="w-hr3 h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+              <p className="w-full h-[21px] text-title text-[12px] font-bold ps-[5px] pe-[5px] mb-[2px] flex justify-between">
+                New mentors <span className="ms-[21px] font-normal">10</span>
+              </p>
+              <div className="w-hr3 h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
+              <p className="w-full h-[21px] text-title text-[12px] font-bold ps-[5px] pe-[5px] mb-[2px] flex justify-between">
+                Total users <span className="ms-[34px] font-normal">17</span>
+              </p>
+            </div>
+            {/* SIGN UPS PER MONTH */}
+            <div className="w-container-3 h-container-card-stadistics-mobile bg-[#F5F6F7] mb-[107px] rounded-[20px]">
+              <Bar
+                options={options}
+                data={data}
+                className="min-w-full w-full min-h-full rounded-[20px] bg-[#F5F6F7] "
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   ) : (
@@ -290,20 +325,20 @@ const Stadistics = () => {
             </p>
             {/* HR */}
             <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
-            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
-              <p className="h-[26px] text-[18px] ms-[35px]">Mentees</p>
-              <p className="text-[14px] font-normal me-[35px]">750</p>
-            </div>
+            <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
+              Mentees
+              <span className="text-[14px] font-normal me-[35px]">750</span>
+            </p>
             <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
-            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
-              <p className="h-[26px] text-[18px] ms-[35px]">Mentors</p>
-              <p className="text-[14px] font-normal me-[35px]">250</p>
-            </div>
+            <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
+              Mentors
+              <span className="text-[14px] font-normal me-[35px]">250</span>
+            </p>
             <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
-            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
-              <p className="h-[26px] text-[18px] ms-[35px]">Total users</p>
-              <p className="text-[14px] font-normal me-[35px]">1000</p>
-            </div>
+            <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
+              Total users
+              <span className="text-[14px] font-normal me-[35px]">1000</span>
+            </p>
           </div>
           {/* NEW USERS */}
           <div className="w-container-card-stadistics max-w-[500px] h-[197px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3 z-20">
@@ -312,115 +347,31 @@ const Stadistics = () => {
             </p>
             {/* HR */}
             <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
-            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
-              <p className="h-[26px] text-[18px] ms-[35px]">New mentees</p>
-              <p className="text-[14px] font-normal me-[35px]">7</p>
-            </div>
+            <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
+              New mentees
+              <span className="text-[14px] font-normal me-[35px]">7</span>
+            </p>
             <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
-            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
-              <p className="h-[26px] text-[18px] ms-[35px]">New mentors</p>
-              <p className="text-[14px] font-normal me-[35px]">10</p>
-            </div>
+            <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
+              New mentors
+              <span className="text-[14px] font-normal me-[35px]">10</span>
+            </p>
             <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
-            <div className="w-[100%] h-[26px] text-title text-[14px] font-bold mb-[5px] flex items-center justify-between">
-              <p className="h-[26px] text-[18px] ms-[35px]">Total users</p>
-              <p className="text-[14px] font-normal me-[35px]">17</p>
-            </div>
+            <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
+              Total users
+              <span className="text-[14px] font-normal me-[35px]">17</span>
+            </p>
           </div>
-
           {/* SIGN UPS PER MONTH */}
-          {/* <div className="w-container-2 max-w-[1018px] min-h-[300px] h-[auto] max-h-[423px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3">
-            <p className="text-title text-[20px] font-black h-[22px] ms-[35px] mt-[10px] mb-[10px]">
-              SIGN UPS PER MONTH
-            </p>
-            <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[35px]"></div>
-            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mb-[7px]">
-              1k
-            </p>
-            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
-              500
-            </p>
-            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
-              400
-            </p>
-            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
-              300
-            </p>
-            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
-              200
-            </p>
-            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
-              100
-            </p>
-            <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-            <p className="text-title text-[14px] h-[16.51px] font-normal ms-[15px] mt-[7px] mb-[7px]">
-              50
-            </p> 
-           <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto relative">
-              <div className="w-[100%] h-[17px] flex justify-between absolute top-[6px]">
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px] ms-[26px]">
-                  jan
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  feb
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  mar
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  abr
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  may
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  jun
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  jul
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  aug
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  sep
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  oct
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  nov
-                </p>
-                <p className="w-[30px] text-center text-title text-[14px] font-normal fold:text-[9px]">
-                  dec
-                </p>
-              </div>
-              <div className="w-[100%] h-auto flex ps-[26px] absolute justify-between items-end bottom-[0px]">
-                <div className="w-[30px] h-[19px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-[5px]"></div>
-                <div className="w-[30px] h-[46px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-                <div className="w-[30px] h-[111px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-                <div className="w-[30px] h-[94px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-                <div className="w-[30px] h-[73px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-                <div className="w-[30px] h-[46px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-                <div className="w-[30px] h-[15px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-                <div className="w-[30px] h-[106px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-                <div className="w-[30px] h-[155px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-                <div className="w-[30px] h-[135px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-                <div className="w-[30px] h-[189px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-                <div className="w-[30px] h-[168px] bg-gradient-to-t from-[#39B54A] to-[#BFD732] rounded-t-[5px]"></div>
-              </div>
-            </div> 
-          </div> */}
-          <Bar
-            options={options}
-            data={data}
-            className="w-container-2 max-w-[1018px] max-h-[330.5px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3"
-          />
+          <div className="w-container-2 max-w-[1018px] max-h-[330.5px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3 relative">
+            <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[35px] absolute top-[42px]"></div>
+
+            <Bar
+              options={options}
+              data={data}
+              className=" w-full max-w-[1018px] max-h-[330.5px] rounded-[20px] bg-[#F5F6F7] "
+            />
+          </div>
         </div>
       </div>
     </div>
