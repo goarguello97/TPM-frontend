@@ -18,7 +18,7 @@ const Stadistics = () => {
   const { width } = useMediaQuery();
   const [styles, setStyles] = useState({
     layout: { padding: { top: 15, bottom: 9, left: 15, right: 15 } },
-    title: { size: 15, padding: { bottom: 15 } },
+    title: { size: 15, padding: { bottom: 25 } },
     ticks: { y: { size: 12 }, x: { size: 11, minRotation: 90 } },
     bar: { width: 16 },
   });
@@ -145,7 +145,7 @@ const Stadistics = () => {
     if (width < 1024) {
       setStyles({
         layout: { padding: { top: 15, bottom: 9, left: 15, right: 15 } },
-        title: { size: 15, padding: { bottom: 15 } },
+        title: { size: 15, padding: { bottom: 25 } },
         ticks: { y: { size: 12 }, x: { size: 11, minRotation: 90 } },
         bar: { width: 16 },
       });
@@ -230,7 +230,8 @@ const Stadistics = () => {
               </p>
             </div>
             {/* SIGN UPS PER MONTH */}
-            <div className="w-container-2 h-container-card-stadistics-mobile bg-[#F5F6F7] mb-[107px] fold-horizontal:mt-[5px] fold-horizontal:h-auto fold-horizontal:mb-[0px] rounded-[20px] ">
+            <div className="w-container-2 h-container-card-stadistics-mobile bg-[#F5F6F7] mb-[107px] fold-horizontal:mt-[5px] fold-horizontal:h-auto fold-horizontal:mb-[0px] rounded-[20px] relative">
+              
               <Bar
                 options={options}
                 data={data}
@@ -279,7 +280,8 @@ const Stadistics = () => {
               </p>
             </div>
             {/* SIGN UPS PER MONTH */}
-            <div className="w-container-3 h-container-card-stadistics-mobile bg-[#F5F6F7] mb-[107px] rounded-[20px]">
+            <div className="w-container-3 h-container-card-stadistics-mobile bg-[#F5F6F7] mb-[107px] rounded-[20px] relative">
+              <div className="w-hr3 h-[0px] border-b-[1px] border-dashed border-title mb-[35px] absolute top-[35px] left-[50%] translate-x-[-50%]"></div>
               <Bar
                 options={options}
                 data={data}
