@@ -7,7 +7,7 @@ import Verified from "../assets/img/Verified.svg";
 import Edit from "../assets/img/Edit.svg";
 import Dots from "../assets/img/Dots.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
-import RowTable from "../commons/RowTable";
+import RowTableUser from "../commons/RowTableUser";
 
 const Users = () => {
   const { width } = useMediaQuery();
@@ -377,7 +377,7 @@ const Users = () => {
                     />
                   </td>
                 </tr>
-                <RowTable
+                <RowTableUser
                   name="Amanda Levete"
                   age="22"
                   email="ama_levete@gmail.com"
@@ -385,7 +385,7 @@ const Users = () => {
                   joinedDate="Jan 13, 2022"
                   status={true}
                 />
-                <RowTable
+                <RowTableUser
                   name="Franco González"
                   age="23"
                   email="frango@gmail.com"
@@ -393,7 +393,7 @@ const Users = () => {
                   joinedDate="Jan 13, 2022"
                   status={false}
                 />
-                <RowTable
+                <RowTableUser
                   name="Justín Cieber"
                   age="19"
                   email="cieber_justin@gmail.com"

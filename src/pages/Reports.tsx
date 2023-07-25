@@ -1,10 +1,16 @@
+import MaskGroup from "../assets/img/MaskGroup.svg";
 import Saly2 from "../assets/img/Saly2.svg";
+import Doodle4 from "../assets/img/Doodle4.svg";
 import MagGlass from "../assets/img/MagGlass.svg";
 import Unverified from "../assets/img/Unverified.svg";
 import Verified from "../assets/img/Verified.svg";
+import Dots from "../assets/img/Dots.svg";
+import useMediaQuery from "../hooks/useMediaQuery";
+import RowTableReport from "../commons/RowTableReport";
 
 const Reports = () => {
-  return (
+  const { width } = useMediaQuery();
+  return width < 1024 ? (
     <div className="h-[100vh] bg-[#F5F6F7] relative">
       <div className="w-[100vw] h-[137px] fold-horizontal:h-[90px] bg-background top-0 rounded-br-[45px] absolute flex flex-col">
         <p className="text-title text-[30px] fold-horizontal:text-[20px] font-extrabold h-[30px] ms-[30px] mt-[37px] mb-[5px] fold-horizontal:mt-[10px] leading-[44px] fold-horizontal:leading-[25px] z-10">
@@ -88,6 +94,107 @@ const Reports = () => {
 
       {/* Esto es una sombra */}
       <div className="w-shadow h-[196px] bg-gradient-to-t from-[#FFFFFF] absolute bottom-[-30px] left-[50%] translate-x-[-50%] translate-y-[-50%] z-9 shadow:hidden"></div>
+    </div>
+  ) : (
+    <div className="w-[100vw] h-[100vh] bg-background ps-[272px] flex items-start">
+      <div className="w-container-desktop-2 h-container-desktop-2 max-h-[864px] bg-white rounded-[35px] shadow-container-desktop-2 relative mt-[40px]">
+        {/* Encabezado */}
+        <div className="w-[100%] h-[184px] bg-[#F5F6F7] rounded-t-[35px] absolute z-10">
+          <p className="w-[177px] h-[73px] text-title text-[50px] font-medium leading-[73.44px] absolute top-[40px] left-[65px]">
+            Reports
+          </p>
+          <p className="w-[269px] h-[29px] text-title text-[20px] font-normal leading-[29.38px] absolute top-[100px] left-[65px]">
+            Check the reports of the users
+          </p>
+          <img src={Doodle4} alt="Doodle4" className="w-[167.051px] absolute right-[109.63px] top-[-35px]" />
+        </div>
+        {/* Contenedor Principal */}
+        <div className="w-container-desktop-3 h-container-desktop-3 mt-[147px] mx-auto rounded-[40px] bg-[#FFF] shadow-container-desktop-3 absolute z-20 left-[50%] translate-x-[-50%]">
+          <img
+            src={MaskGroup}
+            alt="MaskGroup"
+            className="w-[313.93px] absolute right-[0px] top-[-105px]"
+          />
+          {/* Input de busqueda */}
+          <form className="w-input-users-desktop h-[55px] ms-[20px] mt-[25px] relative flex">
+            <img
+              src={MagGlass}
+              alt="MagGlass"
+              className="w-[19.687px] h-[15px] absolute left-[14.39px] top-[50%] translate-y-[-50%] z-10"
+            />
+            <input
+              type="text"
+              placeholder="search for id"
+              className="max-w-[513px] min-w-[260px] w-[100%] h-[55px] rounded-[40px] ps-[49px] text-[14px] font-normal drop-shadow-input-users-desktop placeholder-title"
+            />
+          </form>
+          {/* Contenedor de usuarios */}
+          <div className="w-container-2 h-auto relative rounded-[20px] bg-[#F5F6F7] overflow-auto mt-[20px] mx-auto shadow-container-desktop-3">
+            <table className="w-full min-h-full h-full border-collapse table-fixed  border-spacing-0 divide-y-[6px] divide-white">
+              <thead className="h-[40px]">
+                <tr>
+                  <th className="w-[38px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left ps-[34px] pe-[151px] ">
+                    Name
+                  </th>
+                  <th className="w-[49px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left pe-[144px]">
+                    Reason
+                  </th>
+                  <th className="w-[29px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left pe-[56px]">
+                    Role
+                  </th>
+                  <th className="w-[76px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left pe-[35px]">
+                    Joined Date
+                  </th>
+                  <th className="w-[36px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left pe-[165px]">
+                    Email
+                  </th>
+                  <th className="w-[41px] h-[16px] text-filter text-[14px] font-normal leading-normal text-left pe-[256px]">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y-[6px] divide-white">
+                <RowTableReport
+                  name="Amanda Levete"
+                  reason="Other"
+                  email="ama_levete@gmail.com"
+                  role="Mentee"
+                  joinedDate="Jan 13, 2022"
+                  status={true}
+                />
+                <RowTableReport
+                  name="Franco González"
+                  reason="Email verification"
+                  email="frango@gmail.com"
+                  role="Mentee"
+                  joinedDate="Jan 13, 2022"
+                  status={false}
+                />
+                <RowTableReport
+                  name="Justín Cieber"
+                  reason="Other"
+                  email="cieber_justin@gmail.com"
+                  role="Mentee"
+                  joinedDate="Jan 13, 2022"
+                  status={true}
+                />
+              </tbody>
+              <tfoot className="h-[40px]">
+                <tr>
+                  <td className="w-[72px] h-[16px] text-[14px] text-filter font-normal leading-normal ps-[34px]">
+                    Page 2 / 13
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <img
+            src={Dots}
+            alt="Dots"
+            className="absolute bottom-[23px] right-[45px]"
+          />
+        </div>
+      </div>
     </div>
   );
 };

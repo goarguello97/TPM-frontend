@@ -3,7 +3,7 @@ import Verified from "../assets/img/Verified.svg";
 import Edit from "../assets/img/Edit.svg";
 import { useEffect, useState } from "react";
 
-const RowTable = ({
+const RowTableUser = ({
   name,
   age,
   email,
@@ -82,4 +82,4 @@ const RowTable = ({
   );
 };
 
-export default RowTable;
+export default RowTableUser;
