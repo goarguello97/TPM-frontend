@@ -56,6 +56,7 @@ module.exports = {
         "container-card-stadistics": "calc(50% - 29px)",
       },
       height: {
+        "container-profile-mobile-fold": "calc(100vh - 50px)",
         "container-2": "calc(100% - 249px)",
         "container-desktop-2": "calc(100vh - 80px)",
         "container-desktop-3": "calc(100% - 177px)",
@@ -94,6 +95,8 @@ module.exports = {
       },
       rotate: {
         doodle: "-82.2deg",
+        doodle2: "-130.2deg",
+        maskGroup: "90.564deg",
       },
       screens: {
         fold: { raw: "(max-width: 280px)" },
