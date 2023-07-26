@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Unverified from "../assets/img/Unverified.svg";
 import Verified from "../assets/img/Verified.svg";
+import { ReportRow } from "../interfaces/RowTable.interfaces";
 
 const RowTableReport = ({
   name,
@@ -9,14 +10,7 @@ const RowTableReport = ({
   joinedDate,
   email,
   status,
-}: {
-  name: string;
-  reason: string;
-  role: string;
-  joinedDate: string;
-  email: string;
-  status: boolean;
-}) => {
+}: ReportRow) => {
   const [color, setColor] = useState({
     bg: "bg-bg-verified",
     bg2: "bg-verified",
