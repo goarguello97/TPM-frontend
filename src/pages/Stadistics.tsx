@@ -13,15 +13,12 @@ import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { useEffect, useState } from "react";
+import getGradient from "../hooks/useGradientHook";
+import useChartHook from "../hooks/useChartHook";
 
 const Stadistics = () => {
   const { width } = useMediaQuery();
-  const [styles, setStyles] = useState({
-    layout: { padding: { top: 15, bottom: 9, left: 15, right: 15 } },
-    title: { size: 15, padding: { bottom: 25 } },
-    ticks: { y: { size: 12 }, x: { size: 11, minRotation: 90 } },
-    bar: { width: 16 },
-  });
+  const styles = useChartHook();
 
   ChartJS.register(
     CategoryScale,
@@ -128,43 +125,7 @@ const Stadistics = () => {
     ],
   };
 
-  function getGradient(chart: any) {
-    const {
-      ctx,
-      chartArea: { top, bottom, left, right },
-    } = chart;
-    const gradientSegment = ctx.createLinearGradient(0, bottom, 0, top);
-    gradientSegment.addColorStop(0, "rgba(57,181,74,1)");
-    gradientSegment.addColorStop(1, "rgba(191,215,50,1)");
-    return gradientSegment;
-  }
-
   ChartJS.defaults.font.family = "Heebo";
-
-  useEffect(() => {
-    if (width < 1024) {
-      setStyles({
-        layout: { padding: { top: 15, bottom: 9, left: 15, right: 15 } },
-        title: { size: 15, padding: { bottom: 25 } },
-        ticks: { y: { size: 12 }, x: { size: 11, minRotation: 90 } },
-        bar: { width: 16 },
-      });
-    } else {
-      setStyles({
-        layout: {
-          padding: {
-            top: 15,
-            bottom: 18,
-            left: 35,
-            right: 25,
-          },
-        },
-        title: { size: 20, padding: { bottom: 45 } },
-        ticks: { y: { size: 14 }, x: { size: 14, minRotation: 0 } },
-        bar: { width: 30 },
-      });
-    }
-  }, [width]);
 
   return width < 1024 ? (
     <div className="h-[100vh] bg-[#F5F6F7] flex justify-center items-start">
@@ -231,7 +192,6 @@ const Stadistics = () => {
             </div>
             {/* SIGN UPS PER MONTH */}
             <div className="w-container-2 h-container-card-stadistics-mobile bg-[#F5F6F7] mb-[107px] fold-horizontal:mt-[5px] fold-horizontal:h-auto fold-horizontal:mb-[0px] rounded-[20px] relative">
-              
               <Bar
                 options={options}
                 data={data}
