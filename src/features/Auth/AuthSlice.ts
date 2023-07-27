@@ -55,6 +55,30 @@ export const secret = createAsyncThunk("SECRET", async (_, thunkApi) => {
   }
 });
 
+export const logOutUser = createAsyncThunk("LOGOUT", async (_, thunkApi) => {
+  try {
+    const logOut: RequestResponse = await axiosInstance.post("/users/logout");
+    return logOut;
+  } catch (error: any) {
+    const { response } = error;
+    const { data } = response;
+    const { errors } = data;
+    return thunkApi.rejectWithValue(errors[0].msg);
+  }
+});
+
+export const verifyUser = createAsyncThunk("VERIFY", async (data, thunkApi) => {
+  try {
+    const verifiedUser: RequestResponse = await axiosInstance.get(`/users/verify/${data}`);
+    return verifiedUser;
+  } catch (error: any) {
+    const { response } = error;
+    const { data } = response;
+    const { errors } = data;
+    return thunkApi.rejectWithValue(errors[0].msg);
+  }
+});
+
 const initialState = {
   error: null,
   operationSuccess: false,
@@ -102,6 +126,30 @@ export const authSlice = createSlice({
       state.isUserLogged = true;
     });
     builder.addCase(secret.rejected, (state, action) => {
+      state.loading = false;
+      state.operationSuccess = false;
+      state.error = action.payload;
+    });
+    builder.addCase(logOutUser.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(logOutUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.isUserLogged = false;
+    });
+    builder.addCase(logOutUser.rejected, (state, action) => {
+      state.loading = false;
+      state.operationSuccess = false;
+      state.error = action.payload;
+    });
+    builder.addCase(verifyUser.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(verifyUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.operationSuccess = true;
+    });
+    builder.addCase(verifyUser.rejected, (state, action) => {
       state.loading = false;
       state.operationSuccess = false;
       state.error = action.payload;

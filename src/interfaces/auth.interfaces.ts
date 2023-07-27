@@ -30,4 +30,5 @@ type Payload = {
   message: string;
   token: string;
   user: any;
+  users: any;
 };

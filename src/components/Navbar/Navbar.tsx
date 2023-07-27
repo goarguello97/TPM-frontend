@@ -15,9 +15,9 @@ import { PATH } from "../../constants/path";
 
 const Navbar = () => {
   const { width } = useMediaQuery();
-  const {pathname} = useLocation()
-  
-  return pathname === PATH.AUTH? null:width < 1024 ? (
+  const { pathname } = useLocation();
+
+  return pathname === PATH.AUTH || PATH.HOME ? null : width < 1024 ? (
     <div className="fixed bottom-[0px] w-[100vw] h-[82px] fold-horizontal:h-[47px] bg-navbar rounded-t-[40px] flex justify-between z-10">
       <img src={UsersActive} alt="UsersActive" className="w-[20px] ms-[67px]" />
       <img src={Statics} alt="Statics" className="w-[20px]" />
@@ -85,7 +85,7 @@ const Navbar = () => {
         </p>
       </div>
     </div>
-  )
+  );
 };
 
 export default Navbar;

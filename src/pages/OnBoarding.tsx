@@ -4,6 +4,7 @@ import Doodle from "../assets/img/Doodle.svg";
 import Doodle2 from "../assets/img/Doodle2.svg";
 import Doodle3 from "../assets/img/Doodle3.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { Link } from "react-router-dom";
 
 const OnBoarding = () => {
   const { width } = useMediaQuery();
@@ -31,12 +32,16 @@ const OnBoarding = () => {
           alt="Doodle2"
         />
       </div>
-      <button className="absolute w-button h-[55px] bottom-[136px] left-[50%] translate-x-[-50%] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]">
-        Sign up
-      </button>
-      <button className="absolute w-button h-[55px] bottom-[71px] left-[50%] translate-x-[-50%] border-[2px] border-button rounded-[40px] font-bold text-[15px]">
-        Log In
-      </button>
+      <Link to="/register">
+        <button className="absolute w-button h-[55px] bottom-[136px] left-[50%] translate-x-[-50%] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]">
+          Sign up
+        </button>
+      </Link>
+      <Link to="/login">
+        <button className="absolute w-button h-[55px] bottom-[71px] left-[50%] translate-x-[-50%] border-[2px] border-button rounded-[40px] font-bold text-[15px]">
+          Log In
+        </button>
+      </Link>
     </div>
   ) : (
     <div className="w-[100vw] h-[100vh] bg-background flex justify-center items-center relative z-0">
@@ -60,12 +65,16 @@ const OnBoarding = () => {
               alt="Doodle2"
               className="w-[245px] h-[250px] absolute rotate-45 left-[100%] top-[18%] translate-x-[-50%] translate-y-[-50%]"
             />
-            <button className="min-w-[175px] xl:min-w-[315px] h-[55px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff] mb-[15px]">
-              Sign up
-            </button>
-            <button className="min-w-[175px] xl:min-w-[315px] h-[55px] border-[2px] border-button rounded-[40px] font-bold text-[15px]">
-              Log In
-            </button>
+            <Link to="/register">
+              <button className="min-w-[175px] xl:min-w-[315px] h-[55px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff] mb-[15px]">
+                Sign up
+              </button>
+            </Link>
+            <Link to="/login">
+              <button className="min-w-[175px] xl:min-w-[315px] h-[55px] border-[2px] border-button rounded-[40px] font-bold text-[15px]">
+                Log In
+              </button>
+            </Link>
           </div>
         </div>
       </div>

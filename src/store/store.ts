@@ -1,9 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "../features/Auth/AuthSlice";
+import userSlice from "../features/User/UserSlice";
+import roleSlice from "../features/Role/RoleSlice";
+import MatchSlice from "../features/Match/MatchSlice";
 
 const store = configureStore({
   reducer: {
     auth: authSlice,
+    user: userSlice,
+    role: roleSlice,
+    match: MatchSlice,
   },
 });
 
