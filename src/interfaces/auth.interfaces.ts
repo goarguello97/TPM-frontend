@@ -7,6 +7,11 @@ export interface AuthRegister {
   role: string;
 }
 
+export interface AuthLogin {
+  email: string;
+  password: string;
+}
+
 export interface AuthState {
   error: any;
   operationSuccess: boolean;
@@ -18,5 +23,11 @@ export interface AuthState {
 
 export type RequestResponse = {
   status: string;
-  message: any;
+  payload: Payload;
+};
+
+type Payload = {
+  message: string;
+  token: string;
+  user: any;
 };
