@@ -4,19 +4,20 @@ import Doodle from "../assets/img/Doodle.svg";
 import Doodle2 from "../assets/img/Doodle2.svg";
 import Doodle3 from "../assets/img/Doodle3.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { Link } from "react-router-dom";
 
 const OnBoarding = () => {
   const { width } = useMediaQuery();
   return width < 1024 ? (
-    <div className="min-h-100% bg-background relative">
-      <div className="absolute w-[100vw] h-[511px] bg-saly bg-center bg-no-repeat top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+    <div className="min-h-100% h-auto bg-background relative">
+      <div className="absolute w-[100vw] h-screen bg-saly bg-center bg-no-repeat top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
         <img
-          className="absolute w-[200.62px] h-[107.42px] top-[0px] left-[30.68px] z-10"
+          className="absolute w-[200.62px] h-[107.42px] top-[12%] left-[30.68px] z-20"
           src={Logo}
           alt="The Perfect Mentor"
         />
         <img
-          className="absolute w-[178.69px] top-[84px] z-10"
+          className="absolute w-[178.69px] top-[30%] z-10"
           src={Doodle}
           alt="Doodle"
         />
@@ -26,17 +27,21 @@ const OnBoarding = () => {
           alt="Ellipse"
         />
         <img
-          className="absolute w-[130.86px] bottom-[18.57px] left-[104px]"
+          className="absolute w-[130.86px] bottom-[20%] left-[104px]"
           src={Doodle2}
           alt="Doodle2"
         />
       </div>
-      <button className="absolute w-button h-[55px] bottom-[136px] left-[50%] translate-x-[-50%] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]">
-        Sign up
-      </button>
-      <button className="absolute w-button h-[55px] bottom-[71px] left-[50%] translate-x-[-50%] border-[2px] border-button rounded-[40px] font-bold text-[15px]">
-        Log In
-      </button>
+      <Link to="/register">
+        <button className="absolute w-button h-[55px] bottom-[136px] fold-horizontal:w-[50%] fold-horizontal:h-[40px] fold-horizontal:bottom-[76px] left-[50%] translate-x-[-50%] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]">
+          Sign up
+        </button>
+      </Link>
+      <Link to="/login">
+        <button className="absolute w-button h-[55px] bottom-[71px] fold-horizontal:w-[50%] fold-horizontal:h-[40px] fold-horizontal:bottom-[30px] left-[50%] translate-x-[-50%] border-[2px] border-button rounded-[40px] font-bold text-[15px]">
+          Log In
+        </button>
+      </Link>
     </div>
   ) : (
     <div className="w-[100vw] h-[100vh] bg-background flex justify-center items-center relative z-0">
@@ -60,12 +65,16 @@ const OnBoarding = () => {
               alt="Doodle2"
               className="w-[245px] h-[250px] absolute rotate-45 left-[100%] top-[18%] translate-x-[-50%] translate-y-[-50%]"
             />
-            <button className="min-w-[175px] xl:min-w-[315px] h-[55px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff] mb-[15px]">
-              Sign up
-            </button>
-            <button className="min-w-[175px] xl:min-w-[315px] h-[55px] border-[2px] border-button rounded-[40px] font-bold text-[15px]">
-              Log In
-            </button>
+            <Link to="/register">
+              <button className="min-w-[175px] xl:min-w-[315px] h-[55px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff] mb-[15px]">
+                Sign up
+              </button>
+            </Link>
+            <Link to="/login">
+              <button className="min-w-[175px] xl:min-w-[315px] h-[55px] border-[2px] border-button rounded-[40px] font-bold text-[15px]">
+                Log In
+              </button>
+            </Link>
           </div>
         </div>
       </div>

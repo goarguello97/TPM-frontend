@@ -22,7 +22,7 @@ const Login = () => {
         alt="Doodle2"
       />
       <img
-        className="w-[200.62px] ml-[30px] z-10"
+        className="w-[200.62px] ml-[30px] fold-horizontal:mt-[30px] z-10"
         src={Logo}
         alt="The Perfect Mentor"
       />
@@ -67,7 +67,7 @@ const Login = () => {
       </div>
       <button
         type="submit"
-        className="w-button h-[55px] mx-auto bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+        className="w-button h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
       >
         Sign up
       </button>
