@@ -61,6 +61,18 @@ export const matchSlice = createSlice({
       state.operationSuccess = false;
       state.error = action.payload;
     });
+    builder.addCase(matchResponse.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(matchResponse.fulfilled, (state, action) => {
+      state.loading = false;
+      state.operationSuccess = true;
+    });
+    builder.addCase(matchResponse.rejected, (state, action) => {
+      state.loading = false;
+      state.operationSuccess = false;
+      state.error = action.payload;
+    });
   },
 });
 
