@@ -82,6 +82,17 @@ export const verifyUser = createAsyncThunk("VERIFY", async (data, thunkApi) => {
   }
 });
 
+export const resetError = createAsyncThunk(
+  "RESET_ERROR",
+  async (_, thunkApi) => {
+    try {
+      return null;
+    } catch (error) {
+      return thunkApi.rejectWithValue("Impossible to reset error.");
+    }
+  }
+);
+
 const initialState = {
   error: null,
   operationSuccess: false,
@@ -156,6 +167,17 @@ export const authSlice = createSlice({
     builder.addCase(verifyUser.rejected, (state, action) => {
       state.loading = false;
       state.operationSuccess = false;
+      state.error = action.payload;
+    });
+    builder.addCase(resetError.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(resetError.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(resetError.rejected, (state, action) => {
+      state.loading = false;
       state.error = action.payload;
     });
   },
