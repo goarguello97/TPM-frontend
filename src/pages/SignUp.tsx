@@ -23,7 +23,7 @@ const SignUp = () => {
         alt="Doodle2"
       />
       <img
-        className="w-[200.62px] ml-[30px] z-10"
+        className="w-[200.62px] ml-[30px] fold-horizontal:mt-[30px] z-10"
         src={Logo}
         alt="The Perfect Mentor"
       />
@@ -75,7 +75,7 @@ const SignUp = () => {
       </div>
       <button
         type="submit"
-        className="w-button h-[55px] mx-auto bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+        className="w-button h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
       >
         Sign up
       </button>
@@ -90,7 +90,11 @@ const SignUp = () => {
         />
         <div className="hidden xl:block xl:w-[50%] h-[100%] relative">
           {/* <div className="w-[204.46px] h-[204.46px] bg-doodle4 bg-no-repeat bg-contain absolute bottom-[0%] left-[0%] translate-x-[-50%] translate-y-[-50%] z-40"></div> */}
-          <img src={Doodle4} alt="Doodle4" className="w-[204.46px] absolute top-[85%] left-[15%] translate-x-[-50%] translate-y-[-50%]" />
+          <img
+            src={Doodle4}
+            alt="Doodle4"
+            className="w-[204.46px] absolute top-[85%] left-[15%] translate-x-[-50%] translate-y-[-50%]"
+          />
           <div className="w-[572px] h-[572px] bg-saly3 bg-no-repeat bg-contain absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] z-20">
             <img
               src={Doodle}
@@ -106,11 +110,11 @@ const SignUp = () => {
         </div>
         <div className="hidden xl:block w-0 h-[416px] border-title border-[1px]"></div>
         <form className="w-[100%] xl:w-[50%] h-[100%] xl:ps-[50px] flex flex-col items-center xl:items-start justify-center relative">
-        <img
-          src={Logo}
-          alt="Logo"
-          className="w-[200.62px] absolute top-[-132.83px] left-[50%] xl:left-[50px] translate-x-[-50%] xl:translate-x-0 z-30"
-        />
+          <img
+            src={Logo}
+            alt="Logo"
+            className="w-[200.62px] absolute top-[-132.83px] left-[50%] xl:left-[50px] translate-x-[-50%] xl:translate-x-0 z-30"
+          />
           <p className="w-[162px] mt-[30px] text-title text-[40px] font-extrabold leading-[59px] z-30">
             Sign up
           </p>
