@@ -22,8 +22,7 @@ export interface AuthState {
 }
 
 export type RequestResponse = {
-  status: string;
-  payload: Payload;
+  data: { status: string; payload: Payload };
 };
 
 type Payload = {

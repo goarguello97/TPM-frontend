@@ -8,7 +8,7 @@ export const getUser = createAsyncThunk("GET_USER", async (data, thunkApi) => {
     const user: RequestResponse = await axiosInstance.get(
       `/users/user?id=${data}`
     );
-    return user;
+    return user.data;
   } catch (error: any) {
     const { response } = error;
     const { data } = response;
@@ -20,7 +20,7 @@ export const getUser = createAsyncThunk("GET_USER", async (data, thunkApi) => {
 export const getUsers = createAsyncThunk("GET_USERS", async (_, thunkApi) => {
   try {
     const users: RequestResponse = await axiosInstance.get(`/users/`);
-    return users;
+    return users.data;
   } catch (error: any) {
     const { response } = error;
     const { data } = response;
@@ -37,7 +37,7 @@ export const updateUser = createAsyncThunk(
         "/users/update",
         data
       );
-      return updatedUser;
+      return updatedUser.data;
     } catch (error: any) {
       const { response } = error;
       const { data } = response;

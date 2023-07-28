@@ -9,13 +9,21 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import useForm from "../hooks/useFormHook";
 import { LOGIN_INITIAL_VALUES } from "../constants";
 import { loginUser } from "../features/Auth/AuthSlice";
+import { validationLogin } from "../helpers/validations";
 
 const Login = () => {
   const { width } = useMediaQuery();
-// const {values, handleChange, handleSubmit,errors} = useForm(LOGIN_INITIAL_VALUES, loginUser, )
+  const { values, handleChange, handleSubmit, errors } = useForm(
+    LOGIN_INITIAL_VALUES,
+    loginUser,
+    validationLogin
+  );
 
   return width < 1024 ? (
-    <form className="min-h-100% bg-background relative flex flex-col justify-center items-start">
+    <form
+      className="min-h-100% bg-background relative flex flex-col justify-center items-start"
+      onSubmit={handleSubmit}
+    >
       <img
         className="absolute w-[182.44px] top-[72px] right-[29px] rotate-doodle z-1 "
         src={Doodle}
@@ -43,6 +51,8 @@ const Login = () => {
           <input
             type="text"
             name="email"
+            value={values.email}
+            onChange={handleChange}
             placeholder="email"
             className="bg-transparent w-[100%] h-[100%] placeholder-title  ps-[53px]"
           />
@@ -56,6 +66,8 @@ const Login = () => {
           <input
             type="password"
             name="password"
+            value={values.password}
+            onChange={handleChange}
             placeholder="password"
             className="bg-transparent w-[100%] h-[100%] placeholder-title  ps-[53px]"
           />
@@ -106,7 +118,10 @@ const Login = () => {
           </div>
         </div>
         <div className="hidden xl:block w-0 h-[416px] border-title border-[1px]"></div>
-        <form className="w-[100%] xl:w-[50%] h-[100%] xl:ps-[50px] flex flex-col items-center xl:items-start justify-center relative">
+        <form
+          className="w-[100%] xl:w-[50%] h-[100%] xl:ps-[50px] flex flex-col items-center xl:items-start justify-center relative"
+          onSubmit={handleSubmit}
+        >
           <img
             src={Logo}
             alt="Logo"
@@ -123,6 +138,8 @@ const Login = () => {
             <input
               type="text"
               name="email"
+              value={values.email}
+              onChange={handleChange}
               placeholder="email"
               className="bg-transparent w-input h-[100%] placeholder-title  ps-[53px]"
             />
@@ -136,6 +153,8 @@ const Login = () => {
             <input
               type="password"
               name="password"
+              value={values.password}
+              onChange={handleChange}
               placeholder="password"
               className="bg-transparent w-input h-[100%] placeholder-title  ps-[53px]"
             />
@@ -145,7 +164,9 @@ const Login = () => {
               className="absolute w-[32px] top-[9px] left-[11px]"
             />
           </div>
-          <p className="w-[160px] mt-[15px] text-title text-[12px] font-normal leading-[18px]">Do you forgot your password?</p>
+          <p className="w-[160px] mt-[15px] text-title text-[12px] font-normal leading-[18px]">
+            Do you forgot your password?
+          </p>
           <button
             type="submit"
             className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mt-[20px] mb-[80px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
