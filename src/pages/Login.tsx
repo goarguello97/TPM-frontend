@@ -6,9 +6,14 @@ import MaskGroup from "../assets/img/MaskGroup.svg";
 import Email from "../assets/img/Email.svg";
 import Password from "../assets/img/Password.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
+import useForm from "../hooks/useFormHook";
+import { LOGIN_INITIAL_VALUES } from "../constants";
+import { loginUser } from "../features/Auth/AuthSlice";
 
 const Login = () => {
   const { width } = useMediaQuery();
+// const {values, handleChange, handleSubmit,errors} = useForm(LOGIN_INITIAL_VALUES, loginUser, )
+
   return width < 1024 ? (
     <form className="min-h-100% bg-background relative flex flex-col justify-center items-start">
       <img
