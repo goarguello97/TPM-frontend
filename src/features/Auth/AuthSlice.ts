@@ -33,14 +33,13 @@ export const loginUser = createAsyncThunk(
         "/users/login",
         data
       );
-      console.log(loginUser);
       return loginUser.data;
     } catch (error: any) {
       console.log(error);
       const { response } = error;
       const { data } = response;
-      const { errors } = data;
-      return thunkApi.rejectWithValue(errors[0].msg);
+      const { payload } = data;
+      return thunkApi.rejectWithValue(payload.message);
     }
   }
 );
