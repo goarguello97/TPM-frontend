@@ -8,9 +8,10 @@ import Password from "../assets/img/Password.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
 import useForm from "../hooks/useFormHook";
 import { LOGIN_INITIAL_VALUES } from "../constants";
-import { loginUser } from "../features/Auth/AuthSlice";
+import { loginUser, resetError } from "../features/Auth/AuthSlice";
 import { validationLogin } from "../helpers/validations";
-import { useAppSelector } from "../hooks/useTypedSelector";
+import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
+import { useEffect } from "react";
 
 const Login = () => {
   const { width } = useMediaQuery();
@@ -20,6 +21,15 @@ const Login = () => {
     validationLogin
   );
   const { error } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        dispatch(resetError());
+      }, 5000);
+    }
+  }, [error]);
 
   return width < 1024 ? (
     <form
