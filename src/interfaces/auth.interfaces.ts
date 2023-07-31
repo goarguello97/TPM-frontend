@@ -16,7 +16,7 @@ export interface AuthState {
   error: any;
   operationSuccess: boolean;
   userRegister: any;
-  Userlogged: any;
+  userlogged: any;
   isUserLogged: boolean;
   loading: boolean;
 }

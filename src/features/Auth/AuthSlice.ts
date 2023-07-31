@@ -47,7 +47,8 @@ export const loginUser = createAsyncThunk(
 export const secret = createAsyncThunk("SECRET", async (_, thunkApi) => {
   try {
     const userLogged = await axiosInstance.get("/users/me");
-    return userLogged;
+    console.log(userLogged.data)
+    return userLogged.data;
   } catch (error: any) {
     const { response } = error;
     const { data } = response;
@@ -97,7 +98,7 @@ const initialState = {
   error: null,
   operationSuccess: false,
   userRegister: null,
-  Userlogged: null,
+  userlogged: null,
   isUserLogged: false,
   loading: false,
 } as AuthState;
@@ -125,8 +126,7 @@ export const authSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
       state.operationSuccess = true;
-      state.Userlogged = action.payload.payload.user;
-      state.isUserLogged = true;
+      state.userlogged = action.payload.payload.user;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = false;
@@ -138,11 +138,13 @@ export const authSlice = createSlice({
     });
     builder.addCase(secret.fulfilled, (state, action) => {
       state.loading = false;
+      state.userlogged = action.payload.payload.user
       state.isUserLogged = true;
     });
     builder.addCase(secret.rejected, (state, action) => {
       state.loading = false;
       state.operationSuccess = false;
+      state.isUserLogged = false;
       state.error = action.payload;
     });
     builder.addCase(logOutUser.pending, (state, action) => {
