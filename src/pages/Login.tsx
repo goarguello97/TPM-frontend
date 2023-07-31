@@ -7,7 +7,7 @@ import Email from "../assets/img/Email.svg";
 import Password from "../assets/img/Password.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
 import useForm from "../hooks/useFormHook";
-import { LOGIN_INITIAL_VALUES } from "../constants";
+import { LOGIN_INITIAL_VALUES } from "../constants/initialValues";
 import { loginUser, resetError } from "../features/Auth/AuthSlice";
 import { validationLogin } from "../helpers/validations";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";

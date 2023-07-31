@@ -9,6 +9,7 @@ import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import PrivateRoute from "./routes/PrivateRoute";
+import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 
 function App() {
   return (
