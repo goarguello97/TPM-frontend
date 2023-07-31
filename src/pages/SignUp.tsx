@@ -6,10 +6,304 @@ import MaskGroup from "../assets/img/MaskGroup.svg";
 import Email from "../assets/img/Email.svg";
 import Password from "../assets/img/Password.svg";
 import User from "../assets/img/User.svg";
+import { CiCalendarDate } from "react-icons/ci";
+import { AiOutlineFlag } from "react-icons/ai";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { useEffect, useState } from "react";
 
 const SignUp = () => {
   const { width } = useMediaQuery();
+  const [page, setPage] = useState(0);
+  const formPagesMobile = [
+    <>
+      <div className="w-input h-[55px] mx-auto mt-[20px] mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="text"
+          name="username"
+          placeholder="username"
+          className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <img
+          src={User}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+      <div className="w-input h-[55px] mx-auto mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="text"
+          name="email"
+          placeholder="email"
+          className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <img
+          src={Email}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+      <div className="w-input h-[55px] mx-auto mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <img
+          src={Password}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+    </>,
+    <>
+      <div className="w-input h-[55px] mx-auto mt-[20px] mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="text"
+          name="name"
+          placeholder="name"
+          className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <img
+          src={User}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+      <div className="w-input h-[55px] mx-auto mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="text"
+          name="lastname"
+          placeholder="lastname"
+          className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <img
+          src={User}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+      <div className="w-input h-[55px] mx-auto mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="text"
+          name="country"
+          placeholder="country"
+          className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <div className="absolute bg-white z-30 w-[32px] h-[32px] rounded-[16px] top-[50%] translate-y-[-50%] left-[11px]">
+          <AiOutlineFlag
+            strokeWidth={40}
+            className="absolute text-title w-[32px] top-[50%] translate-y-[-50%] font-bold"
+          />
+        </div>
+      </div>
+    </>,
+    <>
+      <div className="w-input h-[55px] mx-auto pe-[40px] mt-[20px] mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="date"
+          name="dateOfBirth"
+          placeholder="dateOfBirth"
+          className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <div className="absolute bg-white z-30 w-[32px] h-[32px] rounded-[16px] top-[50%] translate-y-[-50%] left-[11px]">
+          <CiCalendarDate
+            strokeWidth={1}
+            className="absolute text-title w-[32px] top-[50%] translate-y-[-50%] font-bold"
+          />
+        </div>
+      </div>
+      <div className="w-input h-[55px] mx-auto mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative flex justify-start items-center">
+        <div className="ps-[53px] me-[10px] flex justify-center items-center">
+          <label htmlFor="Mentor" className="me-[10px]">
+            Mentor
+          </label>
+          <input type="radio" name="role" value="Mentor" />
+        </div>
+        <div className="flex justify-center items-center">
+          <label htmlFor="Mentee" className="me-[10px]">
+            Mentee
+          </label>
+          <input type="radio" name="role" value="Mentee" checked />
+        </div>
+        <img
+          src={User}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+    </>,
+  ];
+  const formPages = [
+    <>
+      <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="text"
+          name="username"
+          placeholder="username"
+          className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <img
+          src={User}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+      <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="text"
+          name="email"
+          placeholder="email"
+          className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <img
+          src={Email}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+      <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <img
+          src={Password}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+    </>,
+    <>
+      <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="text"
+          name="name"
+          placeholder="name"
+          className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <img
+          src={User}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+      <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="text"
+          name="lastname"
+          placeholder="lastname"
+          className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <img
+          src={User}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+      <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="text"
+          name="country"
+          placeholder="country"
+          className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <div className="absolute bg-white z-30 w-[32px] h-[32px] rounded-[16px] top-[50%] translate-y-[-50%] left-[11px]">
+          <AiOutlineFlag
+            strokeWidth={40}
+            className="absolute text-title w-[32px] top-[50%] translate-y-[-50%] font-bold"
+          />
+        </div>
+      </div>
+    </>,
+    <>
+      <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        <input
+          type="date"
+          name="dateOfBirth"
+          placeholder="dateOfBirth"
+          className="bg-transparent w-input h-[100%] placeholder-title focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+        />
+        <div className="absolute bg-white z-30 w-[32px] h-[32px] rounded-[16px] top-[50%] translate-y-[-50%] left-[11px]">
+          <CiCalendarDate
+            strokeWidth={1}
+            className="absolute text-title w-[32px] top-[50%] translate-y-[-50%] font-bold"
+          />
+        </div>
+      </div>
+      <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative flex justify-start items-center">
+        <div className="ps-[53px] me-[10px] flex justify-center items-center">
+          <label htmlFor="Mentor" className="me-[10px]">
+            Mentor
+          </label>
+          <input type="radio" name="role" value="Mentor" />
+        </div>
+        <div className="flex justify-center items-center">
+          <label htmlFor="Mentee" className="me-[10px]">
+            Mentee
+          </label>
+          <input type="radio" name="role" value="Mentee" checked />
+        </div>
+        <img
+          src={User}
+          alt=""
+          className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
+        />
+      </div>
+    </>,
+  ];
+
+  let itemsMobile = [];
+  let items = [];
+  for (let number = 1; number <= Math.ceil(8 / 3); number++) {
+    if (number < 3) {
+      items.push(
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setPage(page + 1);
+          }}
+          className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mt-[30px] mb-[80px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+        >
+          Next
+        </button>
+      );
+      itemsMobile.push(
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setPage(page + 1);
+          }}
+          className="w-button h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+        >
+          Next
+        </button>
+      );
+    } else {
+      items.push(
+        <button
+          type="submit"
+          className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mt-[30px] mb-[80px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+        >
+          Sign Up
+        </button>
+      );
+      itemsMobile.push(
+        <button
+          type="submit"
+          className="w-button h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+        >
+          Sign Up
+        </button>
+      );
+    }
+  }
+
+  useEffect(() => {}, [page]);
+
+  console.log(page);
   return width < 1024 ? (
     <form className="min-h-100% bg-background relative flex flex-col justify-center items-start">
       <img
@@ -33,17 +327,17 @@ const SignUp = () => {
         </p>
         <div className="w-line border-dashed border-b-2 border-border mx-auto"></div>
 
-        <div className="w-input h-[55px] mx-auto mt-[20px] mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+        {/* <div className="w-input h-[55px] mx-auto mt-[20px] mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
           <input
             type="text"
             name="username"
             placeholder="username"
-            className="bg-transparent w-[100%] h-[100%] placeholder-title  ps-[53px]"
+            className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
           />
           <img
             src={User}
             alt=""
-            className="absolute w-[32px] top-[12px] left-[11px]"
+            className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
           />
         </div>
         <div className="w-input h-[55px] mx-auto mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
@@ -51,12 +345,12 @@ const SignUp = () => {
             type="text"
             name="email"
             placeholder="email"
-            className="bg-transparent w-[100%] h-[100%] placeholder-title  ps-[53px]"
+            className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
           />
           <img
             src={Email}
             alt=""
-            className="absolute w-[32px] top-[12px] left-[11px]"
+            className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
           />
         </div>
         <div className="w-input h-[55px] mx-auto mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
@@ -64,21 +358,23 @@ const SignUp = () => {
             type="password"
             name="password"
             placeholder="password"
-            className="bg-transparent w-[100%] h-[100%] placeholder-title  ps-[53px]"
+            className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
           />
           <img
             src={Password}
             alt=""
-            className="absolute w-[32px] top-[12px] left-[11px]"
+            className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
           />
-        </div>
+        </div> */}
+        {formPagesMobile[page]}
       </div>
-      <button
+      {itemsMobile[page]}
+      {/* <button
         type="submit"
         className="w-button h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
       >
         Sign up
-      </button>
+      </button> */}
     </form>
   ) : (
     <div className="w-[100vw] h-[100vh] bg-background flex justify-center items-center relative z-0">
@@ -119,7 +415,7 @@ const SignUp = () => {
             Sign up
           </p>
           <div className="w-input desktop:w-input-desktop max-w-[323px] h-[0px] border-b-[1px] border-title border-dashed mt-[10px] mb-[30px]"></div>
-          <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative">
+          {/* <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative">
             <input
               type="text"
               name="username"
@@ -129,7 +425,7 @@ const SignUp = () => {
             <img
               src={User}
               alt=""
-              className="absolute w-[32px] top-[7px] left-[11px]"
+              className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
             />
           </div>
           <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative">
@@ -142,7 +438,7 @@ const SignUp = () => {
             <img
               src={Email}
               alt=""
-              className="absolute w-[32px] top-[7px] left-[11px]"
+              className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
             />
           </div>
           <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] bg-transparent border-[1px] border-border rounded-[40px] relative">
@@ -155,15 +451,12 @@ const SignUp = () => {
             <img
               src={Password}
               alt=""
-              className="absolute w-[32px] top-[7px] left-[11px]"
+              className="absolute w-[32px] top-[50%] translate-y-[-50%] left-[11px]"
             />
-          </div>
-          <button
-            type="submit"
-            className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mt-[30px] mb-[80px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
-          >
-            Sign up
-          </button>
+          </div> */}
+          {formPages[page]}
+
+          {items[page]}
         </form>
       </div>
     </div>
