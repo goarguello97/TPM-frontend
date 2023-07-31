@@ -47,7 +47,6 @@ export const loginUser = createAsyncThunk(
 export const secret = createAsyncThunk("SECRET", async (_, thunkApi) => {
   try {
     const userLogged = await axiosInstance.get("/users/me");
-    console.log(userLogged.data);
     return userLogged.data;
   } catch (error: any) {
     const { response } = error;

@@ -6,7 +6,9 @@ import Loader from "../commons/Loader";
 
 const PrivateRoute = ({ children }: any) => {
   const dispatch = useAppDispatch();
-  const { isUserLogged, loading } = useAppSelector((state) => state.auth);
+  const { userLogged, isUserLogged, loading } = useAppSelector(
+    (state) => state.auth
+  );
   const [flag, setFlag] = useState(false);
 
   useEffect(() => {
@@ -15,6 +17,9 @@ const PrivateRoute = ({ children }: any) => {
   }, [flag, isUserLogged]);
 
   if (loading) return <Loader />;
+
+  // Validación para verificar si es la primera vez que ingresa, si es así, te redirige a la vista de perfil para que completes algunos datos.
+//   if (userLogged?.firstTime) return <Navigate to="/profile" />;
 
   return flag ? isUserLogged ? children : <Navigate to="/" /> : <Loader />;
 };
