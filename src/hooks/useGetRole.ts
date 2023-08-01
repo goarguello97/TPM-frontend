@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./useTypedSelector";
 import { getRoles } from "../features/Role/RoleSlice";
-import { ROLE } from "../constants/roles";
 
 const useGetRole = () => {
   const [rolesId, setRolesId] = useState({ MENTEE: "", MENTOR: "", ADMIN: "" });
