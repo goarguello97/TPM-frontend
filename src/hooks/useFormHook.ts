@@ -5,6 +5,7 @@ import { useAppDispatch } from "./useTypedSelector";
 const useForm = (initialValues: any, submit: any, validations: any) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
+  const [role, setRole] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -22,10 +23,17 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
   }, [errors]);
 
   const handleChange = (e: any) => {
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === "role") {
+      setRole(!role);
+      setValues({ ...values, [e.target.name]: e.target.value });
+    } else {
+      setValues({
+        ...values,
+        [e.target.name]: e.target.value,
+      });
+    }
+
+    // console.log(values);
   };
 
   const handleSubmit = async (e: any) => {
@@ -44,6 +52,7 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
     values,
     errors,
     setValues,
+    role,
   };
 };
 

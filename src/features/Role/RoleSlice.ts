@@ -5,7 +5,7 @@ import { RequestResponse, RoleState } from "../../interfaces/role.interfaces";
 export const getRoles = createAsyncThunk("GET_ROLES", async (_, thunkApi) => {
   try {
     const roles: RequestResponse = await axiosInstance.get("/roles/");
-    return roles;
+    return roles.data;
   } catch (error: any) {
     const { response } = error;
     const { data } = response;

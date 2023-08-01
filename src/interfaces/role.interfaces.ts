@@ -11,11 +11,11 @@ interface Role {
 }
 
 export type RequestResponse = {
-  status: string;
-  payload: Payload;
+  data: Data;
 };
 
+type Data = { status: string; payload: Payload };
+
 type Payload = {
-  roles: any;
-  message: any;
+  roles: [any];
 };
