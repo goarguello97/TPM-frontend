@@ -6,9 +6,15 @@ import { CiCalendarDate } from "react-icons/ci";
 import { AiOutlineFlag } from "react-icons/ai";
 import useMediaQuery from "../hooks/useMediaQuery";
 import useGetRole from "../hooks/useGetRole";
+import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
+import { reset } from "../features/Auth/AuthSlice";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
   const { width } = useMediaQuery();
+  const { userRegister } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { rolesId } = useGetRole();
   const [page, setPage] = useState(0);
 
@@ -363,7 +369,14 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
     }
   }
 
-  useEffect(() => {}, [page]);
+  useEffect(() => {
+    if (userRegister) {
+      setTimeout(() => {
+        dispatch(reset());
+        navigate("/login")
+      }, 5000);
+    }
+  }, [page, userRegister]);
 
   return width < 1024 ? (
     <>
@@ -378,15 +391,21 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           ? Object.values(errors).map((error: any, i) => (
               <p
                 key={i}
-                className="w-full h-[22.5px] ms-[39px] mb-[10px] text-[14px] text-error font-bold"
+                className="w-input h-[22.5px] mx-auto mb-[10px] text-start text-[14px] text-error font-bold"
               >
                 {error}
               </p>
             ))
           : null}
         {error ? (
-          <p className="w-full h-[22.5px] ms-[39px] mb-[10px] text-[14px] text-error font-bold">
+          <p className="w-input h-[22.5px] mx-auto mb-[10px] text-start text-[14px] text-error font-bold">
             {error}
+          </p>
+        ) : null}
+        {userRegister ? (
+          <p className="w-input h-[22.5px] mx-auto mb-[10px] text-start text-[14px] text-loader font-bold">
+            Successful registration. You must activate your account, check your
+            email inbox.
           </p>
         ) : null}
       </div>
@@ -414,17 +433,24 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
         ? Object.values(errors).map((error: any, i) => (
             <p
               key={i}
-              className="mt-[15px] text-error text-[14px] font-bold leading-[18px]"
+              className="w-input max-w-[323px] mt-[15px] text-error text-[14px] font-bold leading-[18px]"
             >
               {error}
             </p>
           ))
         : null}
       {error ? (
-        <p className="mt-[15px] text-error text-[14px] font-bold leading-[18px]">
+        <p className="w-input max-w-[323px] mt-[15px] text-error text-[14px] font-bold leading-[18px]">
           {error}
         </p>
       ) : null}
+      {userRegister ? (
+        <p className="w-input max-w-[323px] mt-[15px] text-loader text-[14px] font-bold leading-[18px]">
+          Successful registration. You must activate your account, check your
+          email inbox.
+        </p>
+      ) : null}
+
       <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mt-[30px] mb-[80px] flex justify-between items-center">
         {page > 0 ? (
           <button

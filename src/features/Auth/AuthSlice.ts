@@ -82,20 +82,17 @@ export const verifyUser = createAsyncThunk("VERIFY", async (data, thunkApi) => {
   }
 });
 
-export const resetError = createAsyncThunk(
-  "RESET_ERROR",
-  async (_, thunkApi) => {
-    try {
-      return null;
-    } catch (error) {
-      return thunkApi.rejectWithValue("Impossible to reset error.");
-    }
+export const reset = createAsyncThunk("RESET_ERROR", async (_, thunkApi) => {
+  try {
+    return null;
+  } catch (error) {
+    return thunkApi.rejectWithValue("Impossible to reset error.");
   }
-);
+});
 
 const initialState = {
   error: null,
-  operationSuccess: false,
+  operationSuccess: null,
   userRegister: null,
   userLogged: null,
   isUserLogged: false,
@@ -113,7 +110,7 @@ export const authSlice = createSlice({
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.loading = false;
       state.operationSuccess = true;
-      state.userRegister = action.payload.payload.message;
+      state.userRegister = action.payload.status;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.loading = false;
@@ -129,7 +126,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = false;
-      state.operationSuccess = false;
+      state.operationSuccess = null;
       state.error = action.payload;
     });
     builder.addCase(secret.pending, (state, action) => {
@@ -170,14 +167,16 @@ export const authSlice = createSlice({
       state.operationSuccess = false;
       state.error = action.payload;
     });
-    builder.addCase(resetError.pending, (state, action) => {
+    builder.addCase(reset.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(resetError.fulfilled, (state, action) => {
+    builder.addCase(reset.fulfilled, (state, action) => {
       state.loading = false;
       state.error = action.payload;
+      state.userRegister = action.payload;
+      state.operationSuccess = action.payload
     });
-    builder.addCase(resetError.rejected, (state, action) => {
+    builder.addCase(reset.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
