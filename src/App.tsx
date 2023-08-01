@@ -30,7 +30,7 @@ function App() {
         <Route path="/stadistics" element={<Stadistics />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/auth/:token" element={<Auth />} />
       </Routes>
     </Router>
   );

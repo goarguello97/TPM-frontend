@@ -68,7 +68,7 @@ export const logOutUser = createAsyncThunk("LOGOUT", async (_, thunkApi) => {
   }
 });
 
-export const verifyUser = createAsyncThunk("VERIFY", async (data, thunkApi) => {
+export const verifyUser = createAsyncThunk("VERIFY", async (data:string | undefined, thunkApi) => {
   try {
     const verifiedUser: RequestResponse = await axiosInstance.get(
       `/users/verify/${data}`
