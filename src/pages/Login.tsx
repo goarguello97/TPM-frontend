@@ -12,6 +12,7 @@ import { loginUser, reset } from "../features/Auth/AuthSlice";
 import { validationLogin } from "../helpers/validations";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { width } = useMediaQuery();
@@ -20,8 +21,9 @@ const Login = () => {
     loginUser,
     validationLogin
   );
-  const { error } = useAppSelector((state) => state.auth);
+  const { operationSuccess, error } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (error) {
@@ -29,7 +31,10 @@ const Login = () => {
         dispatch(reset());
       }, 5000);
     }
-  }, [error]);
+    if (operationSuccess) {
+      navigate("/users");
+    }
+  }, [error, operationSuccess]);
 
   return width < 1024 ? (
     <form
