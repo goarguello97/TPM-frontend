@@ -32,7 +32,7 @@ const Navbar = () => {
       setVisible(true);
     }
   }, [pathname]);
-
+  console.log(pathname)
   return visible ? (
     width < 1024 ? (
       <div className="fixed bottom-[0px] w-[100vw] h-[82px] fold-horizontal:h-[47px] bg-navbar rounded-t-[40px] flex justify-between z-10">

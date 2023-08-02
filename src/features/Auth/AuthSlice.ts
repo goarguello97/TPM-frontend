@@ -68,19 +68,22 @@ export const logOutUser = createAsyncThunk("LOGOUT", async (_, thunkApi) => {
   }
 });
 
-export const verifyUser = createAsyncThunk("VERIFY", async (data, thunkApi) => {
-  try {
-    const verifiedUser: RequestResponse = await axiosInstance.get(
-      `/users/verify/${data}`
-    );
-    return verifiedUser;
-  } catch (error: any) {
-    const { response } = error;
-    const { data } = response;
-    const { errors } = data;
-    return thunkApi.rejectWithValue(errors[0].msg);
+export const verifyUser = createAsyncThunk(
+  "VERIFY",
+  async (data: string | undefined, thunkApi) => {
+    try {
+      const verifiedUser: RequestResponse = await axiosInstance.get(
+        `/users/verify/${data}`
+      );
+      return verifiedUser;
+    } catch (error: any) {
+      const { response } = error;
+      const { data } = response;
+      const { payload } = data;
+      return thunkApi.rejectWithValue(payload.message);
+    }
   }
-});
+);
 
 export const reset = createAsyncThunk("RESET_ERROR", async (_, thunkApi) => {
   try {
@@ -174,7 +177,7 @@ export const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
       state.userRegister = action.payload;
-      state.operationSuccess = action.payload
+      state.operationSuccess = action.payload;
     });
     builder.addCase(reset.rejected, (state, action) => {
       state.loading = false;
