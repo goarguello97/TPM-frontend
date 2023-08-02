@@ -19,7 +19,7 @@ const Auth = () => {
     if (operationSuccess) {
       setTimeout(() => {
         dispatch(reset());
-        // navigate("/login");
+        navigate("/login");
       }, 5000);
     }
   }, [operationSuccess, error]);
