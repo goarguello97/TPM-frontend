@@ -10,11 +10,14 @@ import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import PrivateRoute from "./routes/PrivateRoute";
 import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
+import ShowNavBar from "./routes/ShowNavBar";
 
 function App() {
   return (
     <Router>
-      <Navbar />
+      <ShowNavBar>
+        <Navbar />
+      </ShowNavBar>
       <Routes>
         <Route path="/" element={<OnBoarding />} />
         <Route path="/login" element={<Login />} />
