@@ -25,6 +25,8 @@ module.exports = {
         "bg-verified": "rgba(57, 181, 74, 0.1)",
         "bar-unverified": "#E61587",
         "bar-verified": "#39B54A",
+        error: "#C84630",
+        loader: "#3f88c5",
       },
       width: {
         button: "calc(100vw - 60px)",

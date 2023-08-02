@@ -15,7 +15,7 @@ export const registerUser = createAsyncThunk(
         "/users/register",
         data
       );
-      return registerUser;
+      return registerUser.data;
     } catch (error: any) {
       const { response } = error;
       const { data } = response;
@@ -33,12 +33,13 @@ export const loginUser = createAsyncThunk(
         "/users/login",
         data
       );
-      return loginUser;
+      return loginUser.data;
     } catch (error: any) {
+      console.log(error);
       const { response } = error;
       const { data } = response;
-      const { errors } = data;
-      return thunkApi.rejectWithValue(errors[0].msg);
+      const { payload } = data;
+      return thunkApi.rejectWithValue(payload.message);
     }
   }
 );
@@ -46,7 +47,8 @@ export const loginUser = createAsyncThunk(
 export const secret = createAsyncThunk("SECRET", async (_, thunkApi) => {
   try {
     const userLogged = await axiosInstance.get("/users/me");
-    return userLogged;
+    console.log(userLogged.data);
+    return userLogged.data;
   } catch (error: any) {
     const { response } = error;
     const { data } = response;
@@ -69,7 +71,9 @@ export const logOutUser = createAsyncThunk("LOGOUT", async (_, thunkApi) => {
 
 export const verifyUser = createAsyncThunk("VERIFY", async (data, thunkApi) => {
   try {
-    const verifiedUser: RequestResponse = await axiosInstance.get(`/users/verify/${data}`);
+    const verifiedUser: RequestResponse = await axiosInstance.get(
+      `/users/verify/${data}`
+    );
     return verifiedUser;
   } catch (error: any) {
     const { response } = error;
@@ -79,11 +83,22 @@ export const verifyUser = createAsyncThunk("VERIFY", async (data, thunkApi) => {
   }
 });
 
+export const resetError = createAsyncThunk(
+  "RESET_ERROR",
+  async (_, thunkApi) => {
+    try {
+      return null;
+    } catch (error) {
+      return thunkApi.rejectWithValue("Impossible to reset error.");
+    }
+  }
+);
+
 const initialState = {
   error: null,
   operationSuccess: false,
   userRegister: null,
-  Userlogged: null,
+  userLogged: null,
   isUserLogged: false,
   loading: false,
 } as AuthState;
@@ -111,7 +126,7 @@ export const authSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
       state.operationSuccess = true;
-      state.Userlogged = action.payload.payload.user;
+      state.userLogged = action.payload.payload.user;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = false;
@@ -123,11 +138,13 @@ export const authSlice = createSlice({
     });
     builder.addCase(secret.fulfilled, (state, action) => {
       state.loading = false;
+      state.userLogged = action.payload.payload.user;
       state.isUserLogged = true;
     });
     builder.addCase(secret.rejected, (state, action) => {
       state.loading = false;
       state.operationSuccess = false;
+      state.isUserLogged = false;
       state.error = action.payload;
     });
     builder.addCase(logOutUser.pending, (state, action) => {
@@ -152,6 +169,17 @@ export const authSlice = createSlice({
     builder.addCase(verifyUser.rejected, (state, action) => {
       state.loading = false;
       state.operationSuccess = false;
+      state.error = action.payload;
+    });
+    builder.addCase(resetError.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(resetError.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(resetError.rejected, (state, action) => {
+      state.loading = false;
       state.error = action.payload;
     });
   },

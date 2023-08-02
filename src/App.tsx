@@ -8,6 +8,8 @@ import Stadistics from "./pages/Stadistics";
 import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
+import PrivateRoute from "./routes/PrivateRoute";
+import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 
 function App() {
   return (
@@ -17,7 +19,14 @@ function App() {
         <Route path="/" element={<OnBoarding />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
-        <Route path="/users" element={<Users />} />
+        <Route
+          path="/users"
+          element={
+            <PrivateRoute>
+              <Users />
+            </PrivateRoute>
+          }
+        />
         <Route path="/stadistics" element={<Stadistics />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/profile" element={<Profile />} />
