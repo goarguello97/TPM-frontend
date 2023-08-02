@@ -8,7 +8,7 @@ import Password from "../assets/img/Password.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
 import useForm from "../hooks/useFormHook";
 import { LOGIN_INITIAL_VALUES } from "../constants/initialValues";
-import { loginUser, resetError } from "../features/Auth/AuthSlice";
+import { loginUser, reset } from "../features/Auth/AuthSlice";
 import { validationLogin } from "../helpers/validations";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
 import { useEffect } from "react";
@@ -26,7 +26,7 @@ const Login = () => {
   useEffect(() => {
     if (error) {
       setTimeout(() => {
-        dispatch(resetError());
+        dispatch(reset());
       }, 5000);
     }
   }, [error]);

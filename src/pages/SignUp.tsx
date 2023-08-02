@@ -3,15 +3,33 @@ import Doodle from "../assets/img/Doodle.svg";
 import Doodle2 from "../assets/img/Doodle2.svg";
 import Doodle4 from "../assets/img/Doodle4.svg";
 import MaskGroup from "../assets/img/MaskGroup.svg";
-import Email from "../assets/img/Email.svg";
-import Password from "../assets/img/Password.svg";
-import User from "../assets/img/User.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { useEffect } from "react";
+import useForm from "../hooks/useFormHook";
+import { REGISTER_INITIAL_VALUES } from "../constants/initialValues";
+import { registerUser } from "../features/Auth/AuthSlice";
+import { validationRegister } from "../helpers/validations";
+import { useAppSelector } from "../hooks/useTypedSelector";
+import useGetRole from "../hooks/useGetRole";
+import RegisterForm from "../commons/RegisterForm";
 
 const SignUp = () => {
   const { width } = useMediaQuery();
+  const { rolesId } = useGetRole();
+  const { values, handleChange, handleSubmit, role, errors } = useForm(
+    { ...REGISTER_INITIAL_VALUES, role: rolesId.MENTOR },
+    registerUser,
+    validationRegister
+  );
+  const { error } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {}, [rolesId]);
+
   return width < 1024 ? (
-    <form className="min-h-100% bg-background relative flex flex-col justify-center items-start">
+    <form
+      onSubmit={handleSubmit}
+      className="min-h-100% bg-background relative flex flex-col justify-center items-start"
+    >
       <img
         className="absolute w-[182.44px] top-[72px] right-[29px] rotate-doodle z-1 "
         src={Doodle}
@@ -27,66 +45,26 @@ const SignUp = () => {
         src={Logo}
         alt="The Perfect Mentor"
       />
-      <div className="bg-background w-sign-in h-[361px] border-[2px] mt-[20.58px] mb-[25px] mx-auto border-button rounded-[40px] z-10 flex flex-col ">
-        <p className="text-title font-bold text-[30px] ms-[25px] mt-[30px] mb-[12px]">
-          Sign in
-        </p>
-        <div className="w-line border-dashed border-b-2 border-border mx-auto"></div>
-
-        <div className="w-input h-[55px] mx-auto mt-[20px] mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
-          <input
-            type="text"
-            name="username"
-            placeholder="username"
-            className="bg-transparent w-[100%] h-[100%] placeholder-title  ps-[53px]"
-          />
-          <img
-            src={User}
-            alt=""
-            className="absolute w-[32px] top-[12px] left-[11px]"
-          />
-        </div>
-        <div className="w-input h-[55px] mx-auto mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
-          <input
-            type="text"
-            name="email"
-            placeholder="email"
-            className="bg-transparent w-[100%] h-[100%] placeholder-title  ps-[53px]"
-          />
-          <img
-            src={Email}
-            alt=""
-            className="absolute w-[32px] top-[12px] left-[11px]"
-          />
-        </div>
-        <div className="w-input h-[55px] mx-auto mb-[15px] bg-transparent border-[1px] border-border rounded-[40px] relative">
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            className="bg-transparent w-[100%] h-[100%] placeholder-title  ps-[53px]"
-          />
-          <img
-            src={Password}
-            alt=""
-            className="absolute w-[32px] top-[12px] left-[11px]"
-          />
-        </div>
-      </div>
-      <button
-        type="submit"
-        className="w-button h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
-      >
-        Sign up
-      </button>
+      <RegisterForm
+        values={values}
+        handleChange={handleChange}
+        role={role}
+        errors={errors}
+        error={error}
+      />
     </form>
   ) : (
     <div className="w-[100vw] h-[100vh] bg-background flex justify-center items-center relative z-0">
-      <div className="w-container-desktop h-[479px] bg-transparent border-[2px] border-[#444444] rounded-[40px] flex justify-center items-center relative z-10">
+      <div className="w-container-desktop min-h-[479px] h-auto bg-transparent border-[2px] border-[#444444] rounded-[40px] flex justify-center items-center relative z-10">
         <img
           src={MaskGroup}
           alt="MaskGroup"
           className="w-[228px] absolute left-[5%] top-[0%] translate-x-[-50%] translate-y-[-50%] z-20"
+        />
+        <img
+          src={Logo}
+          alt="Logo"
+          className="w-[200.62px] absolute top-[-122.83px] left-[50%] xl:left-[50%] translate-x-[-50%] xl:translate-x-0 z-30"
         />
         <div className="hidden xl:block xl:w-[50%] h-[100%] relative">
           {/* <div className="w-[204.46px] h-[204.46px] bg-doodle4 bg-no-repeat bg-contain absolute bottom-[0%] left-[0%] translate-x-[-50%] translate-y-[-50%] z-40"></div> */}
@@ -109,61 +87,20 @@ const SignUp = () => {
           </div>
         </div>
         <div className="hidden xl:block w-0 h-[416px] border-title border-[1px]"></div>
-        <form className="w-[100%] xl:w-[50%] h-[100%] xl:ps-[50px] flex flex-col items-center xl:items-start justify-center relative">
-          <img
-            src={Logo}
-            alt="Logo"
-            className="w-[200.62px] absolute top-[-132.83px] left-[50%] xl:left-[50px] translate-x-[-50%] xl:translate-x-0 z-30"
-          />
+        <form
+          onSubmit={handleSubmit}
+          className="w-[100%] xl:w-[50%] h-[100%] xl:ps-[50px] flex flex-col items-center xl:items-start justify-center relative"
+        >
           <p className="w-[162px] mt-[30px] text-title text-[40px] font-extrabold leading-[59px] z-30">
             Sign up
           </p>
-          <div className="w-input desktop:w-input-desktop max-w-[323px] h-[0px] border-b-[1px] border-title border-dashed mt-[10px] mb-[30px]"></div>
-          <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative">
-            <input
-              type="text"
-              name="username"
-              placeholder="username"
-              className="bg-transparent w-input h-[100%] placeholder-title ps-[53px]"
-            />
-            <img
-              src={User}
-              alt=""
-              className="absolute w-[32px] top-[7px] left-[11px]"
-            />
-          </div>
-          <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mb-[10px] bg-transparent border-[1px] border-border rounded-[40px] relative">
-            <input
-              type="text"
-              name="email"
-              placeholder="email"
-              className="bg-transparent w-input h-[100%] placeholder-title  ps-[53px]"
-            />
-            <img
-              src={Email}
-              alt=""
-              className="absolute w-[32px] top-[7px] left-[11px]"
-            />
-          </div>
-          <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] bg-transparent border-[1px] border-border rounded-[40px] relative">
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              className="bg-transparent w-input h-[100%] placeholder-title  ps-[53px]"
-            />
-            <img
-              src={Password}
-              alt=""
-              className="absolute w-[32px] top-[7px] left-[11px]"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mt-[30px] mb-[80px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
-          >
-            Sign up
-          </button>
+          <RegisterForm
+            values={values}
+            handleChange={handleChange}
+            role={role}
+            errors={errors}
+            error={error}
+          />
         </form>
       </div>
     </div>
