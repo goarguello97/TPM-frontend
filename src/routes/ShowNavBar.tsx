@@ -13,7 +13,11 @@ const ShowNavBar = ({ children }: any) => {
       setShowNavBar(false);
     } else if (pathname == PATH.REGISTER) {
       setShowNavBar(false);
-    } else if (pathname.slice(0,5) == PATH.AUTH) {
+    } else if (pathname.includes(PATH.AUTH)) {
+      setShowNavBar(false);
+    } else if (pathname == PATH.RECOVER) {
+      setShowNavBar(false);
+    } else if (pathname.includes(PATH.CHANGE_PASSWORD)) {
       setShowNavBar(false);
     } else {
       setShowNavBar(true);

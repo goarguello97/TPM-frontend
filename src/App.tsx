@@ -11,6 +11,8 @@ import Auth from "./pages/Auth";
 import PrivateRoute from "./routes/PrivateRoute";
 import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 import ShowNavBar from "./routes/ShowNavBar";
+import ForgotPass from "./pages/ForgotPass";
+import ChangePass from "./pages/ChangePass";
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
         <Route path="/reports" element={<Reports />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/auth/:token" element={<Auth />} />
+        <Route path="/recover-password" element={<ForgotPass />} />
+        <Route path="/change-password/:token" element={<ChangePass />} />
       </Routes>
     </Router>
   );

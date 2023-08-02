@@ -1,3 +1,4 @@
+import { error } from "console";
 import { AuthLogin } from "../interfaces/auth.interfaces";
 import { ErrorInterface } from "../interfaces/validations.interfaces";
 
@@ -34,7 +35,7 @@ export const validationRegister = (values: any) => {
   let passwordRegex = new RegExp(
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
   );
-  let dateRegex = new RegExp(/^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/)
+  let dateRegex = new RegExp(/^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/);
 
   if (!values.name) {
     errors.name = "The name is required.";
@@ -99,8 +100,8 @@ export const validationRegister = (values: any) => {
 
   if (!values.dateOfBirth) {
     errors.dateOfBirth = "The date of birth is required.";
-  }else if(!dateRegex.test(values.dateOfBirth)){
-    errors.dateOfBirth = "The date of birth is invalid."
+  } else if (!dateRegex.test(values.dateOfBirth)) {
+    errors.dateOfBirth = "The date of birth is invalid.";
   }
 
   if (!values.role) {
@@ -109,3 +110,36 @@ export const validationRegister = (values: any) => {
 
   return errors;
 };
+
+export const validationRecoverPass = (values: any) => {
+  let errors = {} as ErrorInterface;
+  let emailRegex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
+
+  if (!values.email) {
+    errors.email = "Email is required.";
+  } else if (!emailRegex.test(values.email)) {
+    errors.email = "The email is not valid.";
+  }
+
+  return errors;
+};
+
+export const validationPass = (values:any)=>{
+  let errors = {} as ErrorInterface;
+  let passwordRegex = new RegExp(
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+  );
+
+  if (!values.password) {
+    errors.password = "The password is required.";
+  } else if (!passwordRegex.test(values.password)) {
+    errors.password =
+      "The password is invalid. It must contain a capital letter, a number and a special character.";
+  } else if (values.password.length < 8) {
+    errors.password = "The password must have at least 8 characters.";
+  } else if (values.password.length > 30) {
+    errors.password = "The password must not have more than 30 characters.";
+  }
+  
+  return errors
+}
