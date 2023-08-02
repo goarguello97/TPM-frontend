@@ -14,11 +14,16 @@ interface User {
   email: string;
   password: string;
   mentor: any[];
-  role: string;
+  role: Role;
   md: any[];
   matchReq: string[];
   matchSend: string[];
   match: string[];
   verify: boolean;
   skills: any[];
+}
+
+interface Role {
+  _id: string;
+  role: string;
 }

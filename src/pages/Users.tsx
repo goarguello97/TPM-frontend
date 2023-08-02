@@ -8,9 +8,21 @@ import Edit from "../assets/img/Edit.svg";
 import Dots from "../assets/img/Dots.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
 import RowTableUser from "../commons/RowTableUser";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
+import { getUsers } from "../features/User/UserSlice";
 
 const Users = () => {
   const { width } = useMediaQuery();
+  const { users, error, loading } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!users) {
+      dispatch(getUsers());
+    }
+  }, [loading]);
+
   return width < 1024 ? (
     <div className="h-[100vh] bg-[#F5F6F7] relative">
       <div className="w-[100vw] h-[137px] fold-horizontal:h-[90px] bg-background top-0 rounded-br-[45px] absolute flex flex-col">
@@ -315,92 +327,18 @@ const Users = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y-[6px] divide-white">
-                <tr className="bg-bg-unverified h-[55.63px]">
-                  <td className="ps-[34px] relative text-[14px] font-normal text-title">
-                    <div className="absolute w-[4px] h-[40px] bg-bar-unverified rounded-r-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
-                    Michael David
-                  </td>
-                  <td className="text-[14px] font-bold text-title">25</td>
-                  <td className="text-[14px] font-bold text-title">
-                    ma.da@gmail.com
-                  </td>
-                  <td className="text-[14px] font-bold text-title">Mentor</td>
-                  <td className="text-[14px] font-bold text-title">
-                    Jan 13, 2022
-                  </td>
-                  <td className="relative">
-                    <div className="bg-unverified w-[82px] h-[20px] rounded-[40px] flex items-center justify-center">
-                      <p className="text-bar-unverified text-[12px] w-[54px] h-[18px] font-normal leading-normal ">
-                        Unverified{" "}
-                      </p>
-                      <img
-                        src={Unverified}
-                        alt="Unverified"
-                        className="w-[6px] ms-[5px]"
-                      />
-                    </div>
-                    <img
-                      src={Edit}
-                      alt="Edit"
-                      className="absolute right-[19px] top-[50%] translate-y-[-50%]"
+                {users &&
+                  users.map((user) => (
+                    <RowTableUser
+                      key={user._id}
+                      name={`${user.name} ${user.lastname}`}
+                      age="25"
+                      email={user.email}
+                      role={user.role.role}
+                      joinedDate="Jan 13, 2022"
+                      status={user.verify}
                     />
-                  </td>
-                </tr>
-                <tr className="bg-bg-verified h-[55.63px]">
-                  <td className="ps-[34px] relative text-[14px] font-normal text-title">
-                    <div className="absolute w-[4px] h-[40px] bg-bar-verified rounded-r-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
-                    Micaela Tamos
-                  </td>
-                  <td className="text-[14px] font-bold text-title">25</td>
-                  <td className="text-[14px] font-bold text-title">
-                    micatamos@gmail.com
-                  </td>
-                  <td className="text-[14px] font-bold text-title">Mentor</td>
-                  <td className="text-[14px] font-bold text-title">
-                    Jan 13, 2022
-                  </td>
-                  <td className="relative">
-                    <div className="bg-verified w-[70px] h-[20px] rounded-[40px] flex items-center justify-center">
-                      <p className="text-bar-verified text-[12px] w-[42px] h-[18px] font-normal leading-normal ">
-                        Verified{" "}
-                      </p>
-                      <img
-                        src={Verified}
-                        alt="Verified"
-                        className="w-[6px] ms-[5px]"
-                      />
-                    </div>
-                    <img
-                      src={Edit}
-                      alt="Edit"
-                      className="absolute right-[19px] top-[50%] translate-y-[-50%]"
-                    />
-                  </td>
-                </tr>
-                <RowTableUser
-                  name="Amanda Levete"
-                  age="22"
-                  email="ama_levete@gmail.com"
-                  role="Mentee"
-                  joinedDate="Jan 13, 2022"
-                  status={true}
-                />
-                <RowTableUser
-                  name="Franco González"
-                  age="23"
-                  email="frango@gmail.com"
-                  role="Mentee"
-                  joinedDate="Jan 13, 2022"
-                  status={false}
-                />
-                <RowTableUser
-                  name="Justín Cieber"
-                  age="19"
-                  email="cieber_justin@gmail.com"
-                  role="Mentee"
-                  joinedDate="Jan 13, 2022"
-                  status={true}
-                />
+                  ))}
               </tbody>
               <tfoot className="h-[40px]">
                 <tr>

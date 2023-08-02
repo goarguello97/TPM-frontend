@@ -24,14 +24,7 @@ function App() {
         <Route path="/" element={<OnBoarding />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
-        <Route
-          path="/users"
-          element={
-            <PrivateRoute>
-              <Users />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/users" element={<Users />} />
         <Route path="/stadistics" element={<Stadistics />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/profile" element={<Profile />} />
