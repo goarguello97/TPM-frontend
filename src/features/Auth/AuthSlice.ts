@@ -93,6 +93,60 @@ export const reset = createAsyncThunk("RESET_ERROR", async (_, thunkApi) => {
   }
 });
 
+export const recoverPassword = createAsyncThunk(
+  "RECOVER_PASS",
+  async (data, thunkApi) => {
+    try {
+      const requestResult = await axiosInstance.post(
+        "/users/recover-pass",
+        data
+      );
+      return requestResult.data;
+    } catch (error: any) {
+      const { response } = error;
+      const { data } = response;
+      const { payload } = data;
+      return thunkApi.rejectWithValue(payload);
+    }
+  }
+);
+
+export const autorizeChangePassword = createAsyncThunk(
+  "AUTH_CHANGE_PASS",
+  async (data: string | undefined, thunkApi) => {
+    try {
+      const requestResult = await axiosInstance.get(
+        `/users/access-pass/${data}`
+      );
+      console.log(requestResult.data);
+      return requestResult.data;
+    } catch (error: any) {
+      const { response } = error;
+      const { data } = response;
+      const { payload } = data;
+      return thunkApi.rejectWithValue(payload.message);
+    }
+  }
+);
+
+export const updatePassword = createAsyncThunk(
+  "UPDATE_PASS",
+  async (data, thunkApi) => {
+    try {
+      const updateResult = await axiosInstance.patch(
+        "/users/change-pass",
+        data
+      );
+      return updateResult.data;
+    } catch (error: any) {
+      const { response } = error;
+      const { data } = response;
+      const { payload } = data;
+      return thunkApi.rejectWithValue(payload.message);
+    }
+  }
+);
+
 const initialState = {
   error: null,
   operationSuccess: null,
@@ -100,6 +154,7 @@ const initialState = {
   userLogged: null,
   isUserLogged: false,
   loading: false,
+  message: null,
 } as AuthState;
 
 export const authSlice = createSlice({
@@ -178,8 +233,47 @@ export const authSlice = createSlice({
       state.error = action.payload;
       state.userRegister = action.payload;
       state.operationSuccess = action.payload;
+      state.message = action.payload;
     });
     builder.addCase(reset.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(recoverPassword.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(recoverPassword.fulfilled, (state, action) => {
+      state.loading = false;
+      state.message = action.payload.payload.message;
+      state.operationSuccess = true;
+    });
+    builder.addCase(recoverPassword.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(autorizeChangePassword.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(autorizeChangePassword.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userLogged = action.payload.payload.user;
+      state.operationSuccess = true;
+      state.error = null;
+    });
+    builder.addCase(autorizeChangePassword.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(updatePassword.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updatePassword.fulfilled, (state, action) => {
+      state.loading = false;
+      state.operationSuccess = true;
+      state.message = action.payload.payload.message;
+      state.error = null;
+    });
+    builder.addCase(updatePassword.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });

@@ -19,6 +19,7 @@ export interface AuthState {
   userLogged: any;
   isUserLogged: boolean;
   loading: boolean;
+  message: any;
 }
 
 export type RequestResponse = {
