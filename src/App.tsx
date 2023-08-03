@@ -13,8 +13,24 @@ import PrivateRouteAdmin from "./routes/PrivateRouteAdmin";
 import ShowNavBar from "./routes/ShowNavBar";
 import ForgotPass from "./pages/ForgotPass";
 import ChangePass from "./pages/ChangePass";
+import { useAppDispatch, useAppSelector } from "./hooks/useTypedSelector";
+import { useEffect, useState } from "react";
+import { secret } from "./features/Auth/AuthSlice";
 
 function App() {
+  const { userLogged, loading } = useAppSelector((state) => state.auth);
+  const [flag, setFlag] = useState(true);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!userLogged) {
+      if (flag) {
+        setFlag(false);
+        dispatch(secret());
+      }
+    }
+  }, [userLogged, loading]);
+
   return (
     <Router>
       <ShowNavBar>

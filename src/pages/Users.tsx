@@ -11,6 +11,7 @@ import RowTableUser from "../commons/RowTableUser";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
 import { getUsers } from "../features/User/UserSlice";
+import CardUserMobile from "../commons/CardUserMobile";
 
 const Users = () => {
   const { width } = useMediaQuery();
@@ -77,7 +78,7 @@ const Users = () => {
         {/* Tarjetas de personas */}
         {users &&
           users.map((user) => (
-            <RowTableUser
+            <CardUserMobile
               key={user._id}
               name={`${user.name} ${user.lastname}`}
               age="25"
