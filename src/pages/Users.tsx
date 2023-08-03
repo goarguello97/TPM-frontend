@@ -75,177 +75,18 @@ const Users = () => {
         </div>
 
         {/* Tarjetas de personas */}
-        {/* No verificado */}
-        <div className="w-person h-[102px] min-h-[102px] bg-unverified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
-          <div className="flex bg-bg-unverified default:text-[12px] fold:text-[9px] text-[#E61587] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
-            Unverified
-            <img
-              src={Unverified}
-              alt="Unverified"
-              className="ms-[5px] w-[6px]"
+        {users &&
+          users.map((user) => (
+            <RowTableUser
+              key={user._id}
+              name={`${user.name} ${user.lastname}`}
+              age="25"
+              email={user.email}
+              role={user.role.role}
+              joinedDate="Jan 13, 2022"
+              status={user.verify}
             />
-          </div>
-          <img
-            src={Edit}
-            alt="Edit"
-            className="absolute w-[32px] right-[15px] top-[65%] translate-y-[-50%]"
-          />
-          <p className="font-bold default:text-[14px] fold:text-[11px]">
-            Michael David | age 25 <br />
-            Email: <span className="font-normal">ma.da@gmail.com</span> <br />
-            Role: <span className="font-normal">Mentor</span> <br />
-            Joined Date: <span className="font-normal">Jan 13, 2022</span>
-          </p>
-          <div className="absolute w-[4px] h-[60px] bg-bar-unverified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
-        </div>
-        {/* Verificado */}
-        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
-          <div className="flex bg-bg-verified max-h-[55.63px] default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
-            Verified
-            <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
-          </div>
-          <img
-            src={Edit}
-            alt="Edit"
-            className="absolute opacity-25 fill-white w-[32px] right-[15px] top-[65%] translate-y-[-50%]"
-          />
-          <p className="font-bold default:text-[14px] fold:text-[11px]">
-            Micaela Tamos | age 30 <br />
-            Email: <span className="font-normal">micatamos@gmail.com</span>{" "}
-            <br />
-            Role: <span className="font-normal">Mentor</span> <br />
-            Joined Date: <span className="font-normal">Jan 13, 2022</span>
-          </p>
-          <div className="absolute w-[4px] h-[60px] bg-bar-verified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
-        </div>
-        {/* Ejemplos */}
-        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
-          <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
-            Verified
-            <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
-          </div>
-          <img
-            src={Edit}
-            alt="Edit"
-            className="absolute w-[32px] right-[15px] top-[65%] translate-y-[-50%]"
-          />
-          <p className="font-bold default:text-[14px] fold:text-[11px]">
-            Amanda Levete | age 22 <br />
-            Email: <span className="font-normal">
-              ama_levete@gmail.com
-            </span>{" "}
-            <br />
-            Role: <span className="font-normal">Mentee</span> <br />
-            Joined Date: <span className="font-normal">Jan 13, 2022</span>
-          </p>
-          <div className="absolute w-[4px] h-[60px] bg-bar-verified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
-        </div>
-        <div className="w-person h-[102px] min-h-[102px] bg-unverified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
-          <div className="flex bg-bg-unverified default:text-[12px] fold:text-[9px] text-[#E61587] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
-            Unverified
-            <img
-              src={Unverified}
-              alt="Unverified"
-              className="ms-[5px] w-[6px]"
-            />
-          </div>
-          <img
-            src={Edit}
-            alt="Edit"
-            className="absolute w-[32px] right-[15px] top-[65%] translate-y-[-50%]"
-          />
-          <p className="font-bold default:text-[14px] fold:text-[11px]">
-            Franco González | age 33 <br />
-            Email: <span className="font-normal">frango@gmail.com</span> <br />
-            Role: <span className="font-normal">Mentor</span> <br />
-            Joined Date: <span className="font-normal">Jan 13, 2022</span>
-          </p>
-          <div className="absolute w-[4px] h-[60px] bg-bar-unverified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
-        </div>
-        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
-          <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
-            Verified
-            <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
-          </div>
-          <img
-            src={Edit}
-            alt="Edit"
-            className="absolute w-[32px] right-[15px] top-[65%] translate-y-[-50%]"
-          />
-          <p className="font-bold default:text-[14px] fold:text-[11px]">
-            Amanda Levete | age 22 <br />
-            Email: <span className="font-normal">
-              ama_levete@gmail.com
-            </span>{" "}
-            <br />
-            Role: <span className="font-normal">Mentee</span> <br />
-            Joined Date: <span className="font-normal">Jan 13, 2022</span>
-          </p>
-          <div className="absolute w-[4px] h-[60px] bg-bar-verified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
-        </div>
-        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
-          <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
-            Verified
-            <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
-          </div>
-          <img
-            src={Edit}
-            alt="Edit"
-            className="absolute w-[32px] right-[15px] top-[65%] translate-y-[-50%]"
-          />
-          <p className="font-bold default:text-[14px] fold:text-[11px]">
-            Amanda Levete | age 22 <br />
-            Email: <span className="font-normal">
-              ama_levete@gmail.com
-            </span>{" "}
-            <br />
-            Role: <span className="font-normal">Mentee</span> <br />
-            Joined Date: <span className="font-normal">Jan 13, 2022</span>
-          </p>
-          <div className="absolute w-[4px] h-[60px] bg-bar-verified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
-        </div>
-        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
-          <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
-            Verified
-            <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
-          </div>
-          <img
-            src={Edit}
-            alt="Edit"
-            className="absolute w-[32px] right-[15px] top-[65%] translate-y-[-50%]"
-          />
-          <p className="font-bold default:text-[14px] fold:text-[11px]">
-            Amanda Levete | age 22 <br />
-            Email: <span className="font-normal">
-              ama_levete@gmail.com
-            </span>{" "}
-            <br />
-            Role: <span className="font-normal">Mentee</span> <br />
-            Joined Date: <span className="font-normal">Jan 13, 2022</span>
-          </p>
-          <div className="absolute w-[4px] h-[60px] bg-bar-verified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
-        </div>
-        <div className="w-person h-[102px] min-h-[102px] bg-verified rounded-[20px] flex flex-col ps-[19px] justify-center relative mb-[5px]">
-          <div className="flex bg-bg-verified default:text-[12px] fold:text-[9px] text-[#39B54A] default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]">
-            Verified
-            <img src={Verified} alt="Verified" className="ms-[5px] w-[6px]" />
-          </div>
-          <img
-            src={Edit}
-            alt="Edit"
-            className="absolute w-[32px] right-[15px] top-[65%] translate-y-[-50%]"
-          />
-          <p className="font-bold default:text-[14px] fold:text-[11px]">
-            Amanda Levete | age 22 <br />
-            Email: <span className="font-normal">
-              ama_levete@gmail.com
-            </span>{" "}
-            <br />
-            Role: <span className="font-normal">Mentee</span> <br />
-            Joined Date: <span className="font-normal">Jan 13, 2022</span>
-          </p>
-          <div className="absolute w-[4px] h-[60px] bg-bar-verified rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]"></div>
-        </div>
+          ))}
       </div>
 
       {/* Esto es una sombra */}
