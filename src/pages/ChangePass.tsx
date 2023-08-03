@@ -97,6 +97,7 @@ const ChangePass = () => {
                     onChange={handleChange}
                     placeholder="email"
                     className="bg-transparent w-[100%] h-[100%] text-[14px] text-title placeholder-title focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+                    required
                   />
                   <img
                     src={Email}
@@ -112,6 +113,9 @@ const ChangePass = () => {
                     onChange={handleChange}
                     placeholder="new password"
                     className="bg-transparent w-[100%] h-[100%] text-[14px] text-title placeholder-title focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+                    min={10}
+                    max={30}
+                    required
                   />
                   <img
                     src={Password}

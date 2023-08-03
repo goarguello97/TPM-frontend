@@ -28,6 +28,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.username}
           onChange={handleChange}
           className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={3}
+          max={30}
+          required
         />
         <img
           src={User}
@@ -43,6 +46,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.email}
           onChange={handleChange}
           className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={10}
+          max={50}
+          required
         />
         <img
           src={Email}
@@ -58,6 +64,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.password}
           onChange={handleChange}
           className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={8}
+          max={30}
+          required
         />
         <img
           src={Password}
@@ -75,6 +84,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.name}
           onChange={handleChange}
           className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={3}
+          max={30}
+          required
         />
         <img
           src={User}
@@ -90,6 +102,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.lastname}
           onChange={handleChange}
           className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={3}
+          max={30}
+          required
         />
         <img
           src={User}
@@ -105,6 +120,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.country}
           onChange={handleChange}
           className="bg-transparent w-[100%] h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={3}
+          max={30}
+          required
         />
         <div className="absolute bg-white z-30 w-[32px] h-[32px] rounded-[16px] top-[50%] translate-y-[-50%] left-[11px]">
           <AiOutlineFlag
@@ -123,6 +141,7 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.dateOfBirth}
           onChange={handleChange}
           className="bg-transparent w-[100%] h-[100%] text-title placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          required
         />
         <div className="absolute bg-white z-30 w-[32px] h-[32px] rounded-[16px] top-[50%] translate-y-[-50%] left-[11px]">
           <CiCalendarDate
@@ -178,6 +197,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.username}
           onChange={handleChange}
           className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={3}
+          max={30}
+          required
         />
         <img
           src={User}
@@ -193,6 +215,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.email}
           onChange={handleChange}
           className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={3}
+          max={50}
+          required
         />
         <img
           src={Email}
@@ -208,6 +233,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.password}
           onChange={handleChange}
           className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={8}
+          max={30}
+          required
         />
         <img
           src={Password}
@@ -225,6 +253,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.name}
           onChange={handleChange}
           className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={3}
+          max={30}
+          required
         />
         <img
           src={User}
@@ -240,6 +271,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.lastname}
           onChange={handleChange}
           className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={3}
+          max={30}
+          required
         />
         <img
           src={User}
@@ -255,6 +289,9 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.country}
           onChange={handleChange}
           className="bg-transparent w-input h-[100%] placeholder-title  focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          min={3}
+          max={30}
+          required
         />
         <div className="absolute bg-white z-30 w-[32px] h-[32px] rounded-[16px] top-[50%] translate-y-[-50%] left-[11px]">
           <AiOutlineFlag
@@ -273,6 +310,7 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           value={values.dateOfBirth}
           onChange={handleChange}
           className="bg-transparent w-input h-[100%] text-title placeholder-title focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+          required
         />
         <div className="absolute bg-white z-30 w-[32px] h-[32px] rounded-[16px] top-[50%] translate-y-[-50%] left-[11px]">
           <CiCalendarDate
@@ -373,7 +411,7 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
     if (userRegister) {
       setTimeout(() => {
         dispatch(reset());
-        navigate("/login")
+        navigate("/login");
       }, 5000);
     }
   }, [page, userRegister]);
