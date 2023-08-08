@@ -74,7 +74,7 @@ const CardUserMobile = ({
           {role[0] + role.slice(1).toLowerCase()}
         </span>{" "}
         <br />
-        Joined Date: <span className="font-normal">Jan 13, 2022</span>
+        Joined Date: <span className="font-normal">{joinedDate}</span>
       </p>
       <div
         className={`absolute w-[4px] h-[60px] ${color.bar} rounded-tr-[10px] rounded-br-[10px] left-[0px] top-[50%] translate-y-[-50%]`}

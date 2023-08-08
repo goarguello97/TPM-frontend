@@ -10,6 +10,7 @@ interface User {
   _id: string;
   username: string;
   name: string;
+  dateOfBirth: string;
   lastname: string;
   email: string;
   password: string;
@@ -21,6 +22,7 @@ interface User {
   match: string[];
   verify: boolean;
   skills: any[];
+  createdAt: string;
 }
 
 interface Role {

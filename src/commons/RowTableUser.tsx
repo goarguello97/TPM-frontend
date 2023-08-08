@@ -45,7 +45,7 @@ const RowTableUser = ({
       });
     }
   }, [status, userLogged, loading]);
-  console.log(userLogged)
+
   return (
     <tr className={`${color.bg} h-[55.63px]`}>
       <td className="ps-[34px] relative text-[14px] font-normal text-title">
