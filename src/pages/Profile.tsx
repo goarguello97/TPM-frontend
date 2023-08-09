@@ -7,6 +7,7 @@ import Doodle2 from "../assets/img/Doodle2.svg";
 import Doodle4 from "../assets/img/Doodle4.svg";
 import Eye from "../assets/img/Eye.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { useAppSelector } from "../hooks/useTypedSelector";
 
 const Profile = () => {
   const { width } = useMediaQuery();
@@ -19,6 +20,10 @@ const Profile = () => {
       setShow("password");
     }
   };
+
+  const { userLogged, error, loading } = useAppSelector((state) => state.auth);
+
+  console.log(userLogged);
 
   return width < 1024 ? (
     <div className="h-[100vh] bg-[#F5F6F7] relative">
@@ -41,7 +46,7 @@ const Profile = () => {
           <input
             type="text"
             name="name"
-            value="David Gordon"
+            value={userLogged && `${userLogged.name} ${userLogged.lastname}`}
             className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] mb-[5px]"
           />
           <div className="w-container-2 border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
@@ -51,7 +56,7 @@ const Profile = () => {
           <input
             type="text"
             name="email"
-            value="davidgordon@gmail.com"
+            value={userLogged && userLogged.email}
             className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] mb-[5px]"
           />
           <div className="w-container-2 border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
@@ -88,7 +93,11 @@ const Profile = () => {
           <input
             type="text"
             name="Role"
-            value="Mentor"
+            value={
+              userLogged &&
+              userLogged.role.role[0] +
+                userLogged.role.role.slice(1).toLowerCase()
+            }
             className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] mb-[5px]"
           />
           <div className="w-container-2 border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
@@ -138,7 +147,7 @@ const Profile = () => {
             <input
               type="text"
               name="name"
-              value="David Gordon"
+              value={userLogged && `${userLogged.name} ${userLogged.lastname}`}
               className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] mb-[5px]"
             />
             <div className="w-full border-b-[0.5px] border-[#4444444d] mb-[10px]"></div>
@@ -148,7 +157,7 @@ const Profile = () => {
             <input
               type="text"
               name="email"
-              value="davidgordon@gmail.com"
+              value={userLogged && userLogged.email}
               className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] mb-[5px]"
             />
             <div className="w-full border-b-[0.5px] border-[#4444444d] mb-[10px]"></div>
@@ -185,7 +194,11 @@ const Profile = () => {
             <input
               type="text"
               name="Role"
-              value="Mentor"
+              value={
+                userLogged &&
+                userLogged.role.role[0] +
+                  userLogged.role.role.slice(1).toLowerCase()
+              }
               className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] mb-[5px]"
             />
             <div className="w-full border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>

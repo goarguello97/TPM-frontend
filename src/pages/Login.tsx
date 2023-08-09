@@ -72,6 +72,9 @@ const Login = () => {
             onChange={handleChange}
             placeholder="email"
             className="bg-transparent w-[100%] h-[100%] text-[14px] text-title placeholder-title focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+            min={10}
+            max={50}
+            required
           />
           <img
             src={Email}
@@ -87,6 +90,8 @@ const Login = () => {
             onChange={handleChange}
             placeholder="password"
             className="bg-transparent w-[100%] h-[100%] text-[14px] text-title placeholder-title focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+            min={1}
+            required
           />
           <img
             src={Password}
@@ -175,6 +180,9 @@ const Login = () => {
               onChange={handleChange}
               placeholder="email"
               className="bg-transparent w-full h-[100%] text-title text-[14px] placeholder-title focus-visible:border-0 focus-visible:outline-0 ps-[53px]"
+              min={10}
+              max={50}
+              required
             />
             <img
               src={Email}

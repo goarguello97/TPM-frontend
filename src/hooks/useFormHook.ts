@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useAppDispatch } from "./useTypedSelector";
+import { NAMES } from "../constants/initialValues";
 
 const useForm = (initialValues: any, submit: any, validations: any) => {
   const [values, setValues] = useState(initialValues);
@@ -23,7 +24,17 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
   }, [errors]);
 
   const handleChange = (e: any) => {
-    if (e.target.name === "role") {
+    if (
+      e.target.name === NAMES.NAME ||
+      e.target.name === NAMES.LASTNAME ||
+      e.target.name === NAMES.USERNAME ||
+      e.target.name === NAMES.PASSWORD ||
+      e.target.name === NAMES.COUNTRY
+    ) {
+      setValues({ ...values, [e.target.name]: e.target.value.slice(0, 30) });
+    } else if (e.target.name === NAMES.EMAIL) {
+      setValues({ ...values, [e.target.name]: e.target.value.slice(0, 50) });
+    } else if (e.target.name === NAMES.ROLE) {
       setRole(!role);
       setValues({ ...values, [e.target.name]: e.target.value });
     } else {
@@ -32,8 +43,6 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
         [e.target.name]: e.target.value,
       });
     }
-
-    // console.log(values);
   };
 
   const handleSubmit = async (e: any) => {

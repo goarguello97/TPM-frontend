@@ -124,11 +124,18 @@ export const validationRecoverPass = (values: any) => {
   return errors;
 };
 
-export const validationPass = (values:any)=>{
+export const validationPass = (values: any) => {
   let errors = {} as ErrorInterface;
+  let emailRegex = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i);
   let passwordRegex = new RegExp(
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
   );
+
+  if (!values.email) {
+    errors.email = "Email is required.";
+  } else if (!emailRegex.test(values.email)) {
+    errors.email = "The email is not valid.";
+  }
 
   if (!values.password) {
     errors.password = "The password is required.";
@@ -140,6 +147,6 @@ export const validationPass = (values:any)=>{
   } else if (values.password.length > 30) {
     errors.password = "The password must not have more than 30 characters.";
   }
-  
-  return errors
-}
+
+  return errors;
+};

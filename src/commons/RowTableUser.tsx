@@ -3,6 +3,9 @@ import Verified from "../assets/img/Verified.svg";
 import Edit from "../assets/img/Edit.svg";
 import { UserRow } from "../interfaces/RowTable.interfaces";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../hooks/useTypedSelector";
+import useMediaQuery from "../hooks/useMediaQuery";
+import { ROLE } from "../constants/roles";
 
 const RowTableUser = ({
   name,
@@ -24,6 +27,9 @@ const RowTableUser = ({
     text: "Verified",
   });
 
+  const { users, error, loading } = useAppSelector((state) => state.user);
+  const { userLogged } = useAppSelector((state) => state.auth);
+
   useEffect(() => {
     if (!status) {
       setColor({
@@ -38,7 +44,8 @@ const RowTableUser = ({
         text: "Unverified",
       });
     }
-  }, [status]);
+  }, [status, userLogged, loading]);
+
   return (
     <tr className={`${color.bg} h-[55.63px]`}>
       <td className="ps-[34px] relative text-[14px] font-normal text-title">
@@ -49,7 +56,9 @@ const RowTableUser = ({
       </td>
       <td className="text-[14px] font-bold text-title">{age}</td>
       <td className="text-[14px] font-bold text-title">{email}</td>
-      <td className="text-[14px] font-bold text-title">{role}</td>
+      <td className="text-[14px] font-bold text-title">
+        {role[0] + role.slice(1).toLowerCase()}
+      </td>
       <td className="text-[14px] font-bold text-title">{joinedDate}</td>
       <td className="relative">
         <div
@@ -66,11 +75,13 @@ const RowTableUser = ({
             className="w-[6px] ms-[5px]"
           />
         </div>
-        <img
-          src={Edit}
-          alt="Edit"
-          className="absolute right-[19px] top-[50%] translate-y-[-50%]"
-        />
+        {userLogged?.role.role === ROLE.ADMIN && (
+          <img
+            src={Edit}
+            alt="Edit"
+            className="absolute right-[19px] top-[50%] translate-y-[-50%]"
+          />
+        )}
       </td>
     </tr>
   );
