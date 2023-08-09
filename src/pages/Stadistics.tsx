@@ -1,131 +1,23 @@
 import HandPhone from "../assets/img/Hand&Phone.svg";
 import Doodle2 from "../assets/img/Doodle2.svg";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 import useMediaQuery from "../hooks/useMediaQuery";
-import { useEffect, useState } from "react";
-import getGradient from "../hooks/useGradientHook";
-import useChartHook from "../hooks/useChartHook";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
+import { getUsers } from "../features/User/UserSlice";
+import useNewUser from "../hooks/useNewUser";
+import BarCommon from "../commons/Bar";
 
 const Stadistics = () => {
   const { width } = useMediaQuery();
-  const styles = useChartHook();
+  const { users, error, loading } = useAppSelector((state) => state.user);
+  const { userOfRoles, newUserOfRoles } = useNewUser();
+  const dispatch = useAppDispatch();
 
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-  );
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false,
-      },
-      title: {
-        display: true,
-        text: "SIGN UPS PER MONTH",
-        font: { size: styles.title.size, weight: "900" },
-        color: "#444444",
-        align: "start" as const,
-        padding: {
-          bottom: styles.title.padding.bottom,
-        },
-      },
-    },
-    layout: {
-      padding: {
-        top: styles.layout.padding.top,
-        bottom: styles.layout.padding.bottom,
-        left: styles.layout.padding.left,
-        right: styles.layout.padding.right,
-      },
-    },
-    scales: {
-      y: {
-        ticks: {
-          display: true,
-          color: "#444444",
-          font: { size: styles.ticks.y.size, weight: "400" },
-          // stepSize: 8,
-          maxTicksLimit: 11,
-          align: "end" as const,
-        },
-        grid: {
-          drawTicks: false,
-          drawBorder: false, // <-- this removes y-axis line
-          lineWidth: function (context: any) {
-            return context?.index === 0 ? 0 : 0.5; // <-- this removes the base line
-          },
-          color: "rgba(68, 68, 68, 0.30)",
-        },
-        border: { display: false },
-        beginAtZero: false,
-        min: 50,
-      },
-      x: {
-        ticks: {
-          color: "#444444",
-          font: { size: styles.ticks.x.size, weight: "400" },
-          minRotation: styles.ticks.x.minRotation,
-        },
-        grid: {
-          drawBorder: false,
-          lineWidth: 0, // <-- this removes vertical lines between bars
-        },
-      },
-    },
-  };
-
-  const labels = [
-    "ene",
-    "feb",
-    "mar",
-    "abr",
-    "may",
-    "jun",
-    "juli",
-    "ago",
-    "oct",
-    "nov",
-    "dec",
-  ];
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
-        borderWidth: 0,
-        borderRadius: 5,
-        backgroundColor: (context: any) => {
-          const chart = context.chart;
-          const { ctx, chartArea } = chart;
-          if (!chartArea) {
-            return null;
-          }
-          return getGradient(chart);
-        },
-        barThickness: styles.bar.width,
-      },
-    ],
-  };
-
-  ChartJS.defaults.font.family = "Heebo";
+  useEffect(() => {
+    if (!users) {
+      dispatch(getUsers());
+    }
+  }, [loading]);
 
   return width < 1024 ? (
     <div className="h-[100vh] bg-[#F5F6F7] flex justify-center items-start">
@@ -160,15 +52,24 @@ const Stadistics = () => {
               {/* HR */}
               <div className="w-hr h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[7px]"></div>
               <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-                Mentees <span className="ms-[42px] font-normal">750</span>
+                Mentees{" "}
+                <span className="ms-[42px] font-normal">
+                  {userOfRoles.MENTEES}
+                </span>
               </p>
               <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
               <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-                Mentors <span className="ms-[44px] font-normal">250</span>
+                Mentors{" "}
+                <span className="ms-[44px] font-normal">
+                  {userOfRoles.MENTORS}
+                </span>
               </p>
               <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
               <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-                Total users <span className="ms-[17px] font-normal">1000</span>
+                Total users{" "}
+                <span className="ms-[17px] font-normal">
+                  {userOfRoles.MENTEES + userOfRoles.MENTORS}
+                </span>
               </p>
             </div>
             {/* NEW USERS */}
@@ -179,24 +80,29 @@ const Stadistics = () => {
               {/* HR */}
               <div className="w-hr h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[7px]"></div>
               <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-                New mentees <span className="ms-[28px] font-normal">7</span>
+                New mentees{" "}
+                <span className="ms-[28px] font-normal">
+                  {newUserOfRoles.MENTEES}
+                </span>
               </p>
               <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
               <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-                New mentors <span className="ms-[21px] font-normal">10</span>
+                New mentors{" "}
+                <span className="ms-[21px] font-normal">
+                  {newUserOfRoles.MENTORS}
+                </span>
               </p>
               <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
               <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
-                Total users <span className="ms-[34px] font-normal">17</span>
+                Total users{" "}
+                <span className="ms-[34px] font-normal">
+                  {newUserOfRoles.MENTEES + newUserOfRoles.MENTORS}
+                </span>
               </p>
             </div>
             {/* SIGN UPS PER MONTH */}
             <div className="w-container-2 h-container-card-stadistics-mobile bg-[#F5F6F7] mb-[107px] fold-horizontal:mt-[5px] fold-horizontal:h-auto fold-horizontal:mb-[0px] rounded-[20px] relative">
-              <Bar
-                options={options}
-                data={data}
-                className="min-w-full w-full min-h-full rounded-[20px] bg-[#F5F6F7] "
-              />
+              <BarCommon users={users} />
             </div>
           </>
         ) : (
@@ -242,11 +148,7 @@ const Stadistics = () => {
             {/* SIGN UPS PER MONTH */}
             <div className="w-container-3 h-container-card-stadistics-mobile bg-[#F5F6F7] mb-[107px] rounded-[20px] relative">
               <div className="w-hr3 h-[0px] border-b-[1px] border-dashed border-title mb-[35px] absolute top-[35px] left-[50%] translate-x-[-50%]"></div>
-              <Bar
-                options={options}
-                data={data}
-                className="min-w-full w-full min-h-full rounded-[20px] bg-[#F5F6F7] "
-              />
+              <BarCommon users={users} />
             </div>
           </>
         )}
@@ -289,17 +191,23 @@ const Stadistics = () => {
             <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
             <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
               Mentees
-              <span className="text-[14px] font-normal me-[35px]">750</span>
+              <span className="text-[14px] font-normal me-[35px]">
+                {userOfRoles.MENTEES}
+              </span>
             </p>
             <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
             <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
               Mentors
-              <span className="text-[14px] font-normal me-[35px]">250</span>
+              <span className="text-[14px] font-normal me-[35px]">
+                {userOfRoles.MENTORS}
+              </span>
             </p>
             <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
             <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
               Total users
-              <span className="text-[14px] font-normal me-[35px]">1000</span>
+              <span className="text-[14px] font-normal me-[35px]">
+                {userOfRoles.MENTEES + userOfRoles.MENTORS}
+              </span>
             </p>
           </div>
           {/* NEW USERS */}
@@ -311,28 +219,30 @@ const Stadistics = () => {
             <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
             <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
               New mentees
-              <span className="text-[14px] font-normal me-[35px]">7</span>
+              <span className="text-[14px] font-normal me-[35px]">
+                {newUserOfRoles.MENTEES}
+              </span>
             </p>
             <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
             <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
               New mentors
-              <span className="text-[14px] font-normal me-[35px]">10</span>
+              <span className="text-[14px] font-normal me-[35px]">
+                {newUserOfRoles.MENTORS}
+              </span>
             </p>
             <div className="w-hr-desktop h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto ms-[25px] me-[25px] mb-[14px]"></div>
             <p className="w-[100%] h-[26px] text-[18px] ps-[35px] text-title font-bold mb-[5px] flex items-center justify-between">
               Total users
-              <span className="text-[14px] font-normal me-[35px]">17</span>
+              <span className="text-[14px] font-normal me-[35px]">
+                {newUserOfRoles.MENTEES + newUserOfRoles.MENTORS}
+              </span>
             </p>
           </div>
           {/* SIGN UPS PER MONTH */}
           <div className="w-container-2 max-w-[1018px] max-h-[330.5px] rounded-[20px] bg-[#F5F6F7] shadow-container-desktop-3 relative">
             <div className="w-hr-desktop h-[0px] border-b-[1px] border-dashed border-title mx-auto ms-[25px] me-[25px] mb-[35px] absolute top-[42px]"></div>
 
-            <Bar
-              options={options}
-              data={data}
-              className=" w-full max-w-[1018px] max-h-[330.5px] rounded-[20px] bg-[#F5F6F7] "
-            />
+            <BarCommon users={users} />
           </div>
         </div>
       </div>

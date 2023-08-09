@@ -6,7 +6,7 @@ export interface UserState {
   loading: boolean;
 }
 
-interface User {
+export interface User {
   _id: string;
   username: string;
   name: string;
@@ -22,7 +22,7 @@ interface User {
   match: string[];
   verify: boolean;
   skills: any[];
-  createdAt: string;
+  createdAt: Date;
 }
 
 interface Role {
