@@ -1,15 +1,15 @@
-function getEdad(dateString: string) {
-  let hoy = new Date();
-  let fechaNacimiento = new Date(dateString);
-  let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-  let diferenciaMeses = hoy.getMonth() - fechaNacimiento.getMonth();
+function useAge(dateString: string) {
+  let today = new Date();
+  let birthdate = new Date(dateString);
+  let age = today.getFullYear() - birthdate.getFullYear();
+  let differenceMonths = today.getMonth() - birthdate.getMonth();
   if (
-    diferenciaMeses < 0 ||
-    (diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento.getDate())
+    differenceMonths < 0 ||
+    (differenceMonths === 0 && today.getDate() < birthdate.getDate())
   ) {
-    edad--;
+    age--;
   }
-  return edad;
+  return age;
 }
 
-export default getEdad;
+export default useAge;

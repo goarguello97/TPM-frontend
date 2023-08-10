@@ -65,6 +65,29 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
+export const changeAvatar = createAsyncThunk(
+  "CHANGE_AVATAR",
+  async (formData: any, thunkApi) => {
+    try {
+      const uploadedPhoto = await axiosInstance.patch(
+        "/users/add-avatar",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return uploadedPhoto.data;
+    } catch (error: any) {
+      const { response } = error;
+      const { data } = response;
+      const { errors } = data;
+      return thunkApi.rejectWithValue(errors[0].msg);
+    }
+  }
+);
+
 const initialState = {
   error: null,
   operationSuccess: false,
@@ -125,6 +148,18 @@ export const userSlice = createSlice({
       state.operationSuccess = true;
     });
     builder.addCase(deleteUser.rejected, (state, action) => {
+      state.loading = false;
+      state.operationSuccess = false;
+      state.error = action.payload;
+    });
+    builder.addCase(changeAvatar.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(changeAvatar.fulfilled, (state, action) => {
+      state.loading = false;
+      state.operationSuccess = true;
+    });
+    builder.addCase(changeAvatar.rejected, (state, action) => {
       state.loading = false;
       state.operationSuccess = false;
       state.error = action.payload;
