@@ -1,3 +1,6 @@
+import Logo from "../assets/img/ThePerfectMentor.svg";
+import Doodle from "../assets/img/Doodle.svg";
+import Doodle2 from "../assets/img/Doodle2.svg";
 import { useEffect, useState } from "react";
 import Email from "../assets/img/Email.svg";
 import Password from "../assets/img/Password.svg";
@@ -7,16 +10,29 @@ import { AiOutlineFlag } from "react-icons/ai";
 import useMediaQuery from "../hooks/useMediaQuery";
 import useGetRole from "../hooks/useGetRole";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
-import { reset } from "../features/Auth/AuthSlice";
+import { registerUser, reset } from "../features/Auth/AuthSlice";
 import { useNavigate } from "react-router-dom";
+import useForm from "../hooks/useFormHook";
+import { REGISTER_INITIAL_VALUES } from "../constants/initialValues";
+import { validationRegister } from "../helpers/validations";
 
-const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
+const RegisterForm = () => {
   const { width } = useMediaQuery();
-  const { userRegister } = useAppSelector((state) => state.auth);
+  const [valuesToRegister, setValuesToRegister] = useState(
+    REGISTER_INITIAL_VALUES
+  );
+  const { rolesId } = useGetRole();
+  const { userRegister, loading, error } = useAppSelector(
+    (state) => state.auth
+  );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { rolesId } = useGetRole();
   const [page, setPage] = useState(0);
+  const { values, handleChange, handleSubmit, role, errors } = useForm(
+    valuesToRegister,
+    registerUser,
+    validationRegister
+  );
 
   const formPagesMobile = [
     <>
@@ -357,56 +373,6 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
     </>,
   ];
 
-  let buttonsMobile = [];
-  let buttons = [];
-  for (let number = 1; number <= Math.ceil(8 / 3); number++) {
-    if (number < 3) {
-      buttons.push(
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            setPage(page + 1);
-          }}
-          className={`${
-            page > 0 ? "w-[45%]" : "w-full"
-          } h-full max-w-[323px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]`}
-        >
-          Next
-        </button>
-      );
-      buttonsMobile.push(
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            setPage(page + 1);
-          }}
-          className={`${
-            page > 0 ? "w-[45%]" : "w-button"
-          } h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]`}
-        >
-          Next
-        </button>
-      );
-    } else {
-      buttons.push(
-        <button
-          type="submit"
-          className="w-[45%] h-full max-w-[323px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
-        >
-          Sign Up
-        </button>
-      );
-      buttonsMobile.push(
-        <button
-          type="submit"
-          className="w-[45%] h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
-        >
-          Sign Up
-        </button>
-      );
-    }
-  }
-
   useEffect(() => {
     if (userRegister) {
       setTimeout(() => {
@@ -414,10 +380,31 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
         navigate("/login");
       }, 5000);
     }
-  }, [page, userRegister]);
+    if (rolesId) {
+      setValuesToRegister({ ...REGISTER_INITIAL_VALUES, role: rolesId.MENTOR });
+    }
+  }, [userRegister, rolesId]);
 
   return width < 1024 ? (
-    <>
+    <form
+      onSubmit={handleSubmit}
+      className="min-h-100% bg-background relative flex flex-col justify-center items-start"
+    >
+      <img
+        className="absolute w-[182.44px] top-[72px] right-[29px] rotate-doodle z-1 "
+        src={Doodle}
+        alt="Doodle"
+      />
+      <img
+        className="absolute w-[108.86px] top-[45px] left-[121px] z-1"
+        src={Doodle2}
+        alt="Doodle2"
+      />
+      <img
+        className="w-[200.62px] ml-[30px] fold-horizontal:mt-[30px] z-10"
+        src={Logo}
+        alt="The Perfect Mentor"
+      />
       <div className="bg-background w-sign-in min-h-[361px] h-auto border-[2px] mt-[20.58px] mb-[25px] mx-auto border-button rounded-[40px] z-10 flex flex-col ">
         <p className="text-title font-bold text-[30px] ms-[25px] mt-[30px] mb-[12px]">
           Sign in
@@ -426,7 +413,7 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
 
         {formPagesMobile[page]}
         {Object.keys(errors).length !== 0
-          ? Object.values(errors).map((error: any, i) => (
+          && Object.values(errors).map((error: any, i) => (
               <p
                 key={i}
                 className="w-input h-[22.5px] mx-auto mb-[10px] text-start text-[14px] text-error font-bold"
@@ -434,36 +421,87 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
                 {error}
               </p>
             ))
-          : null}
-        {error ? (
+          }
+        {error && (
           <p className="w-input h-[22.5px] mx-auto mb-[10px] text-start text-[14px] text-error font-bold">
             {error}
           </p>
-        ) : null}
-        {userRegister ? (
+        )}
+        {userRegister && (
           <p className="w-input h-[22.5px] mx-auto mb-[10px] text-start text-[14px] text-loader font-bold">
             Successful registration. You must activate your account, check your
             email inbox.
           </p>
-        ) : null}
+        )}
       </div>
       <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mx-auto mt-[30px] mb-[80px] flex justify-between items-center">
-        {page > 0 ? (
+        {page > 0 && page < 2 && (
+          <>
+            <button
+              className="w-[45%] h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+              onClick={(e) => {
+                e.preventDefault();
+                setPage(page - 1);
+              }}
+            >
+              Back
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setPage(page + 1);
+              }}
+              className={`${
+                page > 0 ? "w-[45%]" : "w-button"
+              } h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]`}
+            >
+              Next
+            </button>
+          </>
+        )}
+        {page === 0 && (
           <button
-            className="w-[45%] h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
             onClick={(e) => {
               e.preventDefault();
-              setPage(page - 1);
+              setPage(page + 1);
             }}
+            className={`${
+              page > 0 ? "w-[45%]" : "w-button"
+            } h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]`}
           >
-            Back
+            Next
           </button>
-        ) : null}
-        {buttonsMobile[page]}
+        )}
+        {page === 2 && (
+          <>
+            <button
+              className="w-[45%] h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+              onClick={(e) => {
+                e.preventDefault();
+                setPage(page - 1);
+              }}
+            >
+              Back
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-[45%] h-[55px] mx-auto fold-horizontal:mb-[30px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+            >
+              Sign Up
+            </button>
+          </>
+        )}
       </div>
-    </>
+    </form>
   ) : (
-    <>
+    <form
+      onSubmit={handleSubmit}
+      className="w-[100%] xl:w-[50%] h-[100%] xl:ps-[50px] flex flex-col items-center xl:items-start justify-center relative"
+    >
+      <p className="w-[162px] mt-[30px] text-title text-[40px] font-extrabold leading-[59px] z-30">
+        Sign up
+      </p>
       <div className="w-input desktop:w-input-desktop max-w-[323px] h-[0px] border-b-[1px] border-title border-dashed mt-[10px] mb-[30px]"></div>
 
       {formPages[page]}
@@ -482,28 +520,73 @@ const RegisterForm = ({ values, handleChange, role, errors, error }: any) => {
           {error}
         </p>
       ) : null}
-      {userRegister ? (
+      {userRegister && (
         <p className="w-input max-w-[323px] mt-[15px] text-loader text-[14px] font-bold leading-[18px]">
           Successful registration. You must activate your account, check your
           email inbox.
         </p>
-      ) : null}
+      )}
 
       <div className="w-input desktop:w-input-desktop max-w-[323px] h-[55px] mt-[30px] mb-[80px] flex justify-between items-center">
-        {page > 0 ? (
+        {page > 0 && page < 2 && (
+          <>
+            <button
+              className="w-[45%] h-full bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+              onClick={(e) => {
+                e.preventDefault();
+                setPage(page - 1);
+              }}
+            >
+              Back
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setPage(page + 1);
+              }}
+              className={`${
+                page > 0 ? "w-[45%]" : "w-full"
+              } h-full max-w-[323px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]`}
+            >
+              Next
+            </button>
+          </>
+        )}
+        {page === 0 && (
           <button
-            className="w-[45%] h-full bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
             onClick={(e) => {
               e.preventDefault();
-              setPage(page - 1);
+              setPage(page + 1);
             }}
+            className={`${
+              page > 0 ? "w-[45%]" : "w-full"
+            } h-full max-w-[323px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]`}
           >
-            Back
+            Next
           </button>
-        ) : null}
-        {buttons[page]}
+        )}
+        {page === 2 && (
+          <>
+            <button
+              className="w-[45%] h-full bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+              onClick={(e) => {
+                e.preventDefault();
+                setPage(page - 1);
+              }}
+            >
+              Back
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-[45%] h-full max-w-[323px] bg-button rounded-[40px] font-bold text-[15px] text-[#fff]"
+            >
+              Sign Up
+            </button>
+          </>
+        )}
       </div>
-    </>
+    </form>
   );
 };
 

@@ -1,5 +1,6 @@
 export interface UserState {
   error: any;
+  message: string | null;
   operationSuccess: boolean;
   user: User | null;
   users: User[] | null;
@@ -23,9 +24,15 @@ export interface User {
   verify: boolean;
   skills: any[];
   createdAt: Date;
+  avatar: Avatar;
 }
 
 interface Role {
   _id: string;
   role: string;
+}
+
+interface Avatar {
+  _id: string;
+  imageUrl: string;
 }

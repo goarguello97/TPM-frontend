@@ -1,6 +1,6 @@
 export interface RoleState {
   error: any;
-  roles: Role[] | null;
+  roles: Role[] | undefined;
   loading: any;
   operationSuccess: boolean;
 }

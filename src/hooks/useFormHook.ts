@@ -8,6 +8,7 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
   const [errors, setErrors] = useState({});
   const [role, setRole] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [flag, setFlag] = useState(true);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -20,8 +21,20 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
         setErrors({});
       }, 5000);
     }
+    if (Object.values(initialValues)[0]) {
+      if (flag) {
+        setValues(initialValues);
+        setFlag(false);
+      }
+    }
+    if (initialValues.role) {
+      if (initialValues.role.length > 0) {
+        setValues(initialValues);
+        setFlag(false);
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [errors]);
+  }, [errors, initialValues]);
 
   const handleChange = (e: any) => {
     if (
@@ -37,6 +50,11 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
     } else if (e.target.name === NAMES.ROLE) {
       setRole(!role);
       setValues({ ...values, [e.target.name]: e.target.value });
+    } else if (e.target.value === NAMES.BIRTH) {
+      setValues({
+        ...values,
+        [e.target.name]: e.target.value.substring(0, 10),
+      });
     } else {
       setValues({
         ...values,

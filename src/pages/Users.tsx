@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
 import { getUsers } from "../features/User/UserSlice";
 import CardUserMobile from "../commons/CardUserMobile";
-import getEdad from "../hooks/useAge";
+import getAge from "../hooks/useAge";
 
 const Users = () => {
   const { width } = useMediaQuery();
@@ -82,7 +82,7 @@ const Users = () => {
             <CardUserMobile
               key={user._id}
               name={`${user.name} ${user.lastname}`}
-              age={getEdad(user.dateOfBirth)}
+              age={getAge(user.dateOfBirth)}
               email={user.email}
               role={user.role.role}
               joinedDate={user.createdAt.toString().substring(0,10)}
@@ -175,7 +175,7 @@ const Users = () => {
                     <RowTableUser
                       key={user._id}
                       name={`${user.name} ${user.lastname}`}
-                      age={getEdad(user.dateOfBirth)}
+                      age={getAge(user.dateOfBirth)}
                       email={user.email}
                       role={user.role.role}
                       joinedDate={user.createdAt.toString().substring(0,10)}

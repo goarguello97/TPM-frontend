@@ -5,54 +5,17 @@ import Doodle4 from "../assets/img/Doodle4.svg";
 import MaskGroup from "../assets/img/MaskGroup.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { useEffect } from "react";
-import useForm from "../hooks/useFormHook";
-import { REGISTER_INITIAL_VALUES } from "../constants/initialValues";
-import { registerUser } from "../features/Auth/AuthSlice";
-import { validationRegister } from "../helpers/validations";
-import { useAppSelector } from "../hooks/useTypedSelector";
 import useGetRole from "../hooks/useGetRole";
 import RegisterForm from "../commons/RegisterForm";
 
 const SignUp = () => {
   const { width } = useMediaQuery();
   const { rolesId } = useGetRole();
-  const { values, handleChange, handleSubmit, role, errors } = useForm(
-    { ...REGISTER_INITIAL_VALUES, role: rolesId.MENTOR },
-    registerUser,
-    validationRegister
-  );
-  const { error } = useAppSelector((state) => state.auth);
 
   useEffect(() => {}, [rolesId]);
 
   return width < 1024 ? (
-    <form
-      onSubmit={handleSubmit}
-      className="min-h-100% bg-background relative flex flex-col justify-center items-start"
-    >
-      <img
-        className="absolute w-[182.44px] top-[72px] right-[29px] rotate-doodle z-1 "
-        src={Doodle}
-        alt="Doodle"
-      />
-      <img
-        className="absolute w-[108.86px] top-[45px] left-[121px] z-1"
-        src={Doodle2}
-        alt="Doodle2"
-      />
-      <img
-        className="w-[200.62px] ml-[30px] fold-horizontal:mt-[30px] z-10"
-        src={Logo}
-        alt="The Perfect Mentor"
-      />
-      <RegisterForm
-        values={values}
-        handleChange={handleChange}
-        role={role}
-        errors={errors}
-        error={error}
-      />
-    </form>
+    <RegisterForm />
   ) : (
     <div className="w-[100vw] h-[100vh] bg-background flex justify-center items-center relative z-0">
       <div className="w-container-desktop min-h-[479px] h-auto bg-transparent border-[2px] border-[#444444] rounded-[40px] flex justify-center items-center relative z-10">
@@ -87,21 +50,8 @@ const SignUp = () => {
           </div>
         </div>
         <div className="hidden xl:block w-0 h-[416px] border-title border-[1px]"></div>
-        <form
-          onSubmit={handleSubmit}
-          className="w-[100%] xl:w-[50%] h-[100%] xl:ps-[50px] flex flex-col items-center xl:items-start justify-center relative"
-        >
-          <p className="w-[162px] mt-[30px] text-title text-[40px] font-extrabold leading-[59px] z-30">
-            Sign up
-          </p>
-          <RegisterForm
-            values={values}
-            handleChange={handleChange}
-            role={role}
-            errors={errors}
-            error={error}
-          />
-        </form>
+
+        <RegisterForm />
       </div>
     </div>
   );

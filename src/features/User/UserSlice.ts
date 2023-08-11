@@ -3,19 +3,22 @@ import axiosInstance from "../../config/axiosInstance";
 import { UserState } from "../../interfaces/user.interfaces";
 import { RequestResponse } from "../../interfaces/auth.interfaces";
 
-export const getUser = createAsyncThunk("GET_USER", async (data, thunkApi) => {
-  try {
-    const user: RequestResponse = await axiosInstance.get(
-      `/users/user?id=${data}`
-    );
-    return user.data;
-  } catch (error: any) {
-    const { response } = error;
-    const { data } = response;
-    const { errors } = data;
-    return thunkApi.rejectWithValue(errors[0].msg);
+export const getUser = createAsyncThunk(
+  "GET_USER",
+  async (data: string, thunkApi) => {
+    try {
+      const user: RequestResponse = await axiosInstance.get(
+        `/users/user?id=${data}`
+      );
+      return user.data;
+    } catch (error: any) {
+      const { response } = error;
+      const { data } = response;
+      const { errors } = data;
+      return thunkApi.rejectWithValue(errors[0].msg);
+    }
   }
-});
+);
 
 export const getUsers = createAsyncThunk("GET_USERS", async (_, thunkApi) => {
   try {
@@ -65,8 +68,32 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
+export const changeAvatar = createAsyncThunk(
+  "CHANGE_AVATAR",
+  async (formData: any, thunkApi) => {
+    try {
+      const uploadedPhoto = await axiosInstance.patch(
+        "/users/add-avatar",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return uploadedPhoto.data;
+    } catch (error: any) {
+      const { response } = error;
+      const { data } = response;
+      const { errors } = data;
+      return thunkApi.rejectWithValue(errors[0].msg);
+    }
+  }
+);
+
 const initialState = {
   error: null,
+  message: null,
   operationSuccess: false,
   user: null,
   users: null,
@@ -83,11 +110,13 @@ export const userSlice = createSlice({
     });
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.loading = false;
+      state.message = null;
       state.user = action.payload.payload.user;
       state.operationSuccess = true;
     });
     builder.addCase(getUser.rejected, (state, action) => {
       state.loading = false;
+      state.message = null;
       state.operationSuccess = false;
       state.error = action.payload;
     });
@@ -109,6 +138,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.loading = false;
+      state.message = action.payload.payload.message;
       state.user = action.payload.payload.user;
       state.operationSuccess = true;
     });
@@ -125,6 +155,18 @@ export const userSlice = createSlice({
       state.operationSuccess = true;
     });
     builder.addCase(deleteUser.rejected, (state, action) => {
+      state.loading = false;
+      state.operationSuccess = false;
+      state.error = action.payload;
+    });
+    builder.addCase(changeAvatar.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(changeAvatar.fulfilled, (state, action) => {
+      state.loading = false;
+      state.operationSuccess = true;
+    });
+    builder.addCase(changeAvatar.rejected, (state, action) => {
       state.loading = false;
       state.operationSuccess = false;
       state.error = action.payload;

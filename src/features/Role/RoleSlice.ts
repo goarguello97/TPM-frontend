@@ -16,7 +16,7 @@ export const getRoles = createAsyncThunk("GET_ROLES", async (_, thunkApi) => {
 
 const initialState = {
   error: null,
-  roles: null,
+  roles: undefined,
   loading: null,
   operationSuccess: false,
 } as RoleState;
