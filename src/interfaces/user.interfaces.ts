@@ -1,5 +1,6 @@
 export interface UserState {
   error: any;
+  message: string | null;
   operationSuccess: boolean;
   user: User | null;
   users: User[] | null;

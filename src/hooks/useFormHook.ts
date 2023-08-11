@@ -27,6 +27,12 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
         setFlag(false);
       }
     }
+    if (initialValues.role) {
+      if (initialValues.role.length > 0) {
+        setValues(initialValues);
+        setFlag(false);
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors, initialValues]);
 

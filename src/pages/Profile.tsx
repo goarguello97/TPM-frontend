@@ -22,7 +22,7 @@ const Profile = () => {
   const [valuesToUpdate, setValuesToUpdate] = useState(UPDATE_INITIAL_VALUES);
   const { rolesId } = useGetRole();
   const { userLogged } = useAppSelector((state) => state.auth);
-  const { user, error } = useAppSelector((state) => state.user);
+  const { user, message, error } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const { values, handleSubmit, handleChange, errors } = useForm(
     valuesToUpdate,
@@ -48,6 +48,11 @@ const Profile = () => {
       dispatch(getUser(userLogged.id));
       setFlag(false);
     }
+    if (message) {
+      setTimeout(() => {
+        dispatch(getUser(userLogged.id));
+      }, 3000);
+    }
     if (user) {
       setValuesToUpdate({
         ...UPDATE_INITIAL_VALUES,
@@ -59,8 +64,8 @@ const Profile = () => {
         _id: user._id,
       });
     }
-  }, [user, userLogged, flag]);
-  
+  }, [user, userLogged, message, flag]);
+
   if (!user) return <p>Cargando...</p>;
 
   return width < 1024 ? (
@@ -73,7 +78,11 @@ const Profile = () => {
       <div className="w-container min-h-container-profile h-auto fold-horizontal:min-h-0 fold-horizontal:h-container-profile-mobile-fold fold-horizontal:top-[75px] bg-[#FFFFFF] absolute left-[50%] bottom-[0px] translate-x-[-50%] rounded-t-[40px] ">
         <div className="w-[136px] h-[136px] fold:w-[100px] fold:h-[100px] fold:bg-center bg-[#94F0F0] rounded-[50%] absolute top-[3%] right-[21px] translate-y-[-50%] z-30">
           <img
-            src={userLogged && user?.avatar.imageUrl}
+            src={
+              user.avatar
+                ? user.avatar.imageUrl
+                : "https://firebasestorage.googleapis.com/v0/b/the-perfect-mentor-64369.appspot.com/o/avatars%2F5d23dc9e-ad95-4e2a-99ba-f7ddb4ccb6eb.jpg?alt=media&token=00e0b44c-a04e-4db2-9782-72b9946df4b6"
+            }
             alt=""
             className="w-[136px] h-[136px] fold:w-[100px] fold:h-[100px] rounded-[50%]"
           />
@@ -203,21 +212,25 @@ const Profile = () => {
             </option>
           </select>
           <div className="w-container-2 border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
-          {Object.keys(errors).length !== 0
-            ? Object.values(errors).map((error: any, i) => (
-                <p
-                  key={i}
-                  className="w-container-2 h-[22.5px] text-[14px] text-error font-bold"
-                >
-                  {error}
-                </p>
-              ))
-            : null}
-          {error ? (
+          {Object.keys(errors).length !== 0 &&
+            Object.values(errors).map((error: any, i) => (
+              <p
+                key={i}
+                className="w-container-2 h-[22.5px] text-[14px] text-error font-bold"
+              >
+                {error}
+              </p>
+            ))}
+          {error && (
             <p className="w-container-2 h-[22.5px] text-[14px] text-error font-bold">
               {error}
             </p>
-          ) : null}
+          )}
+          {message && (
+            <p className="w-container-2 h-[22.5px] text-[14px] text-error font-bold">
+              {message}
+            </p>
+          )}
         </form>
       </div>
     </div>
@@ -246,7 +259,11 @@ const Profile = () => {
             className={`w-[138px] h-[138px] bg-[#94F0F0] rounded-[50%] absolute top-[-30px] left-[50%] translate-x-[-50%]`}
           >
             <img
-              src={userLogged && user?.avatar.imageUrl}
+              src={
+                user.avatar
+                  ? user.avatar.imageUrl
+                  : "https://firebasestorage.googleapis.com/v0/b/the-perfect-mentor-64369.appspot.com/o/avatars%2F5d23dc9e-ad95-4e2a-99ba-f7ddb4ccb6eb.jpg?alt=media&token=00e0b44c-a04e-4db2-9782-72b9946df4b6"
+              }
               alt="userLogged.avatar.imageUrl"
               className="w-[138px] h-[138px] rounded-[50%]"
             />
@@ -344,9 +361,6 @@ const Profile = () => {
               disabled
               className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
             />
-            {/* <label className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]">
-              {user && getAge(values.dateOfBirth)}
-            </label> */}
             <div className="w-full border-b-[0.5px] border-[#4444444d] mb-[10px]"></div>
             <label className="w-[22px] h-[16px] text-[#3A3D46] text-[12px] font-normal leading-[16px] me-[491px] mb-[5px]">
               BirthDate
@@ -362,16 +376,6 @@ const Profile = () => {
             <label className="w-[26px] h-[16px] text-[#3A3D46] text-[12px] font-normal leading-[16px] me-[487px] mb-[5px]">
               Role
             </label>
-            {/* <input
-              type="text"
-              name="Role"
-              value={
-                userLogged &&
-                userLogged.role.role[0] +
-                  userLogged.role.role.slice(1).toLowerCase()
-              }
-              className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
-            /> */}
             <select
               className="w-container-2 h-[25px] text-title text-[15px] font-bold leading-[25px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
               onChange={handleChange}
@@ -392,21 +396,25 @@ const Profile = () => {
               </option>
             </select>
             <div className="w-full border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
-            {Object.keys(errors).length !== 0
-              ? Object.values(errors).map((error: any, i) => (
-                  <p
-                    key={i}
-                    className="mt-[15px] text-error text-[14px] font-bold leading-[18px]"
-                  >
-                    {error}
-                  </p>
-                ))
-              : null}
-            {error ? (
+            {Object.keys(errors).length !== 0 &&
+              Object.values(errors).map((error: any, i) => (
+                <p
+                  key={i}
+                  className="mt-[15px] text-error text-[14px] font-bold leading-[18px]"
+                >
+                  {error}
+                </p>
+              ))}
+            {error && (
               <p className="mt-[15px] text-error text-[14px] font-bold leading-[18px]">
                 {error}
               </p>
-            ) : null}
+            )}
+            {message && (
+              <p className="mt-[15px] text-loader text-[14px] font-bold leading-[18px]">
+                {message}
+              </p>
+            )}
           </form>
         </div>
       </div>
