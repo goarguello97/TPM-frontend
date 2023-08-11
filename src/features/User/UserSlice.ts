@@ -3,7 +3,7 @@ import axiosInstance from "../../config/axiosInstance";
 import { UserState } from "../../interfaces/user.interfaces";
 import { RequestResponse } from "../../interfaces/auth.interfaces";
 
-export const getUser = createAsyncThunk("GET_USER", async (data, thunkApi) => {
+export const getUser = createAsyncThunk("GET_USER", async (data:string, thunkApi) => {
   try {
     const user: RequestResponse = await axiosInstance.get(
       `/users/user?id=${data}`

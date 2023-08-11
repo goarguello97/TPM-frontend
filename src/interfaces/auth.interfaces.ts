@@ -1,3 +1,5 @@
+import { User } from "./user.interfaces";
+
 export interface AuthRegister {
   username: string;
   name: string;
@@ -29,6 +31,6 @@ export type RequestResponse = {
 type Payload = {
   message: string;
   token: string;
-  user: any;
-  users: any;
+  user: User;
+  users: User[];
 };

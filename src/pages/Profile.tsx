@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Edit from "../assets/img/Edit.svg";
 import Edit2 from "../assets/img/Edit2.svg";
 import Doodle from "../assets/img/Doodle.svg";
@@ -11,22 +11,26 @@ import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
 import getAge from "../hooks/useAge";
 import useGetRole from "../hooks/useGetRole";
 import useForm from "../hooks/useFormHook";
-import { changeAvatar, updateUser } from "../features/User/UserSlice";
+import { getUser, updateUser } from "../features/User/UserSlice";
 import { validationUpdate } from "../helpers/validations";
+import useChangeAvatar from "../hooks/useChangeAvatar";
+import { UPDATE_INITIAL_VALUES } from "../constants/initialValues";
 
 const Profile = () => {
   const { width } = useMediaQuery();
   const [show, setShow] = useState("password");
+  const [valuesToUpdate, setValuesToUpdate] = useState(UPDATE_INITIAL_VALUES);
   const { rolesId } = useGetRole();
-  const { userLogged, error, loading } = useAppSelector((state) => state.auth);
+  const { userLogged } = useAppSelector((state) => state.auth);
+  const { user, error } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const { values, handleSubmit, handleChange, role, errors } = useForm(
-    userLogged,
+  const { values, handleSubmit, handleChange, errors } = useForm(
+    valuesToUpdate,
     updateUser,
     validationUpdate
   );
-  const [imageUpload, setImageUpload] = useState(null);
-  const [imageUrls, setImageUrls] = useState(null);
+  const { uploadFile, handleChangeAvatar, flag, setFlag } =
+    useChangeAvatar(values);
 
   const togglePassword = () => {
     if (show === "password") {
@@ -36,41 +40,40 @@ const Profile = () => {
     }
   };
 
-  const handleChangeAvatar = (e: any) => {
-    if (!e.target.files) return;
-    setImageUpload(e.target.files[0]);
-  };
-
-  const uploadFile = async (e: any) => {
-    e.preventDefault();
-
-    if (!imageUpload) return;
-    const formData = new FormData();
-    formData.append("image", imageUpload);
-    formData.append("id", values?.id);
-    try {
-      await dispatch(changeAvatar(formData));
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    if (!user && userLogged) {
+      dispatch(getUser(userLogged.id));
     }
-  };
+    if (flag) {
+      dispatch(getUser(userLogged.id));
+      setFlag(false);
+    }
+    if (user) {
+      setValuesToUpdate({
+        ...UPDATE_INITIAL_VALUES,
+        name: user.name,
+        lastname: user.lastname,
+        email: user.email,
+        dateOfBirth: user.dateOfBirth.substring(0, 10),
+        role: user.role._id,
+        _id: user._id,
+      });
+    }
+  }, [user, userLogged, flag]);
   
+  if (!user) return <p>Cargando...</p>;
+
   return width < 1024 ? (
     <div className="h-[100vh] bg-[#F5F6F7] relative">
-      <div className="w-[100vw] h-[229px] fold-horizontal:h-[90px] bg-background top-0 rounded-br-[45px] absolute flex flex-col ">
+      <div className="w-[100vw] h-[229px] fold-horizontal:h-[90px] bg-background top-0 rounded-br-[45px] absolute flex flex-col">
         <p className="h-[34px] text-title text-[30px] font-extrabold leading-[44px] ms-[30px] mt-[44px] fold-horizontal:mt-[30px]">
           Profile
         </p>
-        <img
-          src={Edit}
-          alt="Edit"
-          className="w-[32px] absolute top-[48px] left-[137px] fold-horizontal:top-[34px]"
-        />
       </div>
       <div className="w-container min-h-container-profile h-auto fold-horizontal:min-h-0 fold-horizontal:h-container-profile-mobile-fold fold-horizontal:top-[75px] bg-[#FFFFFF] absolute left-[50%] bottom-[0px] translate-x-[-50%] rounded-t-[40px] ">
         <div className="w-[136px] h-[136px] fold:w-[100px] fold:h-[100px] fold:bg-center bg-[#94F0F0] rounded-[50%] absolute top-[3%] right-[21px] translate-y-[-50%] z-30">
           <img
-            src={userLogged && userLogged.avatar.imageUrl}
+            src={userLogged && user?.avatar.imageUrl}
             alt=""
             className="w-[136px] h-[136px] fold:w-[100px] fold:h-[100px] rounded-[50%]"
           />
@@ -92,21 +95,33 @@ const Profile = () => {
         </form>
 
         {/* Form para editar el usuario */}
-        <form className="w-[100%]  h-[600px] pt-[100px] flex flex-col items-center fold-horizontal:pb-[40px] overflow-y-scroll absolute z-10">
+        <form
+          onSubmit={handleSubmit}
+          className="w-[100%]  h-[600px] pt-[100px] flex flex-col items-center fold-horizontal:pb-[40px] overflow-y-scroll absolute z-10"
+        >
+          <button type="submit">
+            <img
+              src={Edit}
+              alt="Edit"
+              className="w-[32px]   left-[130px] fold-horizontal:top-[34px]"
+            />
+          </button>
           <label className="w-container-2 h-[16px] text-[#3A3D46] text-[12px] font-normal leading-[16px] mb-[5px]">
             Your fullname
           </label>
           <input
             type="text"
             name="name"
-            value={userLogged && `${userLogged.name}`}
+            value={values.name}
+            onChange={handleChange}
             className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
           />
           <div className="w-container-2 border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
           <input
             type="text"
             name="lastname"
-            value={userLogged && `${userLogged.lastname}`}
+            value={values.lastname}
+            onChange={handleChange}
             className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
           />
           <div className="w-container-2 border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
@@ -116,17 +131,19 @@ const Profile = () => {
           <input
             type="text"
             name="email"
-            value={userLogged && userLogged.email}
+            value={values.email}
+            onChange={handleChange}
             className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
           />
           <div className="w-container-2 border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
           <label className="w-container-2 h-[16px] text-[#3A3D46] text-[12px] font-normal leading-[16px] mb-[5px]">
-            Your passwrd
+            Your password
           </label>
           <input
             type={show}
             name="password"
-            value="Password"
+            value={values.password}
+            onChange={handleChange}
             className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
           />
           <div className="w-container-2 border-b-[0.5px] border-[#4444444d] mb-[15px] relative">
@@ -140,10 +157,17 @@ const Profile = () => {
           <label className="w-container-2 h-[16px] text-[#3A3D46] text-[12px] font-normal leading-[16px] mb-[5px]">
             Age
           </label>
+          <input
+            type="text"
+            name="age"
+            value={getAge(values.dateOfBirth)}
+            disabled
+            className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
+          />
 
-          <label className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]">
-            {userLogged && getAge(userLogged.dateOfBirth)}
-          </label>
+          {/* <label className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]">
+            {user && getAge(values.dateOfBirth)}
+          </label> */}
           <div className="w-container-2 border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
           <label className="w-container-2 h-[16px] text-[#3A3D46] text-[12px] font-normal leading-[16px] mb-[5px]">
             BirthDate
@@ -151,9 +175,7 @@ const Profile = () => {
           <input
             type="date"
             name="dateOfBirth"
-            value={
-              userLogged && values?.dateOfBirth.toString().substring(0, 10)
-            }
+            value={values.dateOfBirth.substring(0, 10)}
             onChange={handleChange}
             className="w-container-2 min-h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
           />
@@ -162,25 +184,40 @@ const Profile = () => {
             Role
           </label>
           <select
-              className="w-container-2 h-[25px] text-title text-[15px] font-bold leading-[25px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
-              onChange={handleChange}
-              value={userLogged && values?.role._id}
-              name="role"
+            className="w-container-2 h-[25px] text-title text-[15px] font-bold leading-[25px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
+            onChange={handleChange}
+            value={values.role}
+            name="role"
+          >
+            <option
+              value={rolesId.MENTEE}
+              className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
             >
-              <option
-                value={rolesId.MENTEE}
-                className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
-              >
-                Mentee
-              </option>
-              <option
-                value={rolesId.MENTOR}
-                className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
-              >
-                Mentor
-              </option>
-            </select>
+              Mentee
+            </option>
+            <option
+              value={rolesId.MENTOR}
+              className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
+            >
+              Mentor
+            </option>
+          </select>
           <div className="w-container-2 border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
+          {Object.keys(errors).length !== 0
+            ? Object.values(errors).map((error: any, i) => (
+                <p
+                  key={i}
+                  className="w-container-2 h-[22.5px] text-[14px] text-error font-bold"
+                >
+                  {error}
+                </p>
+              ))
+            : null}
+          {error ? (
+            <p className="w-container-2 h-[22.5px] text-[14px] text-error font-bold">
+              {error}
+            </p>
+          ) : null}
         </form>
       </div>
     </div>
@@ -209,7 +246,7 @@ const Profile = () => {
             className={`w-[138px] h-[138px] bg-[#94F0F0] rounded-[50%] absolute top-[-30px] left-[50%] translate-x-[-50%]`}
           >
             <img
-              src={userLogged && userLogged.avatar.imageUrl}
+              src={userLogged && user?.avatar.imageUrl}
               alt="userLogged.avatar.imageUrl"
               className="w-[138px] h-[138px] rounded-[50%]"
             />
@@ -255,7 +292,7 @@ const Profile = () => {
             <input
               type="text"
               name="name"
-              value={userLogged && values?.name}
+              value={values.name}
               onChange={handleChange}
               className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
             />
@@ -263,7 +300,7 @@ const Profile = () => {
             <input
               type="text"
               name="lastname"
-              value={userLogged && values?.lastname}
+              value={values.lastname}
               onChange={handleChange}
               className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
             />
@@ -274,7 +311,7 @@ const Profile = () => {
             <input
               type="text"
               name="email"
-              value={userLogged && values?.email}
+              value={values.email}
               onChange={handleChange}
               className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
             />
@@ -285,8 +322,7 @@ const Profile = () => {
             <input
               type={show}
               name="password"
-              defaultValue="********"
-              value={userLogged && values?.password}
+              value={values.password}
               onChange={handleChange}
               className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
             />
@@ -301,10 +337,16 @@ const Profile = () => {
             <label className="w-[22px] h-[16px] text-[#3A3D46] text-[12px] font-normal leading-[16px] me-[491px] mb-[5px]">
               Age
             </label>
-            <br />
-            <label className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]">
-              {userLogged && getAge(userLogged.dateOfBirth)}
-            </label>
+            <input
+              type="text"
+              name="age"
+              value={getAge(values.dateOfBirth)}
+              disabled
+              className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
+            />
+            {/* <label className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]">
+              {user && getAge(values.dateOfBirth)}
+            </label> */}
             <div className="w-full border-b-[0.5px] border-[#4444444d] mb-[10px]"></div>
             <label className="w-[22px] h-[16px] text-[#3A3D46] text-[12px] font-normal leading-[16px] me-[491px] mb-[5px]">
               BirthDate
@@ -312,9 +354,7 @@ const Profile = () => {
             <input
               type="date"
               name="dateOfBirth"
-              value={
-                userLogged && values?.dateOfBirth.toString().substring(0, 10)
-              }
+              value={values.dateOfBirth.substring(0, 10)}
               onChange={handleChange}
               className="w-container-2 h-[17px] text-title text-[15px] font-bold leading-[17px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
             />
@@ -335,7 +375,7 @@ const Profile = () => {
             <select
               className="w-container-2 h-[25px] text-title text-[15px] font-bold leading-[25px] focus-visible:border-0 focus-visible:outline-0 mb-[5px]"
               onChange={handleChange}
-              value={userLogged && values?.role._id}
+              value={values.role}
               name="role"
             >
               <option
@@ -352,6 +392,21 @@ const Profile = () => {
               </option>
             </select>
             <div className="w-full border-b-[0.5px] border-[#4444444d] mb-[15px]"></div>
+            {Object.keys(errors).length !== 0
+              ? Object.values(errors).map((error: any, i) => (
+                  <p
+                    key={i}
+                    className="mt-[15px] text-error text-[14px] font-bold leading-[18px]"
+                  >
+                    {error}
+                  </p>
+                ))
+              : null}
+            {error ? (
+              <p className="mt-[15px] text-error text-[14px] font-bold leading-[18px]">
+                {error}
+              </p>
+            ) : null}
           </form>
         </div>
       </div>

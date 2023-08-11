@@ -21,7 +21,7 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
         setErrors({});
       }, 5000);
     }
-    if (initialValues) {
+    if (Object.values(initialValues)[0]) {
       if (flag) {
         setValues(initialValues);
         setFlag(false);
@@ -44,6 +44,11 @@ const useForm = (initialValues: any, submit: any, validations: any) => {
     } else if (e.target.name === NAMES.ROLE) {
       setRole(!role);
       setValues({ ...values, [e.target.name]: e.target.value });
+    } else if (e.target.value === NAMES.BIRTH) {
+      setValues({
+        ...values,
+        [e.target.name]: e.target.value.substring(0, 10),
+      });
     } else {
       setValues({
         ...values,

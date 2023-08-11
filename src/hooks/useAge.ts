@@ -9,7 +9,7 @@ function useAge(dateString: string) {
   ) {
     age--;
   }
-  return age;
+  return age.toString();
 }
 
 export default useAge;

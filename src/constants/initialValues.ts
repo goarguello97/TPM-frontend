@@ -24,9 +24,10 @@ export const NEW_PASS_INITIAL_VALUE = {
 };
 
 export const UPDATE_INITIAL_VALUES = {
+  _id: "",
   email: "",
-  password: "",
   name: "",
+  password: "",
   lastname: "",
   dateOfBirth: "",
   role: "",
@@ -40,4 +41,5 @@ export enum NAMES {
   COUNTRY = "country",
   PASSWORD = "password",
   ROLE = "role",
+  BIRTH = "dateOfBirth",
 }
