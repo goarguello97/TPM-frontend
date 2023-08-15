@@ -1,13 +1,4 @@
 import Logo from "../../assets/img/ThePerfectMentor.svg";
-import LogOut from "../../assets/img/LogOut.svg";
-import Info from "../../assets/img/Navbar/Info.svg";
-import InfoDesktop from "../../assets/img/Navbar/InfoDesktop.svg";
-import Statics from "../../assets/img/Navbar/Statics.svg";
-import StaticsDesktop from "../../assets/img/Navbar/StaticsDesktop.svg";
-import User from "../../assets/img/Navbar/User.svg";
-import UserDesktop from "../../assets/img/Navbar/UserDesktop.svg";
-import Users from "../../assets/img/Navbar/Users.svg";
-import UsersActive from "../../assets/img/Navbar/UsersActive.svg";
 import Rectangle from "../../assets/img/Navbar/Rectangle.svg";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import { Link, useLocation } from "react-router-dom";
