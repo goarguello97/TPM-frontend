@@ -2,28 +2,33 @@ import Doodle from "../assets/img/Doodle.svg";
 import Doodle3 from "../assets/img/Doodle3.svg";
 import MagGlass from "../assets/img/MagGlass.svg";
 import X from "../assets/img/X.svg";
-import Unverified from "../assets/img/Unverified.svg";
-import Verified from "../assets/img/Verified.svg";
-import Edit from "../assets/img/Edit.svg";
 import Dots from "../assets/img/Dots.svg";
 import useMediaQuery from "../hooks/useMediaQuery";
 import RowTableUser from "../commons/RowTableUser";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/useTypedSelector";
 import { getUsers } from "../features/User/UserSlice";
 import CardUserMobile from "../commons/CardUserMobile";
 import getAge from "../hooks/useAge";
+import useFilters from "../hooks/useFilters";
+import useSearchInput from "../hooks/useSearchInput";
 
 const Users = () => {
   const { width } = useMediaQuery();
+  const [flag, setFlag] = useState(true);
+  const { filters, setFilters, activedFilters } = useFilters();
+  const { values, handleChange } = useSearchInput();
   const { users, error, loading } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!users) {
-      dispatch(getUsers());
+    if (flag) {
+      dispatch(getUsers(filters.age + filters.status + values.query));
+      setFlag(false);
     }
-  }, [loading]);
+  }, [loading, flag, filters, values]);
+
+  console.log(values);
 
   return width < 1024 ? (
     <div className="h-[100vh] bg-[#F5F6F7] relative">
@@ -56,6 +61,8 @@ const Users = () => {
         <input
           type="search"
           name="search"
+          value={values.search}
+          onChange={handleChange}
           placeholder="search for users"
           className="w-[100%] h-[100%] ps-[49px] rounded-[40px] placeholder-title"
         />
@@ -67,11 +74,39 @@ const Users = () => {
         <div className="flex w-filter items-center justify-between h-[50px] bg-[#F5F6F7] rounded-[40px] mt-[10px] mb-[10px]">
           <p className="text-[15px] font-bold ms-[20px]">Filters</p>
           <div className="flex">
-            <button className="w-auto default:min-w-button-filter fold:w-[50px] h-[40px] border-[1px] rounded-[40px] text-filter font-bold">
-              Age
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                activedFilters("age");
+                setFlag(true);
+              }}
+              className={`w-auto default:min-w-button-filter fold:w-[50px] h-[40px] rounded-[40px] ${
+                filters.age.length !== 0
+                  ? "bg-button text-[#DADADA]"
+                  : "border-[1px] text-filter font-bold"
+              }  flex items-center justify-center ms-[10px] me-[5px]`}
+            >
+              Age{" "}
+              {filters.age.length !== 0 && (
+                <img src={X} alt="x" className="ms-[7px]" />
+              )}
             </button>
-            <button className="w-auto default:min-w-button-filter fold:w-[80px] h-[40px] rounded-[40px] bg-button text-[#DADADA] flex items-center justify-center ms-[10px] me-[5px]">
-              Status <img src={X} alt="x" className="ms-[7px]" />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                activedFilters("status");
+                setFlag(true);
+              }}
+              className={`w-auto default:min-w-button-filter fold:w-[80px] h-[40px] rounded-[40px] ${
+                filters.status.length !== 0
+                  ? "bg-button text-[#DADADA]"
+                  : "border-[1px] text-filter font-bold"
+              } flex items-center justify-center ms-[10px] me-[5px]`}
+            >
+              Status{" "}
+              {filters.status.length !== 0 && (
+                <img src={X} alt="x" className="ms-[7px]" />
+              )}
             </button>
           </div>
         </div>
@@ -85,7 +120,7 @@ const Users = () => {
               age={getAge(user.dateOfBirth)}
               email={user.email}
               role={user.role.role}
-              joinedDate={user.createdAt.toString().substring(0,10)}
+              joinedDate={user.createdAt.toString().substring(0, 10)}
               status={user.verify}
             />
           ))}
@@ -132,13 +167,42 @@ const Users = () => {
             />
             {/* Filtro */}
             <div className="max-w-[319px] min-w-[319px] h-[55px] bg-white rounded-[40px] ms-[20px] shadow-filter-users-desktop flex items-center z-20">
-              <button className="w-[128px] h-[40px] ms-[7px] rounded-[40px] border-[1px] border-solid border-border-button text-filter text-[15px] font-bold leading-normal">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setFilters({ status: "", age: "" });
+                  setFlag(true);
+                }}
+                className="w-[128px] h-[40px] ms-[7px] rounded-[40px] border-[1px] border-solid border-border-button text-filter text-[15px] font-bold leading-normal"
+              >
                 Clear filters
               </button>
-              <button className="w-[75px] h-[40px] ms-[5px] rounded-[40px] border-[1px] border-solid border-border-button text-filter text-[15px] font-bold leading-normal">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  activedFilters("age");
+                  setFlag(true);
+                }}
+                className={`w-[75px] h-[40px] ms-[5px] rounded-[40px] ${
+                  filters.age.length !== 0
+                    ? "bg-title text-white"
+                    : "border-[1px] border-solid border-border-button text-filter"
+                } text-[15px] font-bold leading-normal`}
+              >
                 Age
               </button>
-              <button className="w-[92px] h-[40px] ms-[5px] rounded-[40px] bg-title text-white tet-[15px] font-bold leading-normal">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  activedFilters("status");
+                  setFlag(true);
+                }}
+                className={`w-[92px] h-[40px] ms-[5px] rounded-[40px] ${
+                  filters.status.length !== 0
+                    ? "bg-title text-white"
+                    : "border-[1px] border-solid border-border-button text-filter"
+                } text-[15px] font-bold leading-normal`}
+              >
                 Status
               </button>
             </div>
@@ -178,7 +242,7 @@ const Users = () => {
                       age={getAge(user.dateOfBirth)}
                       email={user.email}
                       role={user.role.role}
-                      joinedDate={user.createdAt.toString().substring(0,10)}
+                      joinedDate={user.createdAt.toString().substring(0, 10)}
                       status={user.verify}
                     />
                   ))}

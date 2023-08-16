@@ -227,7 +227,7 @@ const Profile = () => {
             </p>
           )}
           {message && (
-            <p className="w-container-2 h-[22.5px] text-[14px] text-error font-bold">
+            <p className="w-container-2 h-[22.5px] text-[14px] text-loader font-bold">
               {message}
             </p>
           )}
