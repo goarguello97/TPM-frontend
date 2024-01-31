@@ -20,17 +20,20 @@ export const getUser = createAsyncThunk(
   }
 );
 
-export const getUsers = createAsyncThunk("GET_USERS", async (_, thunkApi) => {
-  try {
-    const users: RequestResponse = await axiosInstance.get(`/users/`);
-    return users.data;
-  } catch (error: any) {
-    const { response } = error;
-    const { data } = response;
-    const { errors } = data;
-    return thunkApi.rejectWithValue(errors[0].msg);
+export const getUsers = createAsyncThunk(
+  "GET_USERS",
+  async (data: string, thunkApi) => {
+    try {
+      const users: RequestResponse = await axiosInstance.get(`/users/${data}`);
+      return users.data;
+    } catch (error: any) {
+      const { response } = error;
+      const { data } = response;
+      const { errors } = data;
+      return thunkApi.rejectWithValue(errors[0].msg);
+    }
   }
-});
+);
 
 export const updateUser = createAsyncThunk(
   "UPDATE_USER",

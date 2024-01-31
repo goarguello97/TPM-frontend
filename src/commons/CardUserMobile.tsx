@@ -51,7 +51,7 @@ const CardUserMobile = ({
       <div
         className={`flex ${color.bg} default:text-[12px] fold:text-[9px] ${color.text} default:w-[82px] fold:w-[62px] h-[18px] rounded-[40px] justify-center items-center absolute right-[15px] top-[15px]`}
       >
-        Unverified
+        {status ? "Verified" : "Unverified"}
         <img
           src={status ? Verified : Unverified}
           alt={status ? "Verified" : "Unverified"}
@@ -67,7 +67,7 @@ const CardUserMobile = ({
       )}
 
       <p className="font-bold default:text-[14px] fold:text-[11px]">
-        {name} | age 25 <br />
+        {name} | age {age} <br />
         Email: <span className="font-normal">{email}</span> <br />
         Role:{" "}
         <span className="font-normal">

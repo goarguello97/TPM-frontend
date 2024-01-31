@@ -15,7 +15,7 @@ const Stadistics = () => {
 
   useEffect(() => {
     if (!users) {
-      dispatch(getUsers());
+      dispatch(getUsers(""));
     }
   }, [loading]);
 
@@ -51,21 +51,21 @@ const Stadistics = () => {
               </p>
               {/* HR */}
               <div className="w-hr h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[7px]"></div>
-              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+              <p className="w-hr h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px] flex justify-between">
                 Mentees{" "}
                 <span className="ms-[42px] font-normal">
                   {userOfRoles.MENTEES}
                 </span>
               </p>
               <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+              <p className="w-hr h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px] flex justify-between">
                 Mentors{" "}
                 <span className="ms-[44px] font-normal">
                   {userOfRoles.MENTORS}
                 </span>
               </p>
               <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+              <p className="w-hr h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px] flex justify-between">
                 Total users{" "}
                 <span className="ms-[17px] font-normal">
                   {userOfRoles.MENTEES + userOfRoles.MENTORS}
@@ -79,21 +79,21 @@ const Stadistics = () => {
               </p>
               {/* HR */}
               <div className="w-hr h-[0px] border-b-[1px] border-dashed border-title mx-auto mb-[7px]"></div>
-              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+              <p className="w-hr h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px] flex justify-between">
                 New mentees{" "}
                 <span className="ms-[28px] font-normal">
                   {newUserOfRoles.MENTEES}
                 </span>
               </p>
               <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+              <p className="w-hr h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px] flex justify-between">
                 New mentors{" "}
                 <span className="ms-[21px] font-normal">
                   {newUserOfRoles.MENTORS}
                 </span>
               </p>
               <div className="w-hr h-[0px] border-b-[0.5px] border-[rgba(68, 68, 68, 0.3)] mx-auto"></div>
-              <p className="h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px]">
+              <p className="w-hr h-[21px] text-title text-[14px] font-bold ms-[15px] mb-[2px] flex justify-between">
                 Total users{" "}
                 <span className="ms-[34px] font-normal">
                   {newUserOfRoles.MENTEES + newUserOfRoles.MENTORS}

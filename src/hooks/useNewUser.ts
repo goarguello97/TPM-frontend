@@ -48,7 +48,7 @@ const useNewUser = () => {
 
   useEffect(() => {
     if (!users) {
-      dispatch(getUsers());
+      dispatch(getUsers(""));
     } else {
       setQuantityOfRoles();
       setNewQuantityOfRoles();
